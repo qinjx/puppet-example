@@ -1,0 +1,1 @@
+﻿换一台机器，参照“HowTo-puppet-server.txt”中的说明1-3步，准备好主机名、网络，上传puppet-example文件，然后执行安装脚本install_puppet_client.sh

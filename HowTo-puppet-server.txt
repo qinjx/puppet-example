@@ -1,0 +1,25 @@
+﻿1. 装个系统，clone虚拟机或者新装的centos都可以
+
+2. 修改IP地址/网关/DNS，使网络可用。如果没有本地yum mirror，则还要保证这台机器可以访问互联网
+参考代码：
+  2.1 修改IP和网关：
+echo "DEVICE="eth0"
+NM_CONTROLLED="yes"
+ONBOOT="yes"
+BOOTPROTO="static"
+IPADDR=10.250.0.221
+NETMASK=255.255.255.0" > /etc/sysconfig/network-scripts/ifcfg-eth0;
+
+  2.2 修改DNS：
+echo "nameserver 8.8.8.8
+nameserver 8.8.4.4" > /etc/resolv.conf
+
+  2.3 重启网络：
+/etc/init.d/network restart;
+
+3. 将下载好的puppet-example文件夹通过scp上传到服务器的任意目录（例如/root）
+
+4. 执行安装脚本install_puppet_server.sh，按照脚本提示往下做，填写必要的设置即可安装成功
+sh install_puppet_server.sh
+
+到这里，puppet server就安装完成了，如果想用puppet-example中的puppet_master模块管理这台puppet server，请到/etc/puppet/manifests/config.pp, /etc/puppet/manifests/nodes/中做一些修改，再执行puppet apply /etc/puppet/manifests/site.pp

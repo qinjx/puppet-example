@@ -1,0 +1,5 @@
+  location <%= location %> {
+    root  <%= www_root %>;
+    include fastcgi.conf;
+    fastcgi_pass <%= fastcgi %>;
+  }
