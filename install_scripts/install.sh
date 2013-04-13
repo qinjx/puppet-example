@@ -5,12 +5,14 @@ echo "Please choose the role of this machine"
 options="Puppet-Master  Puppet-Client"
 select opt in ${options}; do
 	if [[ "${opt}" = "Puppet-Master" || "${opt}" = "Puppet-Client" ]]; then
-		prepare_yum_repo || exit
-		if [ "${opt}" = "Puppet-Master" ]; then
-			install_master;
-			exit
-		elif [ "${opt}" = "Puppet-Client" ]; then
-			install_client;
+		if [[ "OK" = prepare_yum_repo ]]; then
+			if [ "${opt}" = "Puppet-Master" ]; then
+				install_master
+			elif [ "${opt}" = "Puppet-Client" ]; then
+				install_client
+			fi
+		else
+			echo yum mirror can\'t be connected
 			exit
 		fi
 	else
