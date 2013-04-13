@@ -1,16 +1,16 @@
 #!/bin/bash
-function install_master(){
-        echo master
-}
-
-function install_client() {
-        echo client
+function test_url() {
+    echo test
 }
 
 function prepare_yum_repo() {
-        echo yum
+    echo yum
 }
 
-function test_url() {
-        echo test
+function install_master(){
+    echo master
+}
+
+function install_client() {
+    echo client
 }
