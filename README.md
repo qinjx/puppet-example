@@ -70,4 +70,13 @@ puppet-example
 
 除CentOS外，其它的linux发行版（我验证过的只有Debian，但这是linux kernel的机制决定的，跟发行版关系不大，发行版不同，只是配置文件语法不同）也有这个问题，解决方法也是类似的。
 
-## 架构设计
+## 架构
+开发本项目的第一版时，我初学puppet，虽然也用到了role，module，config来将我的代码分层，但分层执行不够彻底，抽象得还不够，坏处就是影响项目的通用性。
+
+我重新梳理后的架构，分为五层，下面以本地yum镜像服务器为例，文字说明本项目的架构
+#### config
+
+#### node
+#### role
+#### module type
+#### module provider
