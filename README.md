@@ -60,6 +60,14 @@ puppet-example
 ### 安装puppet客户端
 参见[客户端安装说明文档](HowTo-puppet-client.txt)
 
-### clone vm时应注意的网络配置问题
+### clone centos vm时应注意的网络配置问题
+在XEN和KVM平台，clone一台VM时，新克隆出来的vm，eth0会变成eth1，而ifcfg-eth0配置文件仍然存在，只是不起作用了，要避免这种情况，需这样克隆：
+- 启动要克隆的模板vm
+- 删除/etc/udev/rules.d/70-persistent-net.rules，这个文件会在每次启动的时候自动生成，最好配个crontab定时删除
+- 网卡配置文件（如/etc/sysconfig/network-scripts/ifcfg-eth0）中不要配置HWADDR，如有，删除之，删除它也能正常工作
+- 关闭模板vm
+- 克隆
+
+除CentOS外，其它的linux发行版（我验证过的只有Debian，但这是linux kernel的机制决定的，跟发行版关系不大，发行版不同，只是配置文件语法不同）也有这个问题，解决方法也是类似的。
 
 ## 架构设计
