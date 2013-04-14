@@ -24,12 +24,17 @@ gpgkey=${yum_mirror_prefix}RPM-GPG-KEY-EPEL-\$releasever
 	fi
 }
 
-function install_master(){
-	echo install master
+########## Entrance function ##########
+# The entrance function should be placed at the end of this file
+# because shell is parsed and executed line by line
+
+function install_master() {
+	echo Installing puppet master
 	yum install -y puppet-server
 }
 
 function install_client() {
-	echo client
+	echo Installing puppet client
 	yum install -y puppet
 }
+########## Entrance function ##########
