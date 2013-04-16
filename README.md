@@ -62,6 +62,7 @@ puppet-example
 
 ### clone centos vm时应注意的网络配置问题
 在XEN和KVM平台，clone一台VM时，新克隆出来的vm，eth0会变成eth1（新克隆出来的vm，eth0由于mac地址冲突已经不能用了，自动生成了个eth1），而ifcfg-eth0配置文件仍然存在，只是不起作用了，要避免这种情况，需这样克隆：
+
 - 启动要克隆的模板vm
 - 删除/etc/udev/rules.d/70-persistent-net.rules，这个文件会在每次启动的时候自动生成，最好配个crontab定时删除
 - 网卡配置文件（如/etc/sysconfig/network-scripts/ifcfg-eth0）中不要配置HWADDR，如有，删除之，删除它也能正常工作
@@ -73,10 +74,6 @@ puppet-example
 ## 架构
 开发本项目的第一版时，我初学puppet，虽然也用到了role，module，config来将我的代码分层，但分层执行不够彻底，抽象得还不够，坏处就是影响项目的通用性。
 
-我重新梳理后的架构，分为五层，下面以本地yum镜像服务器为例，文字说明本项目的架构
-#### config
+我重新梳理后的架构，分为五层：config - node - role - module type - module provider，越往右，通用性越强。使用本项目的用户，主要会去修改config和node两层，role层较少个性，module type和module provider层几乎不用修改，如果发现这两层满足不了需求，可以提需求给我，我来改。
 
-#### node
-#### role
-#### module type
-#### module provider
+![架构图](http://ww3.sinaimg.cn/large/6a174839gw1e3rbunqjlrj.jpg "代码架构图")
