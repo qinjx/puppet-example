@@ -1,7 +1,11 @@
 puppet-example
 ==============
 
-一个puppet示范项目，兼作我的运维学习笔记，在现实世界运行着，有两个成功案例，各管理100多台服务器，都是小型B2C网站。
+一个puppet示范项目，兼作我的运维学习笔记，在现实世界运行着，有两个成功案例，各管理100多台服务器，都是小型B2C网站，这些网站的架构大致如下图（图是网站上线前设计的，实际实施有所变化）：
+
+![puppet-example项目成功案例服务器拓扑图](http://ww1.sinaimg.cn/large/6a174839gw1dsp0ptypt4j.jpg "小型B2C网站服务器架构")
+
+[出处：我的微博@qinjianxiang](http://photo.weibo.com/1779910713/wbphotos/large/photo_id/3442830834329049)
 
 我花了约100小时学习这些服务器配置，反复试错，并编写成puppet脚本和bash shell脚本，故本项目只能保证正常运行和基本的性能与安全，没有涉及这些服务器的高级技巧。
 
@@ -54,14 +58,11 @@ puppet-example
 
 
 ## 安装说明
-### 安装puppet服务器（puppet master）
-参见[服务器安装说明文档](HowTo-puppet-server.txt)
-
-### 安装puppet客户端
-参见[客户端安装说明文档](HowTo-puppet-client.txt)
+参见[安装说明文档](HowTo-Install.md)
 
 ### clone centos vm时应注意的网络配置问题
 在XEN和KVM平台，clone一台VM时，新克隆出来的vm，eth0会变成eth1（新克隆出来的vm，eth0由于mac地址冲突已经不能用了，自动生成了个eth1），而ifcfg-eth0配置文件仍然存在，只是不起作用了，要避免这种情况，需这样克隆：
+
 - 启动要克隆的模板vm
 - 删除/etc/udev/rules.d/70-persistent-net.rules，这个文件会在每次启动的时候自动生成，最好配个crontab定时删除
 - 网卡配置文件（如/etc/sysconfig/network-scripts/ifcfg-eth0）中不要配置HWADDR，如有，删除之，删除它也能正常工作
@@ -73,10 +74,6 @@ puppet-example
 ## 架构
 开发本项目的第一版时，我初学puppet，虽然也用到了role，module，config来将我的代码分层，但分层执行不够彻底，抽象得还不够，坏处就是影响项目的通用性。
 
-我重新梳理后的架构，分为五层，下面以本地yum镜像服务器为例，文字说明本项目的架构
-#### config
+我重新梳理后的架构，分为五层：config - node - role - module type - module provider，越往右，通用性越强。使用本项目的用户，主要会去修改config和node两层，role层较少个性，module type和module provider层几乎不用修改，如果发现这两层满足不了需求，可以提需求给我，我来改。
 
-#### node
-#### role
-#### module type
-#### module provider
+![架构图](http://ww3.sinaimg.cn/large/6a174839gw1e3rbunqjlrj.jpg "代码架构图")
