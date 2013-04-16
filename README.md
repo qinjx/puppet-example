@@ -61,7 +61,7 @@ puppet-example
 参见[安装说明文档](HowTo-Install.md)
 
 ### clone centos vm时应注意的网络配置问题
-在XEN和KVM平台，clone一台VM时，新克隆出来的vm，eth0会变成eth1（新克隆出来的vm，eth0由于mac地址冲突已经不能用了，自动生成了个eth1），而ifcfg-eth0配置文件仍然存在，只是不起作用了，要避免这种情况，需这样克隆：
+在XEN和KVM平台，clone一台VM时，新克隆出来的vm，eth0会变成eth1，新克隆出来的vm，eth0由于mac地址冲突已经不能用了，自动生成了个eth1，而ifcfg-eth0配置文件仍然存在，只是不起作用了，要避免这种情况，需这样克隆：
 
 - 启动要克隆的模板vm
 - 删除/etc/udev/rules.d/70-persistent-net.rules，这个文件会在每次启动的时候自动生成，最好配个crontab定时删除
@@ -69,11 +69,11 @@ puppet-example
 - 关闭模板vm
 - 克隆
 
-除CentOS外，其它的linux发行版（我验证过的只有Debian，但这是linux kernel的机制决定的，跟发行版关系不大，发行版不同，只是配置文件语法不同）也有这个问题，解决方法也是类似的。
+除CentOS外，其它的linux发行版应该也有这个问题，解决方法也是类似的。我验证过的只有Debian，但这是linux kernel的机制决定的，跟发行版关系不大，发行版不同，只是配置文件语法不同。
 
 ## 架构
 开发本项目的第一版时，我初学puppet，虽然也用到了role，module，config来将我的代码分层，但分层执行不够彻底，抽象得还不够，坏处就是影响项目的通用性。
 
-我重新梳理后的架构，分为五层：config - node - role - module type - module provider，越往右，通用性越强。使用本项目的用户，主要会去修改config和node两层，role层较少个性，module type和module provider层几乎不用修改，如果发现这两层满足不了需求，可以提需求给我，我来改。
+我重新梳理后的架构，分为五层：config - node - role - module type - module provider，越往右，通用性越强。使用本项目的用户，主要会去修改config和node两层，role层较少修改，module type和module provider层几乎不用修改，如果发现这两层满足不了需求，可以提需求给我，我来改。
 
 ![架构图](http://ww3.sinaimg.cn/large/6a174839gw1e3rbunqjlrj.jpg "代码架构图")
