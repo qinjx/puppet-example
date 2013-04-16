@@ -50,17 +50,21 @@ function set_hostname() {
 
 }
 
-default_private_root_domain="example.com"
 function config_puppet_master() {
+	default_private_root_domain=$(get_default_private_root_domain)
 	echo "Please set your root domain for your private network,
 	it can be a FAKE domain, suck as ${default_private_root_domain}
 
 	Please enter it[${default_private_root_domain}]:"
 	private_root_domain=$(get_user_input ${default_private_root_domain})
 	set_hostname puppet-server.vip.${private_root_domain}
+
+	echo "The hostname of your puppet server is:"
+	hostname
 }
 
 function config_puppet_client() {
+	default_private_root_domain=$(get_default_private_root_domain)
 	echo "Please set your root domain for your private network,
 	it can be a FAKE domain, suck as ${default_private_root_domain}
 
@@ -77,20 +81,25 @@ function config_puppet_client() {
 	else
 		pps_hostname=puppet-server.vip.${private_root_domain}
 		sed -i -e '/$pps_hostname/d' /etc/hosts
-		echo "$pps_ip $pps_hostname" >> /etc/hosts
+		echo "$pps_ip $pps_hostname{" >> /etc/hosts
 	fi
+
+	#提醒用户执行puppet
+	echo “puppetd --test --server $
 fi
 }
 
-########## Entrance function ##########
-# The entrance function should be placed at the end of this file
-# because shell is parsed and executed line by line
+########## Entrance function ######
+# The entrance function should be p
+# because shell is parsed and execu
 
 #@todo 通过网络校准puppet server的时间
 function install_master() {
 	echo Installing puppet master
 	yum install -y puppet-server
 	config_puppet_master
+	chkconfig puppetmaster on
+	service puppetmaster start
 }
 
 #@todo 通过网络校准puppet client的时间
@@ -98,5 +107,7 @@ function install_client() {
 	echo Installing puppet client
 	yum install -y puppet
 	config_puppet_client
+	chkconfig puppet on
+	service puppet start
 }
 ########## Entrance function ##########
