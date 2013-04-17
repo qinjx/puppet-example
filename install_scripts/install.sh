@@ -1,21 +1,35 @@
 #!/bin/bash
 . ./func.inc.sh
 
-echo "Please choose the role of this machine"
-options="Puppet-Master  Puppet-Client"
+echo "Please choose the task"
+options="Install-Puppet-Server
+Install-Puppet-Client
+Config-Puppet-Server
+Config-Puppet-Client
+Exit"
 select opt in ${options}; do
-	if [[ "${opt}" = "Puppet-Master" || "${opt}" = "Puppet-Client" ]]; then
-		if [[ "OK" = prepare_yum_repo ]]; then
-			if [ "${opt}" = "Puppet-Master" ]; then
-				install_master
-			elif [ "${opt}" = "Puppet-Client" ]; then
-				install_client
-			fi
-		else
-			echo yum mirror can\'t be connected
+	case "${opt}" in
+		"Install-Puppet-Server" )
+			install_master
+			config_puppet_master
+		;;
+
+		"Install-Puppet-Client" )
+			install_client
+			config_puppet_client
+		;;
+
+		"Config-Puppet-Server" )
+			config_puppet_master
+		;;
+
+		"Config-Puppet-Client" )
+			config_puppet_client
+		;;
+
+		"Exit" )
 			exit
-		fi
-	else
-		echo "Bad option, please choose again"
-	fi
+
+		* ) echo "Bad option, please choose again"
+	esac
 done

@@ -50,6 +50,10 @@ function set_hostname() {
 
 }
 
+function get_default_private_root_domain() {
+	echo example.com
+}
+
 function config_puppet_master() {
 	default_private_root_domain=$(get_default_private_root_domain)
 	echo "Please set your root domain for your private network,
@@ -61,6 +65,10 @@ function config_puppet_master() {
 
 	echo "The hostname of your puppet server is:"
 	hostname
+
+
+	chkconfig puppetmaster on
+	service puppetmaster start
 }
 
 function config_puppet_client() {
@@ -80,12 +88,20 @@ function config_puppet_client() {
 		exit
 	else
 		pps_hostname=puppet-server.vip.${private_root_domain}
-		sed -i -e '/$pps_hostname/d' /etc/hosts
-		echo "$pps_ip $pps_hostname{" >> /etc/hosts
+		sed -i -e '/${pps_hostname}/d' /etc/hosts
+		echo "${pps_ip} ${pps_hostname}" >> /etc/hosts
 	fi
 
+
+	chkconfig puppet on
+	service puppet start
+
 	#提醒用户执行puppet
-	echo “puppetd --test --server $
+	echo "Please run:
+
+		puppetd --test --server ${pps_hostname}
+
+	"
 fi
 }
 
@@ -95,11 +111,13 @@ fi
 
 #@todo 通过网络校准puppet server的时间
 function install_master() {
-	echo Installing puppet master
-	yum install -y puppet-server
-	config_puppet_master
-	chkconfig puppetmaster on
-	service puppetmaster start
+	if [[ "OK" = prepare_yum_repo ]]; then
+		echo Installing puppet master
+		yum install -y puppet-server
+		config_puppet_master
+	else
+		echo yum mirror can\'t be connected
+	fi
 }
 
 #@todo 通过网络校准puppet client的时间
