@@ -66,7 +66,6 @@ function config_puppet_master() {
 	echo "The hostname of your puppet server is:"
 	hostname
 
-
 	chkconfig puppetmaster on
 	service puppetmaster start
 }
@@ -102,7 +101,6 @@ function config_puppet_client() {
 		puppetd --test --server ${pps_hostname}
 
 	"
-fi
 }
 
 ########## Entrance function ######
@@ -122,10 +120,12 @@ function install_master() {
 
 #@todo 通过网络校准puppet client的时间
 function install_client() {
-	echo Installing puppet client
-	yum install -y puppet
-	config_puppet_client
-	chkconfig puppet on
-	service puppet start
+	if [[ "OK" = prepare_yum_repo ]]; then
+		echo Installing puppet client
+		yum install -y puppet
+		config_puppet_client
+	else
+		echo yum mirror can\'t be connected
+	fi
 }
 ########## Entrance function ##########
