@@ -109,7 +109,7 @@ function config_puppet_client() {
 
 #@todo 通过网络校准puppet server的时间
 function install_master() {
-	if [[ "OK" = prepare_yum_repo ]]; then
+	if [[ "OK" = $(prepare_yum_repo) ]]; then
 		echo Installing puppet master
 		yum install -y puppet-server
 		config_puppet_master
@@ -120,7 +120,7 @@ function install_master() {
 
 #@todo 通过网络校准puppet client的时间
 function install_client() {
-	if [[ "OK" = prepare_yum_repo ]]; then
+	if [[ "OK" = $(prepare_yum_repo) ]]; then
 		echo Installing puppet client
 		yum install -y puppet
 		config_puppet_client
