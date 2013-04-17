@@ -29,6 +29,7 @@ select opt in ${options}; do
 
 		"Exit" )
 			exit
+		;;
 
 		* ) echo "Bad option, please choose again"
 	esac
