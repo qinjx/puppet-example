@@ -11,18 +11,22 @@ select opt in ${options}; do
 	case "${opt}" in
 		"Install-Puppet-Server" )
 			install_master
+			exit
 		;;
 
 		"Install-Puppet-Client" )
 			install_client
+			exit
 		;;
 
 		"Config-Puppet-Server" )
 			config_puppet_master
+			exit
 		;;
 
 		"Config-Puppet-Client" )
 			config_puppet_client
+			exit
 		;;
 
 		"Exit" )

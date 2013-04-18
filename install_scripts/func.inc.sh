@@ -101,7 +101,7 @@ function config_puppet_client() {
 		echo "${pps_ip} ${pps_hostname}" >> /etc/hosts
 	fi
     
-    sed -i '/\[agent\]/ i\
+    sed -i '/\[main\]/ a\
     server='${pps_hostname} $(get_puppet_conf_dir)"/puppet.conf"
 
 	chkconfig puppet on
