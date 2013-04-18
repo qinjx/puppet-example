@@ -66,17 +66,25 @@ function config_puppet_master() {
 	Please enter it[${default_private_root_domain}]:"
 	
 	private_root_domain=$(get_user_input ${default_private_root_domain})
+	
 	#set hostname
 	set_hostname puppet-server.vip.${private_root_domain}
-
 	echo "The hostname of your puppet server is:"
 	hostname
 
 	#autosign
-	echo "*.$1" > $(get_puppet_conf_dir)"/autosign.conf"
+	echo "*.${private_root_domain}" > $(get_puppet_conf_dir)"/autosign.conf"
 
+	#enable puppetmaster
 	chkconfig puppetmaster on
 	service puppetmaster start
+
+	#enable 8140 port
+	sed -i '/dport 22/ a\
+	\-A INPUT \-m state \-\-state NEW \-m tcp \-p tcp \-\-dport 8140 \-j ACCEPT' /etc/sysconfig/iptables
+	sed -i '/dport 22/ a\
+	\-A INPUT \-m state \-\-state NEW \-m udp \-p udp \-\-dport 8140 \-j ACCEPT' /etc/sysconfig/iptables
+	service iptables restart
 }
 
 function config_puppet_client() {
@@ -89,7 +97,7 @@ function config_puppet_client() {
 	private_root_domain=$(get_user_input ${default_private_root_domain})
 	set_hostname puppet-client.${private_root_domain}
 
-	#获取puppet server的ip，并加入hosts
+	#add puppet server into /etc/hosts
 	echo "Please enter the ip address of [puppet-server.vip.${private_root_domain}]"
 	pps_ip=$(get_user_input)
 	if [ -z $pps_ip ]; then
@@ -107,7 +115,7 @@ function config_puppet_client() {
 	chkconfig puppet on
 	service puppet start
 
-	#提醒用户执行puppet
+	#how to run puppet client
 	echo "Please run:
 
 	puppetd --test
