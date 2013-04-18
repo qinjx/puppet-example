@@ -54,17 +54,26 @@ function get_default_private_root_domain() {
 	echo example.com
 }
 
+function get_puppet_conf_dir() {
+	echo "/etc/puppet"
+}
+
 function config_puppet_master() {
 	default_private_root_domain=$(get_default_private_root_domain)
 	echo "Please set your root domain for your private network,
 	it can be a FAKE domain, suck as ${default_private_root_domain}
 
 	Please enter it[${default_private_root_domain}]:"
+	
 	private_root_domain=$(get_user_input ${default_private_root_domain})
+	#set hostname
 	set_hostname puppet-server.vip.${private_root_domain}
 
 	echo "The hostname of your puppet server is:"
 	hostname
+
+	#autosign
+	echo "*.$1" > $(get_puppet_conf_dir)"/autosign.conf"
 
 	chkconfig puppetmaster on
 	service puppetmaster start
@@ -76,6 +85,7 @@ function config_puppet_client() {
 	it can be a FAKE domain, suck as ${default_private_root_domain}
 
 	Please enter it[${default_private_root_domain}]:"
+	
 	private_root_domain=$(get_user_input ${default_private_root_domain})
 	set_hostname puppet-client.${private_root_domain}
 
@@ -90,7 +100,9 @@ function config_puppet_client() {
 		sed -i -e '/${pps_hostname}/d' /etc/hosts
 		echo "${pps_ip} ${pps_hostname}" >> /etc/hosts
 	fi
-
+    
+    sed -i '/\[agent\]/ i\
+    server='${pps_hostname} $(get_puppet_conf_dir)"/puppet.conf"
 
 	chkconfig puppet on
 	service puppet start
@@ -98,9 +110,9 @@ function config_puppet_client() {
 	#提醒用户执行puppet
 	echo "Please run:
 
-		puppetd --test --server ${pps_hostname}
+	puppetd --test
 
-	"
+	}"
 }
 
 ########## Entrance function ######
