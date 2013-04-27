@@ -10,7 +10,7 @@ function test_url() {
 
 #@todo 支持puppet labs官方yum repo, 支持用户自己的本地yum镜像
 function prepare_yum_repo() {
-	local yum_mirror_prefix="http://mirrors.sohu.com/fedora-epel/"
+	local yum_mirror_prefix="http://"$1"mirrors.sohu.com/fedora-epel/"
 	if [[ "OK" = $(test_url ${yum_mirror_prefix}) ]]; then
 		echo "[epel]
 name=CentOS-\$releasever - EPEL
@@ -43,6 +43,7 @@ function get_user_input() {
 function set_hostname() {
 	if [ ! -z $1 ]; then
 		hostname $1
+		sed -i -e "s/HOSTNAME=.*/HOSTNAME=$1/" /etc/sysconfig/network
 		echo your hostname has been set to $1
 	else
 		echo Internal error, empty parameter passed -_-
@@ -129,7 +130,7 @@ function config_puppet_client() {
 
 #@todo 通过网络校准puppet server的时间
 function install_master() {
-	if [[ "OK" = $(prepare_yum_repo) ]]; then
+	if [[ "OK" = $(prepare_yum_repo $1) ]]; then
 		echo Installing puppet master
 		yum install -y puppet-server
 		config_puppet_master
@@ -140,7 +141,7 @@ function install_master() {
 
 #@todo 通过网络校准puppet client的时间
 function install_client() {
-	if [[ "OK" = $(prepare_yum_repo) ]]; then
+	if [[ "OK" = $(prepare_yum_repo $1) ]]; then
 		echo Installing puppet client
 		yum install -y puppet
 		config_puppet_client

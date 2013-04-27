@@ -10,12 +10,12 @@ Exit"
 select opt in ${options}; do
 	case "${opt}" in
 		"Install-Puppet-Server" )
-			install_master
+			install_master $1
 			exit
 		;;
 
 		"Install-Puppet-Client" )
-			install_client
+			install_client $1
 			exit
 		;;
 
