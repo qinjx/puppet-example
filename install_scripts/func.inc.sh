@@ -17,21 +17,21 @@ function prepare_yum_repo() {
         cd /etc/yum.repos.d/
         mv *.repo ~/yum.repo.bak/
 		echo "[centos_base]
-baseurl=http://${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/
+baseurl=${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/
 gpgcheck=1
-gpgkey=http://${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/RPM-GPG-KEY-CentOS-\$releasever
+gpgkey=${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/RPM-GPG-KEY-CentOS-\$releasever
 name=CentOS-\$releasever - Base
 
 [centos_extras]
-baseurl=http://${yum_mirror_prefix}/centos/\$releasever/extras/\$basearch/
+baseurl=${yum_mirror_prefix}/centos/\$releasever/extras/\$basearch/
 gpgcheck=1
-gpgkey=http://${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/RPM-GPG-KEY-CentOS-\$releasever
+gpgkey=${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/RPM-GPG-KEY-CentOS-\$releasever
 name=CentOS-\$releasever - Extras
 
 [centos_updates]
-baseurl=http://${yum_mirror_prefix}/centos/\$releasever/updates/\$basearch/
+baseurl=${yum_mirror_prefix}/centos/\$releasever/updates/\$basearch/
 gpgcheck=1
-gpgkey=http://${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/RPM-GPG-KEY-CentOS-\$releasever
+gpgkey=${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/RPM-GPG-KEY-CentOS-\$releasever
 name=CentOS-\$releasever - Updates
 
 [epel]
