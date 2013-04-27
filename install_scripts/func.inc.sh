@@ -11,9 +11,10 @@ function test_url() {
 #@todo 支持puppet labs官方yum repo
 	local yum_mirror_prefix="http://"$1"mirrors.sohu.com/fedora-epel/"
 	if [[ "OK" = $(test_url ${yum_mirror_prefix}) ]]; then
-		mkdir /etc/yum.repos.d/bak
 		cd /etc/yum.repos.d/
+		mkdir bak
 		tar -cvf ./bak/repo.tar ./*.repo
+		rm *.repo
 		echo "[centos_base]
 baseurl=http://$yum_mirror_prefix/centos/\$releasever/os/\$basearch/
 gpgcheck=1
@@ -38,7 +39,7 @@ baseurl=${yum_mirror_prefix}\$releasever/\$basearch/
 enabled=1
 gpgcheck=1
 gpgkey=${yum_mirror_prefix}RPM-GPG-KEY-EPEL-\$releasever
-" > /etc/yum.repos.d/epel.repo
+" > ./epel.repo
 		echo OK
 	else
 		echo FAILED
