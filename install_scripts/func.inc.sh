@@ -8,7 +8,6 @@ function test_url() {
 	fi
 }
 
-#@todo 支持puppet labs官方yum repo
 function prepare_yum_repo() {
 	local yum_mirror_prefix="http://"$1"mirrors.sohu.com"
 	if [[ "OK" = $(test_url ${yum_mirror_prefix}) ]]; then
