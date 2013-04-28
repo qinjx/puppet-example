@@ -1,3 +1,6 @@
-node default{
-	notify {"test_notify":}
-}
+# the global config
+import "config/global.pp"
+
+# all node
+import "node_default.pp"
+import "node/*.pp"
