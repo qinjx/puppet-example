@@ -9,37 +9,36 @@ function test_url() {
 }
 
 #@todo 支持puppet labs官方yum repo
-#@todo 使用用户自己的本地yum镜像时，将centos默认的repo打包备份
 function prepare_yum_repo() {
-	local yum_mirror_prefix="http://"$1"mirrors.sohu.com/fedora-epel/"
+	local yum_mirror_prefix="http://"$1"mirrors.sohu.com"
 	if [[ "OK" = $(test_url ${yum_mirror_prefix}) ]]; then
         mkdir ~/yum.repo.bak/
         cd /etc/yum.repos.d/
         mv *.repo ~/yum.repo.bak/
 		echo "[centos_base]
-baseurl=http://${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/
+baseurl=${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/
 gpgcheck=1
 gpgkey=http://${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/RPM-GPG-KEY-CentOS-\$releasever
 name=CentOS-\$releasever - Base
 
 [centos_extras]
-baseurl=http://${yum_mirror_prefix}/centos/\$releasever/extras/\$basearch/
+baseurl=${yum_mirror_prefix}/centos/\$releasever/extras/\$basearch/
 gpgcheck=1
 gpgkey=http://${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/RPM-GPG-KEY-CentOS-\$releasever
 name=CentOS-\$releasever - Extras
 
 [centos_updates]
-baseurl=http://${yum_mirror_prefix}/centos/\$releasever/updates/\$basearch/
+baseurl=${yum_mirror_prefix}/centos/\$releasever/updates/\$basearch/
 gpgcheck=1
-gpgkey=http://${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/RPM-GPG-KEY-CentOS-\$releasever
+gpgkey=${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/RPM-GPG-KEY-CentOS-\$releasever
 name=CentOS-\$releasever - Updates
 
 [epel]
 name=CentOS-\$releasever - EPEL
-baseurl=${yum_mirror_prefix}\$releasever/\$basearch/
+baseurl=${yum_mirror_prefix}/fedora-epel/\$releasever/\$basearch/
 enabled=1
 gpgcheck=1
-gpgkey=${yum_mirror_prefix}RPM-GPG-KEY-EPEL-\$releasever
+gpgkey=${yum_mirror_prefix}/fedora-epel/RPM-GPG-KEY-EPEL-\$releasever
 " > ./epel.repo
 		echo OK
 	else
