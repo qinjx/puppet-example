@@ -63,4 +63,10 @@ Ping一下github试试：
 	
 	sh install.sh
 
-脚本会询问你，想把这个机器安装为puppet server，还是puppet client，输入数字1或者2来选择，然后按照脚本提示往下做，填写必要的设置即可安装成功
+脚本会询问你，想把这个机器安装为puppet server，还是puppet client，输入数字来选择，然后按照脚本提示往下做，填写必要的设置即可安装成功
+
+__使用本地yum mirror__
+
+如果你用wget把mirrors.sohu.com上的centos和fedora-epel镜像到本地了，也可以指定本地yum mirror地址来加快安装速度：
+
+	sh install.sh 172.16.0.5/
