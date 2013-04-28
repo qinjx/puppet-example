@@ -1,3 +1,3 @@
 node default{
-	notify {"test_notyfiy":}
+	notify {"test_notify":}
 }
