@@ -1,3 +1,4 @@
-node /^puppet\.client/ {
-	include role_base_yum_user
+node /^puppet\-client/ {
+	include fast_yum_repo
+	include percona_yum_repo
 }
