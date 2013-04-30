@@ -5,6 +5,4 @@ import "config/global.pp"
 import "role/*.pp"
 
 # all node define
-import "node_default.pp"
-
 import "node/*.pp"
