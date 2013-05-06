@@ -3,13 +3,10 @@ class role_puppet_client {
 	
 	puppet_client::conf {
 		"agent/runinterval":
-			ensure => 300,
-			require => Class["puppet_client"];
+			ensure => 300;
 		"agent/show_diff":
-			ensure => "true",
-                        require => Class["puppet_client"];
+			ensure => "true";
 		"agent/pluginsync":
-			ensure => "false",
-                        require => Class["puppet_client"];
+			ensure => "false";
 	}
 }
