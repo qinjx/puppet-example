@@ -1,5 +1,9 @@
 class config::global {
 	$ip_prefix = "172.16.0"
+	
+	$root_domain_name = "example.com"
+	$host_puppet_server = "puppet-server.vip.$root_domain_name"
+	
 	$local_yum_mirror_prefix = "172.16.0.5/"
 	
 	$url_yum_mirror_base = "http://${local_yum_mirror_prefix}mirrors.sohu.com"

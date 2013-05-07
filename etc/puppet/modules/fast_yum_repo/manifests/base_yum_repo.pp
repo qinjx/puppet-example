@@ -1,6 +1,4 @@
 class base_yum_repo {
-	include config::global
-
 	yumrepo {
 		"centos_base":
 			descr => "CentOS-\$releasever - Base",

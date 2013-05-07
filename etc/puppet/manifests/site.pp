@@ -1,5 +1,6 @@
 # the global config
 import "config/global.pp"
+include config::global
 
 # all role
 import "role/*.pp"
