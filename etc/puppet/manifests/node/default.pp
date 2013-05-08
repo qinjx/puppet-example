@@ -4,13 +4,29 @@ node default {
 	file {
 		"/root/init_scripts/":
 			ensure => directory;
+
 		"/root/init_scripts/conf.ini":
 			ensure => present,
 			require => File["/root/init_scripts/"];
+		
 		"/root/init_scripts/init.sh":
 			ensure => present,
 			source => "puppet:///files/node/default/init.sh",
 			require => File["/root/init_scripts/conf.ini"];
+		
+		"/etc/puppet/iptables":
+			ensure => directory;
+
+		"/etc/puppet/iptables/pre.iptables":
+			content => "-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT",
+			mode    => 0600;
+
+		"/etc/puppet/iptables/post.iptables":
+			content => "-A INPUT -j REJECT --reject-with icmp-host-prohibited
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited",
+			mode    => 0600;
 	}
 
 	augeas {
