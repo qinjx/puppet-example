@@ -96,6 +96,15 @@ function config_puppet_master() {
 	#autosign
 	echo "*.${private_root_domain}" > $(get_puppet_conf_dir)"/autosign.conf"
 
+	#file backet
+	sed -e -i "s/\# \[files\]/\[files\]/g" $(get_puppet_conf_dir)"/fileserver.conf"
+	sed -e -i "s/\#  path/path/g" $(get_puppet_conf_dir)"/fileserver.conf"
+	sed -e -i "s/\#  allow \*\.example\.com/allow \*\.${private_root_domain}/g" $(get_puppet_conf_dir)"/fileserver.conf"
+	mkdir /var/lib/puppet/files
+	chown puppet:puppet /var/lib/puppet/files
+	chmod 750 /var/lib/puppet/files
+
+
 	#enable puppetmaster
 	chkconfig puppetmaster on
 	service puppetmaster start
