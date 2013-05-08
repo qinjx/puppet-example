@@ -7,6 +7,6 @@ class role_puppet_client {
 		"agent/show_diff":
 			ensure => "true";
 		"agent/pluginsync":
-			ensure => "false";
+			ensure => "true";
 	}
 }
