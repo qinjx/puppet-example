@@ -110,10 +110,11 @@ function config_puppet_master() {
 	service puppetmaster start
 
 	#enable 8140 port
+	sed -i "/\-\-dport 8140/d" /etc/sysconfig/iptables
 	sed -i '/dport 22/ a\
-	\-A INPUT \-m state \-\-state NEW \-m tcp \-p tcp \-\-dport 8140 \-j ACCEPT' /etc/sysconfig/iptables
+\-A INPUT \-m state \-\-state NEW \-m tcp \-p tcp \-\-dport 8140 \-j ACCEPT' /etc/sysconfig/iptables
 	sed -i '/dport 22/ a\
-	\-A INPUT \-m state \-\-state NEW \-m udp \-p udp \-\-dport 8140 \-j ACCEPT' /etc/sysconfig/iptables
+\-A INPUT \-m state \-\-state NEW \-m udp \-p udp \-\-dport 8140 \-j ACCEPT' /etc/sysconfig/iptables
 	service iptables restart
 }
 
