@@ -1,6 +1,3 @@
-node /^centos\d*\.vmtpl/ inherits default {
-	file {
-		"/etc/udev/rules.d/70-persistent-net.rules":
-			ensure => absent,
-	}
+node /^centos\d*\.vmtpl/ {
+	include role_centos_vm_tpl
 }
