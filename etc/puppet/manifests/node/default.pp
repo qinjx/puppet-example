@@ -29,6 +29,13 @@ node default {
 			mode    => 0600;
 	}
 
+	iptables {
+		"tcp_22":
+			proto       => "tcp",
+			dport       => "22",
+			jump        => "ACCEPT";
+	}
+
 	augeas {
 		"init_vm_config_ini":
 			lens => "Shellvars.lns",
