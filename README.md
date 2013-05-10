@@ -60,6 +60,8 @@ puppet-example
 ## 安装说明
 参见[安装说明文档](HowTo-Install.md)
 
+## 在puppet服务器使用本项目
+
 ### clone centos vm时应注意的网络配置问题
 在XEN和KVM平台，clone一台VM时，新克隆出来的vm，eth0会变成eth1，新克隆出来的vm，eth0由于mac地址冲突已经不能用了，自动生成了个eth1，而ifcfg-eth0配置文件仍然存在，只是不起作用了，要避免这种情况，需这样克隆：
 
