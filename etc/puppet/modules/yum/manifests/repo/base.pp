@@ -1,4 +1,4 @@
-class base_yum_repo {
+class yum::repo::base {
 	yumrepo {
 		"centos_base":
 			descr => "CentOS-\$releasever - Base",
