@@ -80,10 +80,11 @@ case $1 in
                         print_usage
                         exit
                 fi
+		hostname=$2".$root_domain"
                 user_confirm
-                rm_ca $2
-                set_hostname $2
-                set_ip $2
+                rm_ca
+                set_hostname $hostname
+                set_ip $hostname
         ;;
 
         "set_ip" )
