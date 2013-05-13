@@ -1,10 +1,10 @@
 class config::hosts {
-	define set {
+	define set($ip) {
 		host {
 			$name:
 				ip => "$config::global::ip_prefix.$ip",
 				name => "$name.$config::global::root_domain_name",
-				host_alias => [$name];
+				host_aliases => [$name];
 		}
 	}
 }
