@@ -82,8 +82,12 @@ case $1 in
                 fi
                 user_confirm
                 rm_ca
-                set_hostname "$2.${root_domain}"
                 set_ip "$2.${root_domain}"
+                set_hostname "$2.raw.${root_domain}"
+                puppetd -t
+                set_hostname "$2.${root_domain}"
+                puppetd -t
+                ssh ${puppet_server} "puppet cert --clean $2.raw.${root_domain}"
         ;;
 
         "set_ip" )
