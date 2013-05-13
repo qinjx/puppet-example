@@ -40,6 +40,9 @@ function set_hostname() {
 }
 
 function set_ip() {
+	# ip=`ping $1 -c 1 -w 1 | grep PING | awk -F "(" '{print \$2}' | awk -F ")" '{print \$1}'`
+	ip=`grep $1 /etc/hosts | awk '{print \$1}'`
+
 	echo "IP address will be: " $ip
 	
 	#set ip and restart

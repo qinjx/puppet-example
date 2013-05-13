@@ -11,5 +11,6 @@ class config::hosts {
 
 config::hosts::set {
 	"puppet-server.vip": ip => "252";
-	"yum-mirror.vip": ip => "5"
+	"yum-mirror.vip": ip => "5";
+	"shop1.db": ip => "25";
 }
