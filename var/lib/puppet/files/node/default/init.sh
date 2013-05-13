@@ -19,9 +19,9 @@ function user_confirm() {
 	please enter it: "
 	read string
 	
-	local comfirm_input="${string}"
+	local confirm_input="${string}"
 	
-	if [ ${comfirm_input} != ${secret} ]
+	if [ ${confirm_input} != ${secret} ]
 	then
 		echo "The random number you entered does not match, exiting..."
 		exit
@@ -54,10 +54,10 @@ function set_ip() {
 }
 
 function rm_ca {
-        hostname=`hostname`
+        local hostname=`hostname`
 
         rm /var/lib/puppet/ssl/* -rf
-        ssh $puppet_server "puppet cert --clean $hostname"
+        ssh ${puppet_server} "puppet cert --clean ${hostname}"
 }
 
 function print_usage() {
@@ -80,11 +80,10 @@ case $1 in
                         print_usage
                         exit
                 fi
-		hostname=$2".$root_domain"
                 user_confirm
                 rm_ca
-                set_hostname $hostname
-                set_ip $hostname
+                set_hostname "$2.${root_domain}"
+                set_ip "$2.${root_domain}"
         ;;
 
         "set_ip" )
