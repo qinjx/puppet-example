@@ -1,4 +1,4 @@
-class role_centos_vm_tpl {
+class role_centos_vmtpl {
 	include yum::repo::base
 
 	file {
