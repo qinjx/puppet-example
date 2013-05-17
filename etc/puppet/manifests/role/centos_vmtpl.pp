@@ -19,4 +19,10 @@ class role_centos_vmtpl {
 			ensure => present,
 			require => Class["yum::repo::base"],
 	}
+
+	augeas {
+		"ifcfg-eth0"
+			content => "/files/etc/sysconfig/network-scripts/ifcfg-eth0":
+			changes => "set ONBOOT yes";
+	}
 }
