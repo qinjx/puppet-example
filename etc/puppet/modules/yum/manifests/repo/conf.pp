@@ -3,6 +3,6 @@ define yum::repo::conf {
 		$name:
 		baseurl => $config::repo::urls[$name],
 		gpgcheck => 1,
-		gpgkey => $config::repo::keys[$name];
+		gpgkey => $config::repo::keys[$name],
 	}
 }
