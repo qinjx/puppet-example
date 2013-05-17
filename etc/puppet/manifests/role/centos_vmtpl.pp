@@ -21,8 +21,8 @@ class role_centos_vmtpl {
 	}
 
 	augeas {
-		"ifcfg-eth0"
-			content => "/files/etc/sysconfig/network-scripts/ifcfg-eth0":
-			changes => "set ONBOOT yes";
+		"ifcfg-eth0":
+			content => "/files/etc/sysconfig/network-scripts/ifcfg-eth0",
+			changes => "set ONBOOT yes",
 	}
 }
