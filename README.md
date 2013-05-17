@@ -67,7 +67,9 @@ puppet-example
 
 - 启动要克隆的模板vm
 - 删除/etc/udev/rules.d/70-persistent-net.rules，这个文件会在每次启动的时候自动生成，最好配个crontab定时删除
-- 网卡配置文件（如/etc/sysconfig/network-scripts/ifcfg-eth0）中不要配置HWADDR，如有，删除之，删除它也能正常工作
+- 打开网卡配置文件（如/etc/sysconfig/network-scripts/ifcfg-eth0）
+- 删除网上配置文件中的HWADDR那一行，删除它也能正常工作
+- 确保ONBOOT=YES，若保留默认值NO，使用service network restart时会关闭这个网上，但并不自动启动这个网卡
 - 关闭模板vm
 - 克隆
 
