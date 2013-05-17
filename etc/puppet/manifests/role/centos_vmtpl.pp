@@ -1,6 +1,4 @@
 class role_centos_vmtpl {
-	include yum::repo::base
-
 	file {
 		"/etc/udev/rules.d/70-persistent-net.rules":
 			ensure => absent;
@@ -17,7 +15,7 @@ class role_centos_vmtpl {
 	package {
 		["vim-enhanced", "rsync", "cronie"]:
 			ensure => present,
-			require => Class["yum::repo::base"],
+			require => Yum::repo::conf["centos_base"],
 	}
 
 	augeas {

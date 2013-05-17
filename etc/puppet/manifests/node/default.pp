@@ -46,4 +46,8 @@ node default {
 			],
 			require => File["/root/init_scripts/conf.ini"];
 	}
+
+	yum::repo::conf {
+		["centos_base", "centos_updates", "centos_extras"]:
+	}
 }
