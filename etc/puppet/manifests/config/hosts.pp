@@ -54,10 +54,10 @@ config::hosts::set {
 	"nginx3.web": ip => "103";
 	"php1.app": ip => "111";
 	"php2.app": ip => "112";
-	"php3.web": ip => "113";
-	"acp-php1.web": ip => "114";
-	"acp-php2.web": ip => "115";
-	"acp-php3.web": ip => "116";
+	"php3.app": ip => "113";
+	"acp-php1.app": ip => "114";
+	"acp-php2.app": ip => "115";
+	"acp-php3.app": ip => "116";
 	"sys1.wan.lb": ip => "200";
 	"sys2.wan.lb": ip => "201";
 	"user1.wan.lb": ip => "202";
