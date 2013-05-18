@@ -1,7 +1,7 @@
 class puppet::client::service {
 	package {
 		"puppet":
-			ensure => installed;
+			ensure => installed,
 	}
 
 	service {

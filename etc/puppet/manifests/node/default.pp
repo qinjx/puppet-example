@@ -1,6 +1,4 @@
 node default {
-	include role_puppet_client
-
 	file {
 		"/root/init_scripts/":
 			ensure => directory;
@@ -33,7 +31,7 @@ node default {
 		"tcp_22":
 			proto       => "tcp",
 			dport       => "22",
-			jump        => "ACCEPT";
+			jump        => "ACCEPT",
 	}
 
 	augeas {
@@ -44,10 +42,12 @@ node default {
 				"set puppet_server $config::global::host_puppet_server",
 				"set root_domain $config::global::root_domain_name"
 			],
-			require => File["/root/init_scripts/conf.ini"];
+			require => File["/root/init_scripts/conf.ini"],
 	}
 
 	yum::repo::conf {
 		["centos_base", "centos_updates", "centos_extras"]:
 	}
+
+	include role_puppet_client
 }
