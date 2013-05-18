@@ -1,8 +1,8 @@
 define yum::repo::conf {
 	yumrepo {
 		$name:
-		baseurl => $config::repo::urls[$name],
+		baseurl => $config::yum::urls[$name],
 		gpgcheck => 1,
-		gpgkey => $config::repo::keys[$name],
+		gpgkey => $config::yum::keys[$name],
 	}
 }
