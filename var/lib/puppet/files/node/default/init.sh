@@ -49,8 +49,10 @@ function set_ip() {
 	sed -i -e "s/IPADDR=.*/IPADDR=$ip/" /etc/sysconfig/network-scripts/ifcfg-eth0
 	
 	echo "restarting network..."
-	# restart network
-	service network restart
+	# restart eth0（如果etho的ONBOOT=no，用service network restart会导致eth0不自动启用，网络仍不可用）
+	ifdown eth0
+	ifup eth0
+
 }
 
 function rm_ca {
