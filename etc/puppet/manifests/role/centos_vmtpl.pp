@@ -14,7 +14,7 @@ class role_centos_vmtpl {
 
 	package {
 		["vim-enhanced", "rsync", "cronie"]:
-			ensure => present,
+			ensure => installed,
 			require => Yum::Repo::Conf["centos_base"],
 	}
 

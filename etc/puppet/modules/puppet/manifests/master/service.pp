@@ -3,8 +3,8 @@ class puppet::master::service
 	package
 	{
 		["puppet-server"]:
-		ensure => present,
-		require => Yumrepo["epel"],
+		ensure => installed,
+		require => Yum::Repo::Conf["epel"],
 	}
 
 	service
