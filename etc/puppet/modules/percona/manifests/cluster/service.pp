@@ -15,9 +15,11 @@ class percona::cluster::service {
 
 	package
 	{
+		"mysql-libs-5.1.66":
+			ensure => absent;
 		["Percona-XtraDB-Cluster-server", "Percona-XtraDB-Cluster-client"]:
 			ensure => installed,
-			require => Yum::Repo::Conf["percona"],
+			require => [Yum::Repo::Conf["percona"], Package["mysql-libs-5.1.66"]];
 	}
 
 	iptables
