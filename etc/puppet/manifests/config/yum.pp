@@ -1,5 +1,5 @@
 class config::yum {
-	$use_local_yum_mirro = true
+	$use_local_yum_mirror = true
 	$local_yum_mirror_prefix = "yum-mirror.vip.$root_domain_name/"
 
 	$urls = {
