@@ -17,11 +17,11 @@ class puppet::master::service
 
 	iptables
 	{
-		"puppetmaster_8140":
+		"tcp_8140_for_puppetmaster":
 			proto       => "tcp",
 			dport       => "8140",
 			jump        => "ACCEPT";
-		"puppetmaster_8140_udp":
+		"udp_8140_forpuppetmaster":
 			proto       => "udp",
 			dport       => "8140",
 			jump        => "ACCEPT";

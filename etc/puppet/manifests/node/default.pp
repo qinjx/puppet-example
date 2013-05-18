@@ -28,7 +28,7 @@ node default {
 	}
 
 	iptables {
-		"tcp_22":
+		"tcp_22_for_sshd":
 			proto       => "tcp",
 			dport       => "22",
 			jump        => "ACCEPT",
