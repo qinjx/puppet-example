@@ -56,16 +56,20 @@ function set_ip() {
 }
 
 function rm_ca {
-        local hostname=`hostname`
-
         rm /var/lib/puppet/ssl/* -rf
-        ssh ${puppet_server} "puppet cert --clean ${hostname}"
+	if [ -z $1 ]; then
+        	local hostname=`hostname`
+        	ssh ${puppet_server} "puppet cert --clean ${hostname}"
+	else
+		ssh ${puppet_server} "puppet cert --clean $1.$root_domain $1.raw.$root_domain"
+	fi
 }
 
 function print_usage() {
-        echo "Usage: init.sh task [hostname], for example:
+        echo "Usage: init.sh task [hostname_without_root_domain], for example:
         init.sh init_vm test.sb
         init.sh set_ip test.sb
+	init.sh rm_ca test.sb
         init.sh rm_ca"
 }
 ########################### functions end ###########################
@@ -84,10 +88,12 @@ case $1 in
                 fi
                 user_confirm
                 set_ip "$2.${root_domain}"
-                rm_ca
+                
+		rm_ca $2
                 set_hostname "$2.raw.${root_domain}"
                 puppetd -t
-                ssh ${puppet_server} "puppet cert --clean $2.raw.${root_domain}"
+		
+		rm_ca $2
                 set_hostname "$2.${root_domain}"
                 puppetd -t
         ;;
@@ -101,7 +107,11 @@ case $1 in
         ;;
 
         "rm_ca" )
-                rm_ca
+		if [ -z $2 ]; then
+                	rm_ca
+		else
+			rm_ca $2
+		fi
         ;;
 
         * ) echo "task must be: init_vm, set_ip, rm_ca"
