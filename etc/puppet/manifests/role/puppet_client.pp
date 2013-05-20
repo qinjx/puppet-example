@@ -1,6 +1,4 @@
 class role_puppet_client {
-	include puppet::client::service
-	
 	puppet::client::conf {
 		"agent/runinterval":
 			ensure => 1500;
@@ -9,4 +7,6 @@ class role_puppet_client {
 		"agent/pluginsync":
 			ensure => "true";
 	}
+
+	include puppet::client::service, puppet::client::install
 }
