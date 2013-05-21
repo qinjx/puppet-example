@@ -7,5 +7,13 @@ class role_php_app_server {
 			ensure => "On";
 	}
 
+	php::ext {
+		["eaccelerator", "mbstring", "mcrypt", "mysql"]:
+	}
+
+	yum::repo::conf {
+		"remi":
+	}
+
 	include php::install, php::service
 }

@@ -5,3 +5,4 @@ define php::conf($ensure) {
 			changes => "set ${name} ${ensure}",
 	}
 }
+
