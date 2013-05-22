@@ -8,11 +8,11 @@ class role_php_app_server {
 	}
 
 	php::ext {
-		["mbstring", "mysql", "pecl-apc"]:
+		["mbstring", "mcrypt", "mysql", "pecl-apc"]:
 	}
 
 	yum::repo::conf {
-		"remi":
+		["remi", "epel"]:
 	}
 
 	include php::install, php::service
