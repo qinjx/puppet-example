@@ -1,12 +1,7 @@
-class role_load_balancer
-{
-	include haproxy
+class role_load_balancer {
+	include haproxy::install, haproxy::service
 
-	iptables
-	{
-		"haproxy_stats_1936":
-			proto       => "tcp",
-			dport       => "1936",
-			jump        => "ACCEPT",
+	yum::repo::conf {
+		"epel":
 	}
 }

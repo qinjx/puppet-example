@@ -1,7 +1,5 @@
-define gateway::conf($lan_interface, $wan_interface)
-{
-	iptables
-	{
+define gateway::conf($lan_interface, $wan_interface) {
+	iptables {
 		"gateway_lan_forward-$name":
 			iniface     => $lan_interface,
 			chain		=> "FORWARD",
