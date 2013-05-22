@@ -15,7 +15,7 @@ config::hosts::set {
 	"vpn.gw.vip": ip => "253";
 	"sys.wan.lb.vip": ip => "1";
 	"user.wan.lb.vip": ip => "2";
-	"puppet-server.sys.vip": ip => "10";
+	"puppet-server.vip": ip => "10";
 	"yum-mirror.sys.vip": ip => "11";
 	"nfs.sys.vip": ip => "12";
 	"ntp.sys.vip": ip => "13";
