@@ -8,7 +8,7 @@ class role_php_app_server {
 	}
 
 	php::ext {
-		["eaccelerator", "mbstring", "mcrypt", "mysql"]:
+		["mbstring", "mysql", "pecl-apc"]:
 	}
 
 	yum::repo::conf {
