@@ -12,5 +12,5 @@ node /^wan\d*\.gw/ inherits default {
 	}
 
 	include role_vip_holder, role_load_balancer, role_gateway
-	import "config/wan.pp"
+	import "../config/wan.pp"
 }
