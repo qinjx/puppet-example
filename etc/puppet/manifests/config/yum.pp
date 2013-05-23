@@ -1,6 +1,6 @@
 class config::yum {
 	$use_local_yum_mirror = true
-	$local_yum_mirror_prefix = "yum-mirror.vip"
+	$local_yum_mirror_prefix = "yum-mirror.sys.vip"
 
 	$urls = {
 		centos_base => "mirrors.sohu.com/centos/\$releasever/os/\$basearch/",
