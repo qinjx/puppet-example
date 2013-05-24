@@ -49,8 +49,9 @@ node default {
 		["centos_base", "centos_updates", "centos_extras"]:
 	}
 
+
 	hosts::conf {
-		["dns_vip", "test_tool"]:
+		$config::hosts::ip_keys:
 	}
 
 	include role_puppet_client
