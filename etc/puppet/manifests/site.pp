@@ -1,10 +1,10 @@
 # the global config
-import "config/global.pp"
-import "config/hosts.pp"
-import "config/yum.pp"
+import "config/*.pp"
+
 include config::yum
 include config::global
 include config::hosts
+
 # all role
 import "role/*.pp"
 
