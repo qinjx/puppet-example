@@ -5,6 +5,8 @@ class role_web_server {
 			dport       => "80",
 			jump        => "ACCEPT",
 	}
+	
+	include nginx
 }
 
 define web::server::site($www_root, $fcgi = null) {
