@@ -12,7 +12,7 @@ class role_php_app_server {
 	}
 
 	yum::repo::conf {
-		["remi", "epel"]:
+		["remi"]:
 	}
 
 	include php::install, php::service

@@ -46,7 +46,7 @@ node default {
 	}
 
 	yum::repo::conf {
-		["centos_base", "centos_updates", "centos_extras"]:
+		["centos_base", "centos_updates", "centos_extras", "epel"]:
 	}
 
 
