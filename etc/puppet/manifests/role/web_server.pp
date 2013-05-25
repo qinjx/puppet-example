@@ -5,10 +5,6 @@ class role_web_server {
 			dport       => "80",
 			jump        => "ACCEPT",
 	}
-	
-	yum::repo::conf {
-		"epel":
-	}
 
 	include nginx
 }
