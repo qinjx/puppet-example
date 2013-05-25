@@ -12,7 +12,7 @@ class php::install {
 	}
 
 	user {
-		"php":
+		"apache":
 			ensure => present,
 	}
 }
