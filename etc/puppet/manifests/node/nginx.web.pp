@@ -1,10 +1,11 @@
 node /^nginx\d*\.web/ inherits default {
 	web::server::site {
 		"www.${config::web::public_domain_name}":
-		    www_root => "${config::web::www_root}/www/",
-		    fcgi => "php.app.vip",
+			www_root => "${config::web::www_root}/www/",
+			fcgi => "php.app.vip:9000",
+			require => Class["config::web"]
+		
 	}
 
-	include role_web_server
-	include config::web
+	include config::web, role_web_server
 }

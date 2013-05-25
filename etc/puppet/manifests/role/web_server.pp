@@ -6,6 +6,10 @@ class role_web_server {
 			jump        => "ACCEPT",
 	}
 	
+	yum::repo::conf {
+		"epel":
+	}
+
 	include nginx
 }
 
