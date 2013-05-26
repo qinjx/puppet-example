@@ -5,7 +5,7 @@ node /^wan\d*\.gw/ inherits default {
 			wan_interface => "eth1",
 	}
 
-	router::port::forward {
+	firewall::nat::forward {
 		"tcp_80":
 			wan_interface => "eth1",
 			proto => "tcp",
