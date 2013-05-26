@@ -1,12 +1,14 @@
 define firewall::filter::allow ($proto="tcp", $port = nil) {
-	if ($port==nil) {
-		$port = $name
+	if ($port == nil) {
+		$dport = $name
+	} else {
+		$dport = $port
 	}
 
 	iptables {
-		"${proto}_${port}":
+		"${proto}_${dport}":
 		    proto => $proto,
-		    dport => $port,
+		    dport => $dport,
 		    jump  => "ACCEPT",
 	}
 }
