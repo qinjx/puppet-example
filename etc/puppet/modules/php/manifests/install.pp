@@ -7,9 +7,4 @@ class php::install {
 	firewall::filter::allow {
 		"9000":
 	}
-
-	user {
-		"apache":
-			ensure => present,
-	}
 }
