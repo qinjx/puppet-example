@@ -4,11 +4,8 @@ class php::install {
 			ensure => present,
 	}
 
-	iptables {
-		"tcp_9000_for_phpfcgi":
-			proto       => "tcp",
-			dport       => "9000",
-			jump        => "ACCEPT",
+	firewall::filter::allow {
+		"9000":
 	}
 
 	user {

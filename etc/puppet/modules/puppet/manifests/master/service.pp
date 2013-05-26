@@ -15,15 +15,11 @@ class puppet::master::service
 			require    => Package["puppet-server"],
 	}
 
-	iptables
-	{
-		"tcp_8140_for_puppetmaster":
-			proto       => "tcp",
-			dport       => "8140",
-			jump        => "ACCEPT";
-		"udp_8140_forpuppetmaster":
-			proto       => "udp",
-			dport       => "8140",
-			jump        => "ACCEPT";
+	firewall::filter::allow {
+		"8140":
+			proto => "tcp";
+		"udp_8140":
+			proto => "udp",
+			dport => "8140";
 	}
 }

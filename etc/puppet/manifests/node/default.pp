@@ -27,11 +27,8 @@ node default {
 			mode    => 0600;
 	}
 
-	iptables {
-		"tcp_22_for_sshd":
-			proto       => "tcp",
-			dport       => "22",
-			jump        => "ACCEPT",
+	firewall::filter::allow {
+		"22":
 	}
 
 	augeas {

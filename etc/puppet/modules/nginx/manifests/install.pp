@@ -4,10 +4,7 @@ class nginx::install {
 		    ensure => installed,
 	}
 
-	iptables {
-		"tcp_80_for_nginx":
-			proto       => "tcp",
-			dport       => "80",
-			jump        => "ACCEPT",
+	firewall::filter::allow {
+		"80":
 	}
 }
