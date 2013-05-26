@@ -1,5 +1,10 @@
-define nginx::conf::vhost($www_root) {
+define nginx::conf::vhost($www_root, $fcgi_conf = nil) {
 	$domain_name = $name
+	if ($fcgi_confc == nil) {
+		$fcgi_conf_string = ""
+	} else {
+		$fcgi_conf_string = "include fastcgi_${fcgi_conf}.conf;"
+	}
 
 	file {
 		"/etc/nginx/conf.d/vhost_${domain_name}.conf":
@@ -13,6 +18,8 @@ server {
 	location / {
 		index index.html index.htm index.php;
 	}
+	
+	$fcgi_conf_string
 }",
 	}
 }

@@ -1,10 +1,9 @@
-define nginx::conf::location($file_pattern, $fcgi_address) {
+define nginx::conf::location($pattern, $fcgi_address) {
 	file {
-		"/etc/nginx/conf.d/${name}.conf":
-		    content => "
-location ~ $file_pattern {
+		"/etc/nginx/fastcgi_${name}.conf":
+		    content => "location ~ $pattern {
 	include fastcgi.conf;
-	fastcgi_pass $fcgi_address
+	fastcgi_pass $fcgi_address;
 }",
 	}
 }
