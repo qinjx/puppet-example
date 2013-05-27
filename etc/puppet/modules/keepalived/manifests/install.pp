@@ -6,7 +6,7 @@ class keepalived::install {
 	}
 
 	file {
-		"/etc/keepalived/keepalive.conf.d":
+		"/etc/keepalived/conf.d":
 			ensure => directory;
 		"/etc/keepalived/keepalived.conf":
 			content => "global_defs {
@@ -19,10 +19,9 @@ class keepalived::install {
 	smtp_server 192.168.200.1
 	smtp_connect_timeout 30
 	router_id LVS_DEVEL
-
 }
 
-include /etc/keepalived/keepalive.conf.d/*.conf";
+include /etc/keepalived/conf.d/*.conf";
 	}
 
 	iptables {
