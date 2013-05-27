@@ -23,11 +23,10 @@ __兼容性说明__
 如果你的环境不支持复制粘贴（大部分VNC客户端都不支持的），只好自己用vi去编辑了。
 
 	echo "DEVICE="eth0"
-	NM_CONTROLLED="yes"
 	ONBOOT="yes"
 	BOOTPROTO="static"
 	IPADDR=10.250.0.221 #此处改成你的IP
-	NETMASK=255.255.255.0" > /etc/sysconfig/network-scripts/ifcfg-eth0;
+	PREFIX=24" > /etc/sysconfig/network-scripts/ifcfg-eth0;
 
 ### Step 2.2 设置网关：
 仅仅设置IP和子网掩码只能访问这台机器所在的子网，不能访问互联网，需要设置网关，由网关来将数据包转发到子网外面的世界：
