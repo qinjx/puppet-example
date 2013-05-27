@@ -107,7 +107,6 @@ function config_puppet_master() {
 
 	#enable puppetmaster
 	chkconfig puppetmaster on
-	service puppetmaster start
 
 	#enable 8140 port
 	sed -i "/\-\-dport 8140/d" /etc/sysconfig/iptables
@@ -144,7 +143,6 @@ function config_puppet_client() {
     server='${pps_hostname} $(get_puppet_conf_dir)"/puppet.conf"
 
 	chkconfig puppet on
-	service puppet start
 
 	#how to run puppet client
 	echo "Please run:
