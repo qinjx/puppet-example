@@ -30,9 +30,10 @@ function user_confirm() {
 
 function set_hostname() {
 	if [ ! -z $1 ]; then
-		hostname $1
-		sed -i -e "s/HOSTNAME=.*/HOSTNAME=$1/" /etc/sysconfig/network
-		echo your hostname has been set to $1
+	    local host="$1.$root_domain"
+		hostname ${host}
+		sed -i -e "s/HOSTNAME=.*/HOSTNAME=$host/" /etc/sysconfig/network
+		echo your hostname has been set to ${host}
 	else
 		echo Internal error, empty parameter passed -_-
 	fi
@@ -62,7 +63,7 @@ function rm_ca {
         	local hostname=`hostname`
         	ssh ${puppet_server} "puppet cert --clean ${hostname}"
 	else
-		ssh ${puppet_server} "puppet cert --clean $1.$root_domain $1.raw.$root_domain"
+		ssh ${puppet_server} "puppet cert --clean $1.$root_domain"
 	fi
 }
 
@@ -88,14 +89,16 @@ case $1 in
                         exit
                 fi
                 user_confirm
-                set_ip "$2.${root_domain}"
+                set_ip $2
                 
-		rm_ca $2
-                set_hostname "$2.raw.${root_domain}"
+                rm_ca "$2.raw"
+                rm_ca $2
+                set_hostname "$2.raw"
                 puppetd -t
-		
-		rm_ca $2
-                set_hostname "$2.${root_domain}"
+
+		        rm_ca "$2.raw"
+		        rm_ca $2
+                set_hostname "$2"
                 puppetd -t
         ;;
 
@@ -108,11 +111,11 @@ case $1 in
         ;;
 
         "rm_ca" )
-		if [ -z $2 ]; then
-                	rm_ca
-		else
-			rm_ca $2
-		fi
+                if [ -z $2 ]; then
+                            rm_ca
+                else
+                    rm_ca $2
+                fi
         ;;
 
         * ) echo "task must be: init_vm, set_ip, rm_ca"
