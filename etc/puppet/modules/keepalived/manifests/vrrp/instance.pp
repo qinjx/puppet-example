@@ -18,5 +18,6 @@ define keepalived::vrrp::instance($vip_add) {
    		$vip_add
 	}
 }",
+			require => File["/etc/keepalived/keepalive.conf.d"],
 	}
 }

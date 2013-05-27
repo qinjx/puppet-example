@@ -7,7 +7,22 @@ class keepalived::install {
 
 	file {
 		"/etc/keepalived/keepalive.conf.d":
-			ensure => directory,
+			ensure => directory;
+		"/etc/keepalived/keepalived.conf":
+			content => "global_defs {
+   notification_email {
+		acassen@firewall.loc
+ 		failover@firewall.loc
+ 		sysadmin@firewall.loc
+ 	}
+	notification_email_from Alexandre.Cassen@firewall.loc
+	smtp_server 192.168.200.1
+	smtp_connect_timeout 30
+	router_id LVS_DEVEL
+
+}
+
+include /etc/keepalived/keepalive.conf.d/*.conf";
 	}
 
 	iptables {
