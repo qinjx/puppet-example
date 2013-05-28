@@ -11,9 +11,10 @@ class haproxy::install {
 			require => Package["haproxy"],
 	}
 
-	exec {
+	exec {#多个配置文件要指定多次-f参数
 		"inert_conf_array_line":
-			command => 'sed -i "/prog=/ a conf_array=\`find /etc/haproxy/conf.d -name *.conf\`; conf_array+=\(\/etc\/\$prog\/\$prog\.cfg)" /etc/init.d/haproxy',
+			command => 'sed -i "/prog=/ a conf_array=\`find /etc/haproxy/conf.d -name *.conf\`\
+conf_array+=\(\/etc\/\$prog\/\$prog\.cfg)" /etc/init.d/haproxy',
 			unless => "grep conf_array= /etc/init.d/haproxy 2>/dev/null",
 			path => "/bin",
 			require => Package["haproxy"];
