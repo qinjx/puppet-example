@@ -9,6 +9,7 @@ class keepalived::install {
 		"/etc/keepalived/conf.d":
 			ensure => directory;
 		"/etc/keepalived/keepalived.conf":
+			require => Package["keepalived"],
 			content => "global_defs {
    notification_email {
 		acassen@firewall.loc
