@@ -14,7 +14,7 @@ function user_confirm() {
 	Please repeat the following random number for comfirmation
 	the random number is : 
 	
-	        ${secret}
+			${secret}
 	
 	please enter it: "
 	read string
@@ -30,7 +30,7 @@ function user_confirm() {
 
 function set_hostname() {
 	if [ ! -z $1 ]; then
-	    local host="$1.$root_domain"
+		local host="$1.$root_domain"
 		hostname ${host}
 		sed -i -e "s/HOSTNAME=.*/HOSTNAME=$host/" /etc/sysconfig/network
 		echo your hostname has been set to ${host}
@@ -58,65 +58,64 @@ function set_ip() {
 }
 
 function rm_ca {
-        rm /var/lib/puppet/ssl/* -rf
+	rm /var/lib/puppet/ssl/* -rf
+	local
 	if [ -z $1 ]; then
-        	local hostname=`hostname`
-        	ssh ${puppet_server} "puppet cert --clean ${hostname}"
+		local hostname=`hostname`
+		ssh ${puppet_server} "puppet cert --clean ${hostname}"
 	else
-		ssh ${puppet_server} "puppet cert --clean $1.$root_domain"
+		ssh ${puppet_server} "for host in $1 $1.raw; do if [ -f /var/lib/puppet/ssl/ca/signed/\$host.$root_domain.pem ]; then echo ok; fi; done"
 	fi
 }
 
 function print_usage() {
-        echo "Usage: init.sh task [hostname_without_root_domain], for example:
-        init.sh init_vm test.sb
-        init.sh set_ip test.sb
-	init.sh rm_ca test.sb
-        init.sh rm_ca"
+	echo "Usage: init.sh task [hostname_without_root_domain], for example:
+	init.sh init_vm test.sb
+	init.sh set_ip test.sb
+init.sh rm_ca test.sb
+	init.sh rm_ca"
 }
 ########################### functions end ###########################
 
 ########################### Entrance ###########################
 if [ -z $1 ]; then
-        print_usage
-        exit
+	print_usage
+	exit
 fi
 
 case $1 in
-        "init_vm" )
-                if [ -z $2 ]; then
-                        print_usage
-                        exit
-                fi
-                user_confirm
-                set_ip $2
-                
-                rm_ca "$2.raw"
-                rm_ca $2
-                set_hostname "$2.raw"
-                puppetd -t
+	"init_vm" )
+		if [ -z $2 ]; then
+			print_usage
+			exit
+		fi
+		user_confirm
+		set_ip $2
 
-		        rm_ca "$2.raw"
-		        rm_ca $2
-                set_hostname "$2"
-                puppetd -t
-        ;;
+		rm_ca $2
+		set_hostname "$2.raw"
+		puppetd -t
 
-        "set_ip" )
-                if [ -z $2 ]; then
-                        print_usage
-                        exit
-                fi
-                set_ip $2
-        ;;
+		rm_ca $2
+		set_hostname $2
+		puppetd -t
+	;;
 
-        "rm_ca" )
-                if [ -z $2 ]; then
-                            rm_ca
-                else
-                    rm_ca $2
-                fi
-        ;;
+	"set_ip" )
+		if [ -z $2 ]; then
+			print_usage
+			exit
+		fi
+		set_ip $2
+	;;
 
-        * ) echo "task must be: init_vm, set_ip, rm_ca"
+	"rm_ca" )
+		if [ -z $2 ]; then
+			rm_ca
+		else
+			rm_ca $2
+		fi
+	;;
+
+	* ) echo "task must be: init_vm, set_ip, rm_ca"
 esac
