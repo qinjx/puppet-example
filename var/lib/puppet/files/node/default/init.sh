@@ -64,7 +64,7 @@ function rm_ca {
 		local hostname=`hostname`
 		ssh ${puppet_server} "puppet cert --clean ${hostname}"
 	else
-		ssh ${puppet_server} "for host in $1 $1.raw; do if [ -f /var/lib/puppet/ssl/ca/signed/\$host.$root_domain.pem ]; then echo ok; fi; done"
+		ssh ${puppet_server} "for host in $1 $1.raw; do if [ -f /var/lib/puppet/ssl/ca/signed/\$host.$root_domain.pem ]; then puppet cert clean \$host.$root_domain; fi; done"
 	fi
 }
 
