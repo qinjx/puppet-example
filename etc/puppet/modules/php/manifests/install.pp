@@ -1,7 +1,7 @@
 class php::install {
 	package {
 		"php-fpm":
-			ensure => present,
+			ensure => installed,
 	}
 
 	firewall::filter::allow {
