@@ -1,5 +1,12 @@
-define keepalived::vrrp::instance($vip_add) {
+define keepalived::vrrp::instance($vip_add, $routes=nil) {
 	$instance_id = $name
+	if (nil == $routes) {
+		$virtual_routes = ""
+	} else {
+		$virtual_routes = "virtual_routes {
+		$routes
+	}"
+	}
 
 	file {
 		"/etc/keepalived/conf.d/vrrp_vi_${instance_id}.conf":
@@ -15,8 +22,9 @@ define keepalived::vrrp::instance($vip_add) {
 	}
 	
 	virtual_ipaddress {
-   		$vip_add
+		$vip_add
 	}
+	$virtual_routes
 }",
 			require => File["/etc/keepalived/conf.d"],
 	}

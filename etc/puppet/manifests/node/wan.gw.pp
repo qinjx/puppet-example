@@ -19,6 +19,7 @@ node /^wan\d*\.gw/ inherits default {
 		"${config::hosts::ip_list[wan_gw_vip]}":
 			vip_add => "${config::global::ip_prefix}.${config::hosts::ip_list[wan_gw_vip]}/24
 		${config::wan::ip_add}/27 dev eth1",
+			routes => "${config::global::ip_prefix}/24 to 0.0.0.0/0 gw ${config::wan::gateway} dev eth1",
 	}
 
 	haproxy::conf::cluster {
