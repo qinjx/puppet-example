@@ -23,9 +23,19 @@ class haproxy::install {
 			path => "/bin",
 			require => Package["haproxy"];
 
-		"trancate_default_haproxy_cfg":
+		"truncate_default_haproxy_cfg":
 			command => "sed -i '/main/,\$d' /etc/haproxy/haproxy.cfg",
 			path => "/bin",
+                        require => Package["haproxy"];
+
+		"set_default_mode_tcp":
+			command => "sed -i \"s/http\$/tcp/\" /etc/haproxy/haproxy.cfg",
+			path => "/bin",
+			require => Package["haproxy"];
+
+		"delete_http_option":
+			command => "sed -i \"/httplog\|forwardfor\|http-server-close/d\" /etc/haproxy/haproxy.cfg",
+                        path => "/bin",
                         require => Package["haproxy"];
 	}
 }
