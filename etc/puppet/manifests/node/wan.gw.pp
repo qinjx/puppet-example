@@ -18,7 +18,7 @@ node /^wan\d*\.gw/ inherits default {
 	keepalived::vrrp::instance {
 		"${config::hosts::ip_list[wan_gw_vip]}":
 			vip_add => "${config::global::ip_prefix}.${config::hosts::ip_list[wan_gw_vip]}/24
-		${config::wan::ip_add}/27",
+		${config::wan::ip_add}/27 dev eth1",
 	}
 
 	haproxy::conf::cluster {
