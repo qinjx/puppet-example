@@ -16,14 +16,14 @@ node /^wan\d*\.gw/ inherits default {
 	}
 
 	haproxy::conf::cluster {
-		"ssh_jump":
-			port => 1022,
+		"website":
+			port => 80,
 	}
 
 	haproxy::conf::server {
-		["wan1.gw", "lan1.lb", "test.tool"]:
-			port => 22,
-			cluster => "ssh_jump",
+		["nginx1.web", "nginx2.web", "nginx3.web"]:
+			port => 80,
+			cluster => "website",
 	}
 
 	include role_vip_holder, role_load_balancer, role_gateway
