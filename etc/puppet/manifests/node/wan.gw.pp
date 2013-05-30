@@ -26,5 +26,9 @@ node /^wan\d*\.gw/ inherits default {
 			cluster => "website",
 	}
 
+	firewall::filter::allow {
+		"80":
+	}
+
 	include role_vip_holder, role_load_balancer, role_gateway
 }
