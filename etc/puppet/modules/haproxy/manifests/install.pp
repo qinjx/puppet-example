@@ -22,5 +22,10 @@ class haproxy::install {
 			command => 'sed -i "s/\-f \/etc\/\$prog\/\$prog\.cfg/\$\{conf_array\[@\]\}/g" /etc/init.d/haproxy',
 			path => "/bin",
 			require => Package["haproxy"];
+
+		"trancate_default_haproxy_cfg":
+			command => "sed -i '/main/,\$d' /etc/haproxy/haproxy.cfg",
+			path => "/bin",
+                        require => Package["haproxy"];
 	}
 }
