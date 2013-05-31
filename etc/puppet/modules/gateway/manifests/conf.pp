@@ -4,7 +4,8 @@ define gateway::conf($lan_interface, $wan_interface) {
 			iniface     => $lan_interface,
 			chain		=> "FORWARD",
 			jump        => "ACCEPT",
-			proto       => "all";
+			proto       => "all",
+			require		=> Class["gateway::install"];
 		"gateway_wan_nat-$name":
 			table       => "nat",
 			outiface    => $wan_interface,
