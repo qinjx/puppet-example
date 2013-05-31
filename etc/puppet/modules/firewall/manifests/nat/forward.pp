@@ -9,11 +9,5 @@ define firewall::nat::forward($wan_interface, $proto, $ip, $port, $dest_ip, $des
 			destination => $ip,
 			todest => "$dest_ip:$dest_port",
 			jump => "DNAT";
-		"port_forward_postrouting_rule_for_${proto}_${port}":
-			table => "nat",
-			chain => "POSTROUTING",
-			source => $ip,
-			outiface => $wan_interface,
-			jump => "MASQUERADE";
 	}
 }

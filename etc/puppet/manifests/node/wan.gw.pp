@@ -1,6 +1,9 @@
 node /^wan\d*\.gw/ inherits default {
 	gateway::conf {
-		"eth1":
+		[
+			"eth1", #allow LAN access internet via eth0 -> eth1, NAT
+			"eth0", #allow internet access LAN via eth1 -> eth0, port forward
+		]:
 	}
 
 	keepalived::vrrp::instance {
