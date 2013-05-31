@@ -24,10 +24,6 @@ node /^wan\d*\.gw/ inherits default {
 			cluster => "website",
 	}
 
-	firewall::filter::allow {
-		"80":
-	}
-
 	firewall::nat::forward {
 		"tcp_80":
 			wan_interface => "eth1",

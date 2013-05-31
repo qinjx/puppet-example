@@ -9,4 +9,8 @@ backend $name
 ",
 			require => File["/etc/haproxy/conf.d"],
 	}
+
+	firewall::filter::allow {
+		"$port":
+	}
 }
