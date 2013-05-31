@@ -1,8 +1,6 @@
 node /^wan\d*\.gw/ inherits default {
 	gateway::conf {
-		"nat_rule_for_gateway":
-			lan_interface => "eth0",
-			wan_interface => "eth1",
+		"eth1":
 	}
 
 	keepalived::vrrp::instance {
@@ -25,6 +23,16 @@ node /^wan\d*\.gw/ inherits default {
 
 	firewall::filter::allow {
 		"80":
+	}
+
+	firewall::nat::forward {
+		"tcp_80":
+			wan_interface => "eth1",
+			proto => "tcp",
+			ip => $config::global::wan_ip,
+			port => 1022,
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[nginx1_web]}",
+			dest_port => 22,
 	}
 
 	include role_vip_holder, role_load_balancer, role_gateway

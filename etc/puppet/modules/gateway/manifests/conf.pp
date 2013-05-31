@@ -1,16 +1,11 @@
-define gateway::conf($lan_interface, $wan_interface) {
+define gateway::conf {
 	iptables {
-		"gateway_lan_forward-$name":
-			iniface     => $lan_interface,
-			chain		=> "FORWARD",
-			jump        => "ACCEPT",
-			proto       => "all",
-			require		=> Class["gateway::install"];
-		"gateway_wan_nat-$name":
+		"gateway_postrouting_$name":
 			table       => "nat",
-			outiface    => $wan_interface,
+			outiface    => $name,
 			chain		=> "POSTROUTING",
 			jump        => "MASQUERADE",
-			proto       => "all";
+			proto       => "all",
+			require         => Class["gateway::install"],
 	}
 }
