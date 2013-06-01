@@ -11,24 +11,6 @@ node default {
 			ensure => present,
 			source => "puppet:///files/node/default/init.sh",
 			require => File["/root/init_scripts/conf.ini"];
-		
-		"/etc/puppet/iptables":
-			ensure => directory;
-
-		"/etc/puppet/iptables/pre.iptables":
-			content => "-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
--A INPUT -p icmp -j ACCEPT
--A INPUT -i lo -j ACCEPT",
-			mode    => 0600;
-
-		"/etc/puppet/iptables/post.iptables":
-			content => "-A INPUT -j REJECT --reject-with icmp-host-prohibited
--A FORWARD -j REJECT --reject-with icmp-host-prohibited",
-			mode    => 0600;
-	}
-
-	firewall::filter::allow {
-		"22":
 	}
 
 	augeas {
@@ -46,6 +28,9 @@ node default {
 		["centos_base", "centos_updates", "centos_extras", "epel"]:
 	}
 
+	firewall::filter::allow {
+		"22":
+	}
 
 	hosts::conf {
 		$config::hosts::ip_keys:
