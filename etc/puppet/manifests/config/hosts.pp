@@ -65,7 +65,9 @@ class config::hosts {
 		vpn1_gw => 219,
 		vpn2_gw => 220,
 		wan1_gw => 221,
-		wan2_gw => 222
+		wan2_gw => 222,
+		vnc1_sys => 223,
+		vnc2_sys => 224
 	}
 	
 	$ip_keys = [
@@ -135,6 +137,8 @@ class config::hosts {
 		vpn1_gw,
 		vpn2_gw,
 		wan1_gw,
-		wan2_gw
+		wan2_gw,
+		vnc1_sys,
+		vnc2_sys
 	]
 }
