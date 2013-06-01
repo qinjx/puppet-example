@@ -27,6 +27,6 @@ class pptp::server::install {
 	}
 
 	firewall::filter::allow {
-		"1723"
+		"1723":
 	}
 }

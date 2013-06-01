@@ -6,12 +6,17 @@ node /^sys\d*\.wan\.lb/ inherits default {
 
 	haproxy::conf::cluster {
 		"vnc_sys":
-		    port => 5901
+			port => 5901
 	}
 
 	haproxy::conf::server {
 		"172.16.0.1":
-		    cluster => "vnc_sys"
+			port => 5901,
+			cluster => "vnc_sys"
+	}
+
+	yum::repo::conf {
+		"pptp":
 	}
 
 	include role_load_balancer, role_vip_holder, role_pptp_server
