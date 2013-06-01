@@ -5,6 +5,11 @@ node /^nginx\d*\.web/ inherits default {
 	}
 
 	nginx::conf::vhost {
+		"img.$config::web::public_domain_name":
+			www_root => "${config::web::www_root}/img",
+	}
+
+	nginx::conf::vhost {
 		"activity.$config::web::public_domain_name":
 			www_root => "${config::web::www_root}/activity",
 			fcgi_conf => "php",
