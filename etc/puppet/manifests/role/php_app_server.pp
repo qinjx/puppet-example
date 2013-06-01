@@ -1,5 +1,4 @@
 class role_php_app_server {
-
 	php::conf {
 		"Date/date.timezone":
 			ensure => "Asia/Chongqing";
