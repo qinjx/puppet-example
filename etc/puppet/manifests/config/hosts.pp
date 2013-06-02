@@ -95,6 +95,7 @@ class config::hosts {
 		ntp2_sys,
 		svn1_sys,
 		svn2_sys,
+		lan_lb_vip,
 		shop_db_vip,
 		tracker_dfs_vip,
 		shop_se_vip,

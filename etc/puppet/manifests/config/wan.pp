@@ -3,7 +3,7 @@ class config::wan {
 	$gateway = "210.14.147.65"
 	$prefix = "27"
 
-	$oepned_port = {
+	$opened_port = {
 		ssh => 22,
 		vpn => 1723,
 		vnc => 5901,
