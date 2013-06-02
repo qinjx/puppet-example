@@ -1,7 +1,7 @@
 node /^lan\d*\.lb/ inherits default {
 	keepalived::vrrp::instance {
 		"${config::hosts::ip_list[lan_lb_vip]}":
-			vip_add => "${config::global::ip_prefix}.${config::hosts::ip_list[lan_lb_vip]}/24"
+			vip_add => "${config::global::ip_prefix}.${config::hosts::ip_list[lan_lb_vip]}/24",
 	}
 
 	haproxy::conf::cluster {
