@@ -19,5 +19,12 @@ node /^sys\d*\.wan\.lb/ inherits default {
 		"pptp":
 	}
 
+	augeas {
+		"sshd_listen_all":
+			context => "/files/etc/ssh/sshd_config",
+			changes => "rm ListenAddress",
+			require => Ssh::Server::Conf["ListenAddress"],
+	}
+
 	include role_load_balancer, role_vip_holder, role_pptp_server
 }

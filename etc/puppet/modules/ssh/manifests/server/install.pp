@@ -3,9 +3,8 @@ class ssh::server::install {
 		"22":
 	}
 
-	augeas {
-		"listen_local_ip":
-			context => "/files/etc/ssh/sshd_config",
-			changes => "set ListenAddress $ipaddress",
+	ssh::server::conf {
+		"ListenAddress":
+			ensure => $ipaddress,
 	}
 }
