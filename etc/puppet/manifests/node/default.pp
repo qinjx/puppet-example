@@ -28,13 +28,9 @@ node default {
 		["centos_base", "centos_updates", "centos_extras", "epel"]:
 	}
 
-	firewall::filter::allow {
-		"22":
-	}
-
 	hosts::conf {
 		$config::hosts::ip_keys:
 	}
 
-	include role_puppet_client
+	include role_puppet_client, role_ssh_server
 }
