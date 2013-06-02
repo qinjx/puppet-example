@@ -22,6 +22,7 @@ class config::hosts {
 		ntp2_sys => 32,
 		svn1_sys => 33,
 		svn2_sys => 34,
+		lan_lb_vip => 50,
 		shop_db_vip => 50,
 		tracker_dfs_vip => 50,
 		shop_se_vip => 50,
