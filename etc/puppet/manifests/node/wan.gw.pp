@@ -16,6 +16,7 @@ node /^wan\d*\.gw/ inherits default {
 	haproxy::conf::cluster {
 		"website":
 			port => 80,
+			bind_ip => $config::wan::ip_add,
 	}
 
 	haproxy::conf::server {
