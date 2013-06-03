@@ -1,3 +1,0 @@
-class config::vip {
-	
-}
