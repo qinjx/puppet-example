@@ -7,7 +7,8 @@ class keepalived::install {
 
 	file {
 		"/etc/keepalived/conf.d":
-			ensure => directory;
+			ensure => directory,
+			require => Package["keepalived"];
 		"/etc/keepalived/keepalived.conf":
 			require => Package["keepalived"],
 			content => "global_defs {
