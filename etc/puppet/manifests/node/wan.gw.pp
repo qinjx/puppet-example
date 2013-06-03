@@ -17,6 +17,7 @@ node /^wan\d*\.gw/ inherits default {
 		"website":
 			port => 80,
 			bind_ip => $config::wan::ip_add,
+		    check_option => "httpchk HEAD /status.txt HTTP/1.0",
 	}
 
 	haproxy::conf::server {

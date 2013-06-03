@@ -5,7 +5,7 @@ node /^acp-php\d*\.app/ inherits default {
 	}
 
 	php::ext {
-		["exif"]:
+		["gd"]:
 		    ensure => installed,
 	}
 
