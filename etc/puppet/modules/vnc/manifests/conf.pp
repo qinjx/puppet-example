@@ -1,7 +1,7 @@
-define vnc::server::conf($ensure) {
+define vnc::conf($ensure) {
 	augeas {
 		"change_vncserver_config-$name":
-		    context => "/etc/sysconfig/vncserver",
+		    context => "/files/etc/sysconfig/vncservers",
 		    changes => "set $name \"$ensure\"",
 	}
 }

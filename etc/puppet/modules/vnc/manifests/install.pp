@@ -9,15 +9,17 @@ class vnc::install {
 	}
 
 	file {
+		"/root/.vnc":
+			ensure => directory;
 		"/root/.vnc/xstartup":
-		    content => "
+			content => "
 unset SESSION_MANAGER
 exec /etc/X11/xinit/xinitrc",
-		    require => Package["tigervnc-server"],
+			require => File["/root/.vnc"];
 	}
 
-	vnc::server::conf {
-		"VNCSERVERS" :
+	vnc::conf {
+		"VNCSERVERS":
 			ensure => "1:root",
 	}
 
