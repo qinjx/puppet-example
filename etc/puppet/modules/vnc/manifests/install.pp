@@ -24,6 +24,6 @@ exec /etc/X11/xinit/xinitrc",
 	}
 
 	yum::group::install {
-		"KDE (K Desktop Environment)":
+		["X Window System", "KDE (K Desktop Environment)"]:
 	}
 }
