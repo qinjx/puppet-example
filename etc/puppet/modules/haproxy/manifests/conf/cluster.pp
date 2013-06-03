@@ -2,7 +2,7 @@ define haproxy::conf::cluster($port, $bind_ip = "0.0.0.0", $check_option=nil) {
 	if (nil == $check_option) {
 		$check_option_string = ""
 	} else {
-		$check_option_string = $check_option
+		$check_option_string = "option $check_option"
 	}
 	file {
 		"/etc/haproxy/conf.d/$name.cfg":
@@ -11,7 +11,7 @@ define haproxy::conf::cluster($port, $bind_ip = "0.0.0.0", $check_option=nil) {
 
 backend $name
 	balance roundrobin
-	option $check_option_string
+	$check_option_string
 ",
 			require => File["/etc/haproxy/conf.d"],
 	}
