@@ -26,7 +26,7 @@ node /^lan\d*\.lb/ inherits default {
 			port => 9000,
 			cluster => "php_app";
 		["acp-php1.app", "acp-php2.app", "acp-php3.php"]:
-			port => 9001,
+			port => 9000,
 			cluster => "acp-php_app";
 	}
 

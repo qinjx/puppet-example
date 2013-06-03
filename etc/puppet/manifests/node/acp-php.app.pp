@@ -9,12 +9,5 @@ node /^acp-php\d*\.app/ inherits default {
 		    ensure => installed,
 	}
 
-	php::fpm::conf {
-		"listen":
-			pool => "www",
-			section => "www",
-			ensure => "0.0.0.0:9001",
-	}
-
 	include role_php_app_server
 }
