@@ -19,6 +19,11 @@ node /^sys\d*\.wan\.lb/ inherits default {
 		"pptp":
 	}
 
+	ssh::server::conf {
+		"PermitRootLogin":
+		    ensure => no,
+	}
+
 	augeas {
 		"sshd_listen_all":
 			context => "/files/etc/ssh/sshd_config",
