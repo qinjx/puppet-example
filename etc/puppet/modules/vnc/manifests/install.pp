@@ -14,6 +14,6 @@ class vnc::install {
 	}
 
 	yum::group::install {
-		["X Window System", "Desktop"]:
+		["X Window System", "Desktop", "Chinese Support"]:
 	}
 }
