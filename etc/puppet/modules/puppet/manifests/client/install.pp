@@ -6,10 +6,10 @@ class puppet::client::install {
 
 	puppet::client::conf {
 		"agent/runinterval":
-		ensure => 1500;
+			ensure => 1500;
 		"agent/show_diff":
-		ensure => "true";
+			ensure => "true";
 		"agent/pluginsync":
-		ensure => "true";
+			ensure => "true";
 	}
 }
