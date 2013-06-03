@@ -3,6 +3,6 @@ class vnc::service {
 		"vncserver":
 			enable => true,
 			ensure => running,
-		    require => Class["svn::install"],
+		    require => Class["vnc::install"],
 	}
 }
