@@ -15,16 +15,16 @@ class role_centos_vmtpl {
 			ensure => directory;
 
 		"/etc/puppet/iptables/pre.iptables":
-			content => "-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+			content => "
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 -A INPUT -p icmp -j ACCEPT
 -A INPUT -i lo -j ACCEPT",
-			mode    => 0600,
 			require => File["/etc/puppet/iptables"];
 
 		"/etc/puppet/iptables/post.iptables":
-			content => "-A INPUT -j REJECT --reject-with icmp-host-prohibited
+			content => "
+-A INPUT -j REJECT --reject-with icmp-host-prohibited
 -A FORWARD -j REJECT --reject-with icmp-host-prohibited",
-			mode    => 0600,
 			require => File["/etc/puppet/iptables"];
 	}
 
