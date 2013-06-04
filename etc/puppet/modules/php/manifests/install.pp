@@ -2,6 +2,7 @@ class php::install {
 	package {
 		"php-fpm":
 			ensure => installed,
+			require => Yum::Repo::Conf["remi"],
 	}
 
 	firewall::filter::allow {
@@ -29,6 +30,6 @@ class php::install {
 
 	user {
 		"php":
-		ensure => present,
+			ensure => present,
 	}
 }

@@ -6,6 +6,5 @@ define gateway::conf {
 			chain		=> "POSTROUTING",
 			jump        => "MASQUERADE",
 			proto       => "all",
-			require         => Class["gateway::install"],
 	}
 }

@@ -4,6 +4,7 @@ define haproxy::conf::cluster($port, $bind_ip = "0.0.0.0", $check_option=nil) {
 	} else {
 		$check_option_string = "option $check_option"
 	}
+
 	file {
 		"/etc/haproxy/conf.d/$name.cfg":
 			content => "frontend $name $bind_ip:$port
