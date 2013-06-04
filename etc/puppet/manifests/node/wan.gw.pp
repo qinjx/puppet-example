@@ -53,5 +53,18 @@ node /^wan\d*\.gw/ inherits default {
 			dest_port => 3690;
 	}
 
+	augeas {
+		"wan_config":
+			context => "/files/etc/sysconfig/network-scripts/ifcfg-eth1",
+			changes => [
+				"set DEVICE eth1",
+				"set TYPE Ethernet",
+				"set ONBOOT YES",
+				"set BOOTPROTO static",
+				"set PREFIX ${config::wan::prefix}",
+				"set GATEWAY ${config::wan::gateway}",
+			],
+	}
+
 	include role_vip_holder, role_load_balancer, role_gateway
 }
