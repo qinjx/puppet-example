@@ -62,7 +62,7 @@ node /^wan\d*\.gw/ inherits default {
 				"set ONBOOT YES",
 				"set BOOTPROTO static",
 				"set PREFIX ${config::wan::prefix}",
-				"set GATEWAY ${config::wan::gateway}",
+				"set GATEWAY ${config::wan::gateway}"
 			],
 	}
 
