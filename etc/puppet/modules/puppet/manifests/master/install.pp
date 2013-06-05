@@ -1,7 +1,6 @@
 class puppet::master::install {
 	package {
-		["puppet-server"]:
-			ensure => installed,
+		"puppet-server":
 			require => Yum::Repo::Conf["epel"],
 	}
 

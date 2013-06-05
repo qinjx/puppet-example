@@ -1,7 +1,6 @@
 class sphinx::install {
 	package {
 		["Percona-Server-shared-compat", "postgresql-libs", "sphinx"]:
-			ensure => installed,
 			require => Yum::Repo::Conf["percona"],
 	}
 

@@ -4,11 +4,9 @@ node default {
 			ensure => directory;
 
 		"/root/init_scripts/conf.ini":
-			ensure => present,
 			require => File["/root/init_scripts/"];
 		
 		"/root/init_scripts/init.sh":
-			ensure => present,
 			source => "puppet:///files/node/default/init.sh";
 	}
 

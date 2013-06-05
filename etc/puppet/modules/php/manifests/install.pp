@@ -1,7 +1,6 @@
 class php::install {
 	package {
 		"php-fpm":
-			ensure => installed,
 			require => Yum::Repo::Conf["remi"],
 	}
 

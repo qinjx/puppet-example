@@ -1,12 +1,10 @@
 class yum::mirror::sync {
 	package {
 		"wget":
-			ensure => installed,
 	}
 
 	file {
 		"/opt/yum_sync.sh":
-			ensure => installed,
 			source => "puppet:///files/role/yum_sync_client/yum_sync.sh",
 	}
 

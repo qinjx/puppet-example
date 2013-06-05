@@ -1,7 +1,6 @@
 class keepalived::install {
 	package {
 		"keepalived":
-			ensure => installed,
 			require => Yum::Repo::Conf["epel"],
 	}
 

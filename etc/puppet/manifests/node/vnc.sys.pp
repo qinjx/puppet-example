@@ -7,7 +7,6 @@ node /^vnc\d*\.sys/ inherits default {
 
 	package {
 		"virt-manager":
-		    ensure => installed,
 	}
 
 	include role_vnc_server, role_vip_holder

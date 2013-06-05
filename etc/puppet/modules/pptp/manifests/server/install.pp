@@ -1,7 +1,6 @@
 class pptp::server::install {
 	package {
 		["ppp", "pptpd"]:
-			ensure => present,
 			require => Yum::Repo::Conf["pptp"],
 	}
 

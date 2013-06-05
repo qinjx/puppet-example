@@ -1,7 +1,6 @@
 class puppet::client::install {
 	package {
 		"puppet":
-			ensure => installed,
 	}
 
 	puppet::client::conf {

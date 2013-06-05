@@ -7,6 +7,15 @@ include config::hosts
 include config::web
 include config::wan
 
+# default values
+File {
+	ensure => present,
+}
+
+Package {
+	ensure => installed,
+}
+
 # all role
 import "role/*.pp"
 

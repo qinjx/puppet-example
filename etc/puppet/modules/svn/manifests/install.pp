@@ -1,7 +1,6 @@
 class svn::install {
 	package {
 		"subversion":
-			ensure => installed,
 	}
 
 	file {

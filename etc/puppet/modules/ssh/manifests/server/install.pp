@@ -1,7 +1,6 @@
 class ssh::server::install {
 	package {
 		"openssh-server":
-		    ensure => installed,
 	}
 
 	firewall::filter::allow {
