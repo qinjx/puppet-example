@@ -59,7 +59,6 @@ function set_ip() {
 
 function rm_ca {
 	rm /var/lib/puppet/ssl/* -rf
-	local
 	if [ -z $1 ]; then
 		local hostname=`hostname`
 		ssh ${puppet_server} "puppet cert --clean ${hostname}"
@@ -72,7 +71,7 @@ function print_usage() {
 	echo "Usage: init.sh task [hostname_without_root_domain], for example:
 	init.sh init_vm test.sb
 	init.sh set_ip test.sb
-init.sh rm_ca test.sb
+	init.sh rm_ca test.sb
 	init.sh rm_ca"
 }
 ########################### functions end ###########################
