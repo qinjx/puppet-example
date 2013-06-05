@@ -14,7 +14,6 @@ backend $name
 	balance roundrobin
 	$check_option_string
 ",
-			require => File["/etc/haproxy/conf.d"],
 	}
 
 	firewall::filter::allow {
