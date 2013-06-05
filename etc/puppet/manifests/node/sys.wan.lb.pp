@@ -17,7 +17,7 @@ node /^sys\d*\.wan\.lb/ inherits default {
 		"sshd_listen_all":
 			context => "/files/etc/ssh/sshd_config",
 			changes => "rm ListenAddress",
-			require => Ssh::Server::Conf["ListenAddress"],
+			require => Class["ssh::server::install"],
 	}
 
 	include role_vip_holder, role_pptp_server

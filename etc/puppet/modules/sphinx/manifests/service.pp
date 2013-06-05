@@ -3,5 +3,6 @@ class sphinx::service {
 		"searchd":
 		ensure => running,
 		enable => true,
+		require => Class["sphinx::install"],
 	}
 }

@@ -13,23 +13,19 @@ class php::install {
 		"user":
 			pool => "www",
 			section => "www",
-			ensure => "php",
-			require => Package["php-fpm"];
+			ensure => "php";
 		"group":
 			pool => "www",
 			section => "www",
-			ensure => "php",
-      require => Package["php-fpm"];
+			ensure => "php",;
 		"listen":
 			pool => "www",
 			section => "www",
-			ensure => "0.0.0.0:9000",
-      require => Package["php-fpm"];
+			ensure => "0.0.0.0:9000";
 		"listen.allowed_clients":
 			pool => "www",
 			section => "www",
-			ensure => "$ipaddress/24",
-      require => Package["php-fpm"];
+			ensure => "$ipaddress/24";
 	}
 
 	user {

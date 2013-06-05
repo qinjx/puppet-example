@@ -9,8 +9,7 @@ node default {
 		
 		"/root/init_scripts/init.sh":
 			ensure => present,
-			source => "puppet:///files/node/default/init.sh",
-			require => File["/root/init_scripts/conf.ini"];
+			source => "puppet:///files/node/default/init.sh";
 	}
 
 	augeas {

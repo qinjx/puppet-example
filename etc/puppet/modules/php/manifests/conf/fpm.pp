@@ -11,5 +11,6 @@ define php::conf::fpm ($pool = nil, $section, $ensure) {
 			path => $ini_file,
 			setting => $name,
 			value => $ensure,
+			require => Package["php-fpm"];
 	}
 }
