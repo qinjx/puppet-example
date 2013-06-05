@@ -26,6 +26,5 @@ define keepalived::vrrp::instance($vip_add, $routes=nil) {
 	}
 	$virtual_routes
 }",
-			require => File["/etc/keepalived/conf.d"],
 	}
 }
