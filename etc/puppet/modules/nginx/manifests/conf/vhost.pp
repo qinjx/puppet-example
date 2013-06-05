@@ -1,6 +1,6 @@
 define nginx::conf::vhost($www_root, $fcgi_conf = nil) {
 	$domain_name = $name
-	if ($fcgi_confc == nil) {
+	if ($fcgi_conf == nil) {
 		$fcgi_conf_string = ""
 	} else {
 		$fcgi_conf_string = "include fastcgi_${fcgi_conf}.conf;"

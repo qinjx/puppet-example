@@ -3,6 +3,6 @@ class ssh::server::service {
 		"sshd":
 			ensure => running,
 			enable => true,
-		    require => Class["ssh:server::install"],
+		    require => Class["ssh::server::install"],
 	}
 }
