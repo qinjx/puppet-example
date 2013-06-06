@@ -79,7 +79,13 @@ function get_puppet_conf_dir() {
 	echo "/etc/puppet"
 }
 
+function adj_time() {
+	yum install -y ntp rdate
+	rdate -s rdate.darkorb.net
+}
+
 function config_puppet_master() {
+	adj_time
 	default_private_root_domain=$(get_default_private_root_domain)
 	echo "Please set your root domain for your private network,
 	it can be a FAKE domain, suck as ${default_private_root_domain}
@@ -118,6 +124,7 @@ function config_puppet_master() {
 }
 
 function config_puppet_client() {
+	adj_time
 	default_private_root_domain=$(get_default_private_root_domain)
 	echo "Please set your root domain for your private network,
 	it can be a FAKE domain, suck as ${default_private_root_domain}
@@ -156,7 +163,6 @@ function config_puppet_client() {
 # The entrance function should be p
 # because shell is parsed and execu
 
-#@todo 通过网络校准puppet server的时间
 function install_master() {
 	if [[ "OK" = $(prepare_yum_repo $1) ]]; then
 		echo Installing puppet master
@@ -167,7 +173,6 @@ function install_master() {
 	fi
 }
 
-#@todo 通过网络校准puppet client的时间
 function install_client() {
 	if [[ "OK" = $(prepare_yum_repo $1) ]]; then
 		echo Installing puppet client
