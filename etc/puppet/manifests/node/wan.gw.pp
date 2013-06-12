@@ -16,8 +16,7 @@ node /^wan\d*\.gw/ inherits default {
 	haproxy::conf::cluster {
 		"website":
 			port => 80,
-			bind_ip => $config::wan::ip_add,
-		    check_option => "httpchk HEAD /status.txt HTTP/1.0",
+			check_option => "httpchk HEAD /status.txt HTTP/1.0",
 	}
 
 	haproxy::conf::server {
@@ -27,23 +26,41 @@ node /^wan\d*\.gw/ inherits default {
 	}
 
 	firewall::nat::forward {
-		"ssh_forward":
+		"ssh_forward_1":
 			wan_interface => "eth1",
 			ip => $config::wan::ip_add,
-			port => $config::wan::opened_port[ssh],
-			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys_wan_lb_vip]}",
+			port => $config::wan::opened_port[ssh_1],
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys1_wan_lb]}",
 			dest_port => 22;
-		"vpn_forward":
+		"ssh_forward_2":
 			wan_interface => "eth1",
 			ip => $config::wan::ip_add,
-			port => $config::wan::opened_port[vpn],
-			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys_wan_lb_vip]}",
+			port => $config::wan::opened_port[ssh_2],
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys2_wan_lb]}",
+			dest_port => 22;
+		"vpn_forward_1":
+			wan_interface => "eth1",
+			ip => $config::wan::ip_add,
+			port => $config::wan::opened_port[vpn_1],
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys1_wan_lb]}",
 			dest_port => 1723;
-		"vnc_forward":
+		"vpn_forward_2":
 			wan_interface => "eth1",
 			ip => $config::wan::ip_add,
-			port => $config::wan::opened_port[vnc],
-			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[vnc_sys_vip]}",
+			port => $config::wan::opened_port[vpn_2],
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys2_wan_lb]}",
+			dest_port => 1723;
+		"vnc_forward_1":
+			wan_interface => "eth1",
+			ip => $config::wan::ip_add,
+			port => $config::wan::opened_port[vnc_1],
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[vnc1_sys]}",
+			dest_port => 5901;
+		"vnc_forward_2":
+			wan_interface => "eth1",
+			ip => $config::wan::ip_add,
+			port => $config::wan::opened_port[vnc_2],
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[vnc2_sys]}",
 			dest_port => 5901;
 		"svn_forward":
 			wan_interface => "eth1",
