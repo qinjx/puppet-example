@@ -1,7 +1,7 @@
 node /^vnc\d*\.sys/ inherits default {
 	$ip_suffix = regsubst($ipaddress, $config::global::ip_prefix, "", "G")
 	keepalived::vrrp::instance {
-		"${config::hosts::ip_list[vnc_sys_vip]}":
+		"$ip_suffix":
 		vip_add => "${config::global::phy_server_ip_prefix}$ip_suffix/24",
 	}
 

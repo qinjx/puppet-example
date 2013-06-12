@@ -3,8 +3,6 @@ class config::hosts {
 		wan_gw_vip  => 254,
 		dns_vip => 250,
 		vpn_gw_vip => 253,
-		sys_wan_lb_vip => 1,
-		vnc_sys_vip => 2,
 		puppet-server_vip => 10,
 		yum-mirror_sys_vip => 11,
 		nfs_sys_vip => 12,
@@ -70,12 +68,9 @@ class config::hosts {
 	}
 	
 	$ip_keys = [
-	
 		wan_gw_vip,
 		dns_vip,
 		vpn_gw_vip,
-		sys_wan_lb_vip,
-		vnc_sys_vip,
 		puppet-server_vip,
 		yum-mirror_sys_vip,
 		nfs_sys_vip,
