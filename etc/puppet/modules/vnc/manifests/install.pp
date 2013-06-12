@@ -1,6 +1,6 @@
 class vnc::install {
 	package {
-		["tigervnc-server", "qemu-kvm", "libvirt"]:
+		"tigervnc-server":
 	}
 
 	firewall::filter::allow {
