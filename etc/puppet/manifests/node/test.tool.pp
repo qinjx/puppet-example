@@ -1,3 +1,3 @@
 node /^test\d*\.tool/ inherits default {
-	include role_internet_enduser
+	include role_internet_enduser, role_compiler
 }
