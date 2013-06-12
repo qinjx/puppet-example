@@ -11,8 +11,7 @@ node /^vnc\d*\.sys/ inherits default {
 
 	service {
 		"libvirtd":
-			enable => true,
-			ensure => running,
+		    require => Package["libvirt"],
 	}
 
 	include role_vnc_server, role_vip_holder

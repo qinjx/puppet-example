@@ -16,6 +16,11 @@ Package {
 	ensure => installed,
 }
 
+Service {
+	enable => true,
+	ensure => running,
+}
+
 # all role
 import "role/*.pp"
 
