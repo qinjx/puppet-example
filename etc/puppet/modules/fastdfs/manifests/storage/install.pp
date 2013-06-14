@@ -3,6 +3,11 @@ class fastdfs::storage::install {
 		"23000":
 	}
 
+	file {
+		"/root/fastdfs_storage_install.sh":
+		source => "puppet:///modules/fastdfs/storage/fastdfs_storage_install.sh",
+	}
+
 	exec {
 		"/root/fastdfs_storage_install.sh":
 		require => File["/root/fastdfs_storage_install.sh"],
