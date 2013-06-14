@@ -1,6 +1,8 @@
 class nfs::service {
 	service {
+		"rpcbind":
+			require => Class["nfs::install"];
 		"nfs":
-			require => Class["nfs::install"],
+			require => Service["rpcbind"];
 	}
 }
