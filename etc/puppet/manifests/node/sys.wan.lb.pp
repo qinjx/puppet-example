@@ -15,5 +15,9 @@ node /^sys\d*\.wan\.lb/ inherits default {
 			require => Class["ssh::server::install"],
 	}
 
+	package {
+		"zsh":
+	}
+
 	include role_pptp_server
 }

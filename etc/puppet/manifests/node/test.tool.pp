@@ -10,5 +10,9 @@ node /^test\d*\.tool/ inherits default {
 			source => "puppet:///files/node/test.tool/php_fdfs_auto_compiler.sh";
 	}
 
+	package {
+		["augeas", "rsync"]:
+	}
+
 	include role_internet_enduser, role_compiler
 }

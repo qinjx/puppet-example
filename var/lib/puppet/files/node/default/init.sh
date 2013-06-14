@@ -45,16 +45,19 @@ function set_ip() {
 	local pattern="\s\+$1\.$root_domain"
 	ip=`grep "${pattern}" /etc/hosts | awk '{print \$1}'`
 
-	echo "IP address will be: " $ip
-	
-	#set ip and restart
-	sed -i -e "s/IPADDR=.*/IPADDR=$ip/" /etc/sysconfig/network-scripts/ifcfg-eth0
-	
-	echo "restarting network..."
-	# restart eth0（如果etho的ONBOOT=no，用service network restart会导致eth0不自动启用，网络仍不可用）
-	ifdown eth0
-	ifup eth0
+	if [ `ip add | grep "$ip" | grep -v grep | awk '{print $1}'` ]; then
+		echo "ip address has been set to $ip"
+	else
+		echo "IP address will be: " $ip
 
+		#set ip and restart
+		sed -i -e "s/IPADDR=.*/IPADDR=$ip/" /etc/sysconfig/network-scripts/ifcfg-eth0
+
+		echo "restarting network..."
+		# restart eth0（如果etho的ONBOOT=no，用service network restart会导致eth0不自动启用，网络仍不可用）
+		ifdown eth0
+		ifup eth0
+	fi
 }
 
 function rm_ca {
