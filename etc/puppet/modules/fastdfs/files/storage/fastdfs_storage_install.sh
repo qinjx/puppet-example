@@ -14,6 +14,8 @@ mkdir -p /mnt/fastdfs/{storage,client,upload_files}
 sed -i -e 's/base_path=.*/base_path=\/mnt\/fastdfs\/storage/' /etc/fdfs/storage.conf
 sed -i -e 's/store_path0=.*/store_path0=\/mnt\/fastdfs\/upload_files/' /etc/fdfs/storage.conf
 sed -i -e '/^tracker_server=/d' /etc/fdfs/storage.conf
+
+############## please make sure ALL tracker server are online ##############
 echo "tracker_server=tracker1.dfs:22122
 tracker_server=tracker2.dfs:22122" >> /etc/fdfs/storage.conf
 
