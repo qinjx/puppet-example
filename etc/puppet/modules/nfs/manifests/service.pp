@@ -5,4 +5,8 @@ class nfs::service {
 		"nfs":
 			require => Service["rpcbind"];
 	}
+
+	firewall::filter::allow {
+		"2049":
+	}
 }
