@@ -7,8 +7,9 @@ define yum::repo::conf {
 
 	yumrepo {
 		$name:
-		baseurl => "${url_prefix}${config::yum::urls[$name]}",
-		gpgcheck => 1,
-		gpgkey => "${url_prefix}${config::yum::keys[$name]}",
+			descr => $name,
+			baseurl => "${url_prefix}${config::yum::urls[$name]}",
+			gpgcheck => 1,
+			gpgkey => "${url_prefix}${config::yum::keys[$name]}",
 	}
 }
