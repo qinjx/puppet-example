@@ -1,4 +1,8 @@
 class fastdfs::tracker::install {
+	package {
+		"libevent":
+	}
+
 	firewall::filter::allow {
 		"22122":
 	}
