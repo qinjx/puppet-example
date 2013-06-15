@@ -1,9 +1,9 @@
 #!/bin/sh
 #fastdfs bin
-rsync -rp /tmp/nfs/fastdfs/etc/init.d/fdfs_storaged /etc/init.d/
-rsync -rp /tmp/nfs/fastdfs/etc/fdfs /etc/
-rsync -rp /tmp/nfs/fastdfs/usr/local/bin/* /usr/local/bin/
-rsync -rp /tmp/nfs/fastdfs/usr/local/lib/* /usr/lib64/
+rsync -rp /tmp/fastdfs/etc/init.d/fdfs_storaged /etc/init.d/
+rsync -rp /tmp/fastdfs/etc/fdfs /etc/
+rsync -rp /tmp/fastdfs/usr/local/bin/* /usr/local/bin/
+rsync -rp /tmp/fastdfs/usr/local/lib/* /usr/lib64/
 ln -s /usr/lib64/libfastcommon.so.1 /usr/lib64/libfastcommon.so
 ln -s /usr/lib64/libfdfsclient.so.1 /usr/lib64/libfdfsclient.so
 
