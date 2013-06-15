@@ -1,5 +1,7 @@
 #!/bin/sh
-tar zxf FastDFS*.tar.gz
+if [ ! -d FastDFS ]; then
+	tar zxf FastDFS*.tar.gz
+fi
 cd FastDFS
 
 ./make.sh
