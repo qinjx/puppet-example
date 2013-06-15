@@ -1,7 +1,7 @@
 #!/bin/sh
 #fastdfs client bin
 mkdir /etc/fdfs
-rm /tmp/fastdfs/usr/local/bin/{fdfs_storaged, fdfs_trackerd}
+rm /tmp/fastdfs/usr/local/bin/{fdfs_storaged,fdfs_trackerd}
 
 rsync -rp /tmp/fastdfs/etc/fdfs/client.conf /etc/fdfs/
 rsync -rp /tmp/fastdfs/usr/local/bin/* /usr/local/bin/

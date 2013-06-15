@@ -10,7 +10,7 @@ make
 make install
 
 rm -rf dist
-cp ../dist ./
+cp -r ../dist ./
 mkdir -p dist/usr/lib64/php/modules
 mkdir -p dist/etc/php.d
 

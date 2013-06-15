@@ -8,5 +8,5 @@ node /^acp-php\d*\.app/ inherits default {
 		["gd"]:
 	}
 
-	include role_php_app_server
+	include role_php_app_server, role_fastdfs_client
 }
