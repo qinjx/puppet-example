@@ -13,6 +13,8 @@ node /^lan\d*\.lb/ inherits default {
 			port => 9000;
 		"acp-php_app":
 			port => 9001;
+		"tracker_dfs":
+			port => 22122;
 	}
 
 	haproxy::conf::server {
@@ -25,9 +27,12 @@ node /^lan\d*\.lb/ inherits default {
 		["php1.app", "php2.app", "php3.app"]:
 			port => 9000,
 			cluster => "php_app";
-		["acp-php1.app", "acp-php2.app", "acp-php3.php"]:
+		["acp-php1.app", "acp-php2.app", "acp-php3.app"]:
 			port => 9000,
 			cluster => "acp-php_app";
+		["tracker1.dfs", "tracker2.dfs", "tracker3.dfs"]:
+			port => 22122,
+			cluster => "tracker_dfs";
 	}
 
 	include role_vip_holder, role_load_balancer
