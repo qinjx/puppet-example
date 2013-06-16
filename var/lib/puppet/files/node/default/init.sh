@@ -101,6 +101,7 @@ case $1 in
 		rm_ca $2
 		set_hostname $2
 		puppetd -t
+		reboot
 	;;
 
 	"set_ip" )
