@@ -32,6 +32,10 @@ class role_centos_vmtpl {
 
 	augeas {
 		"ifcfg-eth0":
-			changes => "set /files/etc/sysconfig/network-scripts/ifcfg-eth0/ONBOOT yes",
+			changes => "set /files/etc/sysconfig/network-scripts/ifcfg-eth0/ONBOOT yes";
+		"sshd_listen_all":
+			context => "/files/etc/ssh/sshd_config",
+			changes => "rm ListenAddress",
+			require => Class["ssh::server::install"];
 	}
 }
