@@ -5,14 +5,5 @@ node /^vnc\d*\.sys/ inherits default {
 		vip_add => "${config::global::phy_server_ip_prefix}.$ip_suffix/24",
 	}
 
-	package {
-		["virt-manager", "qemu-kvm", "libvirt"]:
-	}
-
-	service {
-		"libvirtd":
-		    require => Package["libvirt"],
-	}
-
-	include role_vnc_server, role_vip_holder
+	include role_vnc_server, role_vip_holder, role_virt_manager
 }
