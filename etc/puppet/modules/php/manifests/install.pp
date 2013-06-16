@@ -16,15 +16,11 @@ class php::install {
 		"group":
 			pool => "www",
 			section => "www",
-			ensure => "php",;
+			ensure => "php";
 		"listen":
 			pool => "www",
 			section => "www",
 			ensure => "0.0.0.0:9000";
-		"listen.allowed_clients":
-			pool => "www",
-			section => "www",
-			ensure => "$ipaddress/24";
 	}
 
 	user {

@@ -10,6 +10,13 @@ class role_php_app_server {
 		["mbstring", "mcrypt", "mysql", "pecl-apc"]:
 	}
 
+	php::conf::fpm {
+		"listen.allowed_clients":
+			pool => "www",
+			section => "www",
+			ensure => "${config::global::ip_prefix}.${config::hosts::ip_list[lan1_lb]}, ${config::global::ip_prefix}.${config::hosts::ip_list[lan2_lb]}",
+	}
+
 	yum::repo::conf {
 		["remi"]:
 	}
