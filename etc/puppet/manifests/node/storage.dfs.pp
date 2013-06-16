@@ -8,5 +8,5 @@ node /^storage\d*\.dfs/ inherits default {
 		"/mnt/fastdfs/upload_files":
 	}
 
-	include role_fastdfs_storage, role_nfs_server, role_vip_holder
+	include role_fastdfs_storage, role_nfs_server, role_vip_holder, role_svn_server
 }

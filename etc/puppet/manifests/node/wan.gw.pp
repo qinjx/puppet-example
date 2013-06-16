@@ -66,7 +66,7 @@ node /^wan\d*\.gw/ inherits default {
 			wan_interface => "eth1",
 			ip => $config::wan::ip_add,
 			port => $config::wan::opened_port[svn],
-			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys_wan_lb_vip]}",
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[nfs_sys_vip]}",
 			dest_port => 3690;
 	}
 
