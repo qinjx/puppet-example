@@ -3,5 +3,5 @@ class role_mysql_server {
 		"percona":
 	}
 
-	include percona::cluster::service
+	include percona::cluster::install, percona::cluster::service
 }
