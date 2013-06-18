@@ -1,6 +1,7 @@
 class keepalived::service {
 	service {
 		"keepalived":
-			require    => Class["keepalived::install"],
+			restart => "/sbin/service keepalived reload",
+			require => Class["keepalived::install"],
 	}
 }
