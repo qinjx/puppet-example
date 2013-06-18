@@ -8,21 +8,6 @@ class php::install {
 		"9000":
 	}
 
-	php::conf::fpm {
-		"user":
-			pool => "www",
-			section => "www",
-			ensure => "php";
-		"group":
-			pool => "www",
-			section => "www",
-			ensure => "php";
-		"listen":
-			pool => "www",
-			section => "www",
-			ensure => "0.0.0.0:9000";
-	}
-
 	user {
 		"php":
 			ensure => present,

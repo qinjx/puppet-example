@@ -6,5 +6,6 @@ define nginx::conf::location($pattern, $fcgi_address) {
 	fastcgi_pass $fcgi_address;
 }",
 			require => Package["nginx"],
+			notify => Service["nginx"],
 	}
 }
