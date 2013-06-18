@@ -9,7 +9,6 @@ class keepalived::install {
 			ensure => directory,
 			require => Package["keepalived"];
 		"/etc/keepalived/keepalived.conf":
-			require => Package["keepalived"],
 			content => "global_defs {
    notification_email {
 		acassen@firewall.loc
@@ -22,7 +21,8 @@ class keepalived::install {
 	router_id LVS_DEVEL
 }
 
-include /etc/keepalived/conf.d/*.conf";
+include /etc/keepalived/conf.d/*.conf",
+		require => File["/etc/keepalived/conf.d"];
 	}
 
 	iptables {

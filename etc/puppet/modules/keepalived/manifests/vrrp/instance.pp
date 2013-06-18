@@ -26,5 +26,6 @@ define keepalived::vrrp::instance($vip_add, $routes=nil) {
 	}
 	$virtual_routes
 }",
+		    notify => Service["keepalived"],
 	}
 }
