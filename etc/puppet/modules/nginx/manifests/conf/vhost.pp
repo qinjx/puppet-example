@@ -22,5 +22,6 @@ server {
 	$fcgi_conf_string
 }",
 			require => Package["nginx"],
+		    notify => Service["nginx"],
 	}
 }

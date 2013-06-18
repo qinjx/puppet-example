@@ -7,11 +7,6 @@ class vnc::install {
 		"5901":
 	}
 
-	vnc::conf {
-		"VNCSERVERS":
-			ensure => "1:root",
-	}
-
 	yum::group::install {
 		["X Window System", "Desktop", "Chinese Support"]:
 	}

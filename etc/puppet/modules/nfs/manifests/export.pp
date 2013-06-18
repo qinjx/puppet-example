@@ -8,5 +8,6 @@ define nfs::export() {
 				"set dir[.= '$name']/client/option[1] ro",
 				"set dir[.= '$name']/client/option[2] all_squash"
 			],
+			notify => Service["rpcbind"],
 	}
 }

@@ -1,9 +1,11 @@
 class nfs::service {
 	service {
 		"rpcbind":
+			restart => "/sbin/service rpcbind reload",
+			notify => Service["nfs"],
 			require => Class["nfs::install"];
 		"nfs":
-			require => Service["rpcbind"];
+			restart => "/sbin/service nfs reload";
 	}
 
 	firewall::filter::allow {
