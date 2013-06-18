@@ -31,7 +31,7 @@ node default {
 
 	puppet::client::conf {
 		"main/server":
-			ensure => "puppet-server.vip.$config::global::root_domain",
+			ensure => "puppet-server.vip.$config::global::root_domain_name",
 	}
 
 	include role_puppet_client, role_ssh_server
