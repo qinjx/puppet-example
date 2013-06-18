@@ -8,13 +8,6 @@ node /^sys\d*\.wan\.lb/ inherits default {
 		    ensure => no,
 	}
 
-	augeas {
-		"sshd_listen_all":
-			context => "/files/etc/ssh/sshd_config",
-			changes => "rm ListenAddress",
-			require => Class["ssh::server::install"],
-	}
-
 	package {
 		"zsh":
 	}
