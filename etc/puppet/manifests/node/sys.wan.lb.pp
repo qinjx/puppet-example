@@ -19,5 +19,5 @@ node /^sys\d*\.wan\.lb/ inherits default {
 		"zsh":
 	}
 
-	include role_pptp_server
+	include role_pptp_server, role_ip_forwarder
 }

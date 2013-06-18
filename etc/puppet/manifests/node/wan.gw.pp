@@ -89,5 +89,5 @@ node /^wan\d*\.gw/ inherits default {
 			require => Class["ssh::server::install"],
 	}
 
-	include role_vip_holder, role_load_balancer, role_gateway
+	include role_vip_holder, role_load_balancer, role_gateway, role_ip_forwarder
 }
