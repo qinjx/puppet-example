@@ -29,5 +29,10 @@ node default {
 		$config::hosts::ip_keys:
 	}
 
+	puppet::client::conf {
+		"main/server":
+			ensure => "puppet-server.vip.$config::global::root_domain",
+	}
+
 	include role_puppet_client, role_ssh_server
 }
