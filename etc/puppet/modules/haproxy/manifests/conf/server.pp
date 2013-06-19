@@ -1,6 +1,6 @@
 define haproxy::conf::server($port, $cluster, $check_port = nil) {
-	if ($check_port == nill) {
-		$check_string = "port $port"
+	if ($check_port == nil) {
+		$check_string = ""
 	} else {
 		$check_string = "port $check_port"
 	}
