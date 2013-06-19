@@ -3,6 +3,7 @@ class config::hosts {
 		wan_gw_vip  => 254, #公网入口机的VIP，子网内其它机器的网关
 		dns_vip => 250,
 		vpn_gw_vip => 253,
+		sys_wan_lb_vip => 2,
 		puppet-server_vip => 10, #puppet server的VIP
 		yum-mirror_sys_vip => 11, #yum本地镜像服务器的VIP
 		nfs_sys_vip => 12, #NFS服务器VIP
@@ -56,6 +57,7 @@ class config::hosts {
 		wan_gw_vip,
 		dns_vip,
 		vpn_gw_vip,
+		sys_wan_lb_vip,
 		puppet-server_vip,
 		yum-mirror_sys_vip,
 		nfs_sys_vip,

@@ -38,18 +38,6 @@ node /^wan\d*\.gw/ inherits default {
 			port => $config::wan::opened_port[ssh_2],
 			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys2_wan_lb]}",
 			dest_port => 22;
-		"vpn_forward_1":
-			wan_interface => "eth1",
-			ip => $config::wan::ip_add,
-			port => $config::wan::opened_port[vpn_1],
-			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys1_wan_lb]}",
-			dest_port => 1723;
-		"vpn_forward_2":
-			wan_interface => "eth1",
-			ip => $config::wan::ip_add,
-			port => $config::wan::opened_port[vpn_2],
-			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys2_wan_lb]}",
-			dest_port => 1723;
 		"vnc_forward_1":
 			wan_interface => "eth1",
 			ip => $config::wan::ip_add,
@@ -62,12 +50,31 @@ node /^wan\d*\.gw/ inherits default {
 			port => $config::wan::opened_port[vnc_2],
 			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[vnc2_sys]}",
 			dest_port => 5901;
+		"vpn_forward_pptp":
+			wan_interface => "eth1",
+			ip => $config::wan::ip_add,
+			proto => "gre",
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys1_wan_lb]}",
+			dest_port => 1723;
 		"svn_forward":
 			wan_interface => "eth1",
 			ip => $config::wan::ip_add,
 			port => $config::wan::opened_port[svn],
 			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[nfs_sys_vip]}",
 			dest_port => 3690;
+	}
+
+	iptables {
+		"allow_gre":
+		    proto => "gre";
+		"vpn_forward_gre":
+			table => "nat",
+			chain => "PREROUTING",
+			wan_interface => "eth1",
+			ip => $config::wan::ip_add,
+			proto => "gre",
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys_wan_lb_vip]}",
+			jump => "DNAT";
 	}
 
 	augeas {
