@@ -30,13 +30,13 @@ node /^wan\d*\.gw/ inherits default {
 			wan_interface => "eth1",
 			ip => $config::wan::ip_add,
 			port => $config::wan::opened_port[ssh_1],
-			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys1_wan_lb]}",
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[vnc1_sys]}",
 			dest_port => 22;
 		"ssh_forward_2":
 			wan_interface => "eth1",
 			ip => $config::wan::ip_add,
 			port => $config::wan::opened_port[ssh_2],
-			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys2_wan_lb]}",
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[vnc2_sys]}",
 			dest_port => 22;
 		"vnc_forward_1":
 			wan_interface => "eth1",
@@ -50,12 +50,6 @@ node /^wan\d*\.gw/ inherits default {
 			port => $config::wan::opened_port[vnc_2],
 			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[vnc2_sys]}",
 			dest_port => 5901;
-		"vpn_forward_pptp":
-			wan_interface => "eth1",
-			ip => $config::wan::ip_add,
-			proto => "gre",
-			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys1_wan_lb]}",
-			dest_port => 1723;
 		"svn_forward":
 			wan_interface => "eth1",
 			ip => $config::wan::ip_add,
@@ -64,21 +58,8 @@ node /^wan\d*\.gw/ inherits default {
 			dest_port => 3690;
 	}
 
-	iptables {
-		"allow_gre":
-		    proto => "gre";
-		"vpn_forward_gre":
-			table => "nat",
-			chain => "PREROUTING",
-			wan_interface => "eth1",
-			ip => $config::wan::ip_add,
-			proto => "gre",
-			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[sys_wan_lb_vip]}",
-			jump => "DNAT";
-	}
-
 	augeas {
-		"wan_config":
+		"ifcfg_wan":
 			context => "/files/etc/sysconfig/network-scripts/ifcfg-eth1",
 			changes => [
 				"set DEVICE eth1",
@@ -96,5 +77,5 @@ node /^wan\d*\.gw/ inherits default {
 			require => Class["ssh::server::install"],
 	}
 
-	include role_vip_holder, role_load_balancer, role_gateway, role_ip_forwarder
+	include role_vip_holder, role_load_balancer, role_gateway, role_ip_forwarder, role_pptp_server
 }
