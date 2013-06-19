@@ -3,7 +3,6 @@ class config::hosts {
 		wan_gw_vip  => 254, #公网入口机的VIP，子网内其它机器的网关
 		dns_vip => 250,
 		vpn_gw_vip => 253,
-		sys_wan_lb_vip => 2,
 		puppet-server_vip => 10, #puppet server的VIP
 		yum-mirror_sys_vip => 11, #yum本地镜像服务器的VIP
 		nfs_sys_vip => 12, #NFS服务器VIP
@@ -38,8 +37,6 @@ class config::hosts {
 		acp-php1_app => 114, #PHP后台应用服务器1号，用于运营管理后台，支持fastdfs extension
 		acp-php2_app => 115,
 		acp-php3_app => 116,
-		sys1_wan_lb => 200, #系统管理负载均衡器1号，目前用作ssh跳板机、VPN服务器
-		sys2_wan_lb => 201,
 		lan1_lb => 206, #局域网负载均衡器1号
 		lan2_lb => 207,
 		centos0_vmtpl => 208, #centos64 虚拟机模板1号，在最小化安装centos的基础上，删除了网卡文件，预置了init脚本
@@ -57,7 +54,6 @@ class config::hosts {
 		wan_gw_vip,
 		dns_vip,
 		vpn_gw_vip,
-		sys_wan_lb_vip,
 		puppet-server_vip,
 		yum-mirror_sys_vip,
 		nfs_sys_vip,
@@ -92,8 +88,6 @@ class config::hosts {
 		acp-php1_app,
 		acp-php2_app,
 		acp-php3_app,
-		sys1_wan_lb,
-		sys2_wan_lb,
 		lan1_lb,
 		lan2_lb,
 		centos0_vmtpl,
