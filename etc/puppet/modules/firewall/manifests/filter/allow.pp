@@ -9,6 +9,5 @@ define firewall::filter::allow ($proto="tcp", $port = nil) {
 		"${proto}_${dport}":
 		    proto => $proto,
 		    dport => $dport,
-		    jump  => "ACCEPT",
 	}
 }
