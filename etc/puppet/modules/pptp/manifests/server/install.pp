@@ -11,7 +11,9 @@ class pptp::server::install {
 			chain		=> POSTROUTING,
 			jump        => MASQUERADE,
 			proto       => all,
-			source      => "192.168.1.0/24",
+			source      => "192.168.1.0/24";
+		"gre_for_vpn_server":
+			proto => "gre";
 	}
 
 	firewall::filter::allow {

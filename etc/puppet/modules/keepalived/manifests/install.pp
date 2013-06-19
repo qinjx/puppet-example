@@ -27,17 +27,13 @@ include /etc/keepalived/conf.d/*.conf",
 
 	iptables {
 		"multicast":
-			destination => "224.0.0.0/8",
-			jump        => "ACCEPT";
+			destination => "224.0.0.0/8";
 
 		"vrrp_input":
-			proto       => "vrrp",
-			chain       => "INPUT",
-			jump        => "ACCEPT";
+			proto       => "vrrp";
 
 		"vrrp_output":
 			proto       => "vrrp",
-			chain       => "OUTPUT",
-			jump        => "ACCEPT";
+			chain       => "OUTPUT";
 	}
 }
