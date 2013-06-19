@@ -1,3 +1,5 @@
+# forked from: git://github.com/bobsh/puppet-iptables.git
+
 require "ipaddr"
 require 'resolv'
 
