@@ -46,7 +46,7 @@ class config::hosts {
 		centos2_vmtpl => 210,
 		centos3_vmtpl => 211,
 		test_tool => 218, #沙盒测试机，兼任编译工具机
-		wan1_gw => 221, #外网入口机1号
+		wan1_gw => 221, #外网入口机1号，兼任端口转发路由器、http负载均衡器
 		wan2_gw => 222,
 		vnc1_sys => 223, #VNC服务器1号，兼任虚拟机管理工具（virt manager）
 		vnc2_sys => 224
