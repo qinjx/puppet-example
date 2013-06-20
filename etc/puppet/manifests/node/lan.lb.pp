@@ -20,6 +20,7 @@ node /^lan\d*\.lb/ inherits default {
 	haproxy::conf::server {
 		["shop1.db", "shop2.db", "shop3.db"]:
 			port => 3306,
+			check_port => 9200,
 			cluster => "shop_db";
 		["shop1.se", "shop2.se", "shop3.se"]:
 			port => 9312,
