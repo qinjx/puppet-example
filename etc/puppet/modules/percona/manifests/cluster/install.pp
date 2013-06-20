@@ -15,7 +15,11 @@ class percona::cluster::install {
 
 	exec {
 		"disable_selinux_now_for_percona_cluster":
-			command => "/usr/sbin/setenforce 0",
+			command => "/usr/sbin/setenforce 0";
+		"create_my_cnf":
+			command => "echo [mysqld] > /etc/my.cnf",
+			unless => "ls /etc | grep my.cnf 2>/dev/null",
+			path => "/bin";
 	}
 
 	package {
