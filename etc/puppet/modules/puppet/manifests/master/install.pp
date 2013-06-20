@@ -1,6 +1,6 @@
 class puppet::master::install {
 	package {
-		"puppet-server":
+		["puppet-server", "augeas"]:
 			require => Yum::Repo::Conf["epel"],
 	}
 
@@ -9,6 +9,6 @@ class puppet::master::install {
 			proto => "tcp";
 		"udp_8140":
 			proto => "udp",
-			dport => "8140";
+			port => "8140";
 	}
 }
