@@ -1,3 +1,5 @@
 class ntp::service {
-	"ntpd":
+	service {
+		"ntpd":
+	}
 }

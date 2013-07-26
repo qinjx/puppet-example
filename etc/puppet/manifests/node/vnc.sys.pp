@@ -5,5 +5,5 @@ node /^vnc\d*\.sys/ inherits default {
 		vip_add => "${config::global::phy_server_ip_prefix}.$ip_suffix/24",
 	}
 
-	include role_vnc_server, role_vip_holder, role_virt_manager, role_ntp_server
+	include role_vnc_server, role_vip_holder, role_virt_manager
 }
