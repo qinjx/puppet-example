@@ -1,0 +1,3 @@
+class ntp::service {
+	"ntpd":
+}

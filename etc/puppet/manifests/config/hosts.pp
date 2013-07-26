@@ -6,6 +6,7 @@ class config::hosts {
 		puppet-server_vip => 10, #puppet server的VIP
 		yum-mirror_sys_vip => 11, #yum本地镜像服务器的VIP
 		nfs_sys_vip => 12, #NFS服务器VIP
+		ntp_sys_vip => 12, #NTP服务器VIP
 		puppet-server1_sys => 21,
 		puppet-server2_sys => 22,
 		yum-mirror1_sys => 23,
