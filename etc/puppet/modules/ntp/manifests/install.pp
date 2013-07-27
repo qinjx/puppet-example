@@ -3,9 +3,8 @@ class ntp::install {
 		["ntp", "rdate"]:
 	}
 
-	cron {
-		"adj_time_by_rdate":
-			command => "/usr/bin/rdate -s rdate.darkorb.net",
-			minute => "*/30",
+	firewall::filter::allow {
+		"123":
+			proto => "udp",
 	}
 }
