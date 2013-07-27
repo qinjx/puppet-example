@@ -34,5 +34,10 @@ node default {
 			ensure => "puppet-server.vip.$config::global::root_domain_name",
 	}
 
-	include role_puppet_client, role_ssh_server
+	ntp::conf {
+		"server":
+			ensure => "puppet-server.vip",
+	}
+
+	include role_puppet_client, role_ssh_server, role_ntp_client
 }

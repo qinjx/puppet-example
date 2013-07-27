@@ -1,8 +1,11 @@
 define ntp::conf($ensure) {
 	augeas {
 		"change_ntp_setting_${name}":
-		context => "/files/etc/ntp.conf",
-		changes => "set ${name} ${ensure}",
-		notify => Service["ntp"],
+			context => "/files/etc/ntp.conf",
+			changes => [
+				"rm ${name}[.]",
+				"set ${name}  ${ensure}"
+			],
+			require => Package["ntp"],
 	}
 }
