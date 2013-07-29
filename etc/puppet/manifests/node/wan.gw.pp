@@ -16,13 +16,19 @@ node /^wan\d*\.gw/ inherits default {
 	haproxy::conf::cluster {
 		"website":
 			port => 80,
-			check_option => "httpchk HEAD /status.txt HTTP/1.0",
+			check_option => "httpchk HEAD /status.txt HTTP/1.0";
+		"web_tool":
+			port => 8000,
+			check_option => "httpchk HEAD /status.txt HTTP/1.0";
 	}
 
 	haproxy::conf::server {
 		["nginx1.web", "nginx2.web", "nginx3.web"]:
 			port => 80,
-			cluster => "website",
+			cluster => "website";
+		"tool.web":
+			port => 80,
+			cluster => "web_tools";
 	}
 
 	firewall::nat::forward {
