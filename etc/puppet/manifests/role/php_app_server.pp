@@ -14,7 +14,7 @@ class role_php_app_server {
 		"listen.allowed_clients":
 			pool => "www",
 			section => "www",
-			ensure => "${config::global::ip_prefix}.${config::hosts::ip_list[lan1_lb]}, ${config::global::ip_prefix}.${config::hosts::ip_list[lan2_lb]}",
+			ensure => "127.0.0.1, ${config::global::ip_prefix}.${config::hosts::ip_list[lan1_lb]}, ${config::global::ip_prefix}.${config::hosts::ip_list[lan2_lb]}",
 	}
 
 	yum::repo::conf {
