@@ -14,6 +14,7 @@ server {
 	server_name $domain_name;
 	root $www_root;
 	access_log /var/log/nginx/${domain_name}.access.log;
+	error_log /var/log/nginx/${domain_name}.error.log;
 
 	location / {
 		index index.html index.htm index.php;
