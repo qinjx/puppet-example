@@ -28,7 +28,7 @@ node /^wan\d*\.gw/ inherits default {
 			cluster => "website";
 		"tool.web":
 			port => 80,
-			cluster => "web_tools";
+			cluster => "web_tool";
 	}
 
 	firewall::nat::forward {
