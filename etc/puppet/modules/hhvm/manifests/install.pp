@@ -7,12 +7,14 @@ class hhvm::install {
 	file {
 		"/etc/init.d/hhvm":
 			mode => 755,
-			source => "puppet:///modules/hhvm/init.d/hhvm",
-			require => Package["hiphop-php"];
+			source => "puppet:///modules/hhvm/init.d/hhvm";
 		"/etc/hhvm/hhvm.hdf":
-			source => "puppet:///modules/hhvm/hhvm/hhvm.hdf",
-			require => Package["hiphop-php"];
+			source => "puppet:///modules/hhvm/hhvm/hhvm.hdf";
 		"/var/lib/hhvm":
+			ensure => directory;
+		"/var/log/hhvm":
+			ensure => directory;
+		"/etc/hhvm":
 			ensure => directory;
 	}
 

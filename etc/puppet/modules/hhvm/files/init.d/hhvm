@@ -1,70 +1,131 @@
-#!/bin/bash
+#!/bin/sh
 #
-# hhvm        Startup script for the HipHop Server
+# hhvm - this script starts and stops the hhvm daemon
 #
-# chkconfig: - 85 15
+# chkconfig:   - 85 15
 # description: HipHop is a high performance PHP toolchain
 # processname: hhvm
-# config: /etc/hhvm/hhvm.hdf
-# config: /etc/sysconfig/hhvm
-# pidfile: /var/run/hhvm/hhvm.pid
-#
-### BEGIN INIT INFO
-# Provides: hhvm
-# Short-Description: start and stop HipHop Server
-# Description: HipHop is a high performance PHP toolchain
-### END INIT INFO
-
-HHVM=/usr/sbin/hhvm
-prog=HipHop
-lockfile=/var/run/hhvm/hhvm.lock
+# config:      /etc/hhvm/hhvm.hdf
+# config:      /etc/sysconfig/hhvm
+# pidfile:     /var/run/hhvm.pid
 
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-if [ -f /etc/sysconfig/hhvm ]; then
-        . /etc/sysconfig/hhvm
-fi
+# Source networking configuration.
+. /etc/sysconfig/network
 
+# Check that networking is up.
+[ "$NETWORKING" = "no" ] && exit 0
+
+hhvm="/usr/bin/hhvm"
+prog=$(basename $hhvm)
+
+sysconfig="/etc/sysconfig/$prog"
+lockfile="/var/lock/subsys/hhvm"
+CONF_FILE="/etc/hhvm/hhvm.hdf"
+
+[ -f $sysconfig ] && . $sysconfig
 
 
 start() {
-        echo -n $"Starting $prog: "
-		daemon ${HHVM} --mode ${MODE} --user ${USER} ${ARGS}
-        RETVAL=$?
-        echo
-        [ $RETVAL = 0 ] && touch ${lockfile}
-        return $RETVAL
+    [ -x $hhvm ] || exit 5
+    [ -f $CONF_FILE ] || exit 6
+    echo -n $"Starting $prog: "
+		daemon $hhvm -m daemon -c $CONF_FILE
+    retval=$?
+    echo
+		[ $retval -eq 0 ] && touch $lockfile
+    return $retval
 }
-
 
 stop() {
-        echo -n $"Stopping $prog: "
-        killproc -p ${PID} $HHVM
-        RETVAL=$?
-        echo
-        [ $RETVAL = 0 ] && rm -f ${lockfile} ${PID}
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile
+    return $retval
 }
 
-# See how we were called.
-case "$1" in
-  start)
-        start
-        ;;
-  stop)
-        stop
-        ;;
-  status)
-        status -p ${pidfile} $httpd
-        RETVAL=$?
-        ;;
-  restart)
-        stop
-        start
-        ;;
-  *)
-        echo $"Usage: $prog {start|stop|restart}"
-        RETVAL=2
-esac
+restart() {
+    stop
+    start
+}
 
-exit $RETVAL
+reload() {
+    echo -n $"Reloading $prog: "
+    killproc $prog -HUP
+    echo
+}
+
+rh_status() {
+    status $prog
+}
+
+rh_status_q() {
+    rh_status >/dev/null 2>&1
+}
+
+# Upgrade the binary with no downtime.
+upgrade() {
+    local oldbin_pidfile="${pidfile}.oldbin"
+
+    configtest_q || return 6
+    echo -n $"Upgrading $prog: "
+    killproc -p $pidfile $prog -USR2
+    retval=$?
+    sleep 1
+    if [[ -f ${oldbin_pidfile} && -f ${pidfile} ]];  then
+        killproc -p $oldbin_pidfile $prog -QUIT
+        success $"$prog online upgrade"
+        echo 
+        return 0
+    else
+        failure $"$prog online upgrade"
+        echo
+        return 1
+    fi
+}
+
+# Tell hhvm to reopen logs
+reopen_logs() {
+    configtest_q || return 6
+    echo -n $"Reopening $prog logs: "
+    killproc -p $pidfile $prog -USR1
+    retval=$?
+    echo
+    return $retval
+}
+
+case "$1" in
+    start)
+        rh_status_q && exit 0
+        $1
+        ;;
+    stop)
+        rh_status_q || exit 0
+        $1
+        ;;
+    restart|configtest|reopen_logs)
+        $1
+        ;;
+    force-reload|upgrade) 
+        rh_status_q || exit 7
+        upgrade
+        ;;
+    reload)
+        rh_status_q || exit 7
+        $1
+        ;;
+    status|status_q)
+        rh_$1
+        ;;
+    condrestart|try-restart)
+        rh_status_q || exit 7
+        restart
+	    ;;
+    *)
+        echo $"Usage: $0 {start|stop|reload|configtest|status|force-reload|upgrade|restart|reopen_logs}"
+        exit 2
+esac
