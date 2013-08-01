@@ -57,18 +57,46 @@ Ping一下github试试：
 	curl https://raw.github.com/qinjx/puppet-example/master/install_scripts/install.sh -o install.sh
 	
 
-## Step 4a. 执行安装脚本
+## Step 4. 执行安装脚本
 执行：
 	
 	sh install.sh
 
-脚本会询问你，想把这个机器安装为puppet server，还是puppet client，输入数字来选择，然后按照脚本提示往下做，填写必要的设置即可安装成功
+脚本会询问你，想把这个机器安装为puppet server，还是puppet client，输入数字来选择，然后按照脚本提示往下做，填写必要的设置即可安装成功。
 
-## Step 4b. 使用本地yum mirror
+### 4.1 Install 和 Config的区别
+- Install-Puppet-Master/Client是先用yum装包，再调用Config-Puppet-Master/Client。yum执行时间稍长，适合第一次安装
+- Config-Puppet-Master/Client是只是对puppet的配置文件、iptables防火墙做一些配置，不包括yum装包过程，执行速度非常快。如果你只想更改一些配置，选这个合适
+
+### 4.2 使用本地yum mirror
 
 如果你用wget把mirrors.sohu.com上的centos和fedora-epel镜像到本地了，也可以指定本地yum mirror地址来加快安装速度：
 
 	sh install.sh 172.16.0.5/
 
-__注意__
-本地yum mirror地址前面的http省去，后面的斜线不能省，要像上面的代码示例一样写，把IP变成你的本地yum mirror的IP即可。
+注：本地yum mirror地址前面的http省去，后面的斜线不能省，要像上面的代码示例一样写，把IP变成你的本地yum mirror的IP即可。
+
+## Step 5. 验证安装是否成功
+在puppet client机器上执行：
+
+	puppetd -t
+
+### 5.1 如果安装成功
+看到下面这样的输出就说明master和client都安装成功了(在终端下是绿色字)：
+
+	[root@vnc1 qinjx]# puppetd -t
+	info: Retrieving plugin
+	info: Caching catalog for vnc1.sys.example.com
+	info: Applying configuration version '1375365926'
+	notice: Finished catalog run in 0.03 seconds
+	
+### 5.2 如果安装失败
+看到下面这样的输出，就说明安装失败了（在终端下是红色字）：
+
+	[root@vnc1 qinjx]# puppetd -t
+	info: Retrieving plugin
+	err: /File[/var/lib/puppet/lib]: Failed to generate additional resources using 'eval_generate': Connection refused - connect(2)
+	err: /File[/var/lib/puppet/lib]: Could not evaluate: Connection refused - connect(2) Could not retrieve file metadata for puppet://puppet-server.vip.example.com/plugins: Connection refused - connect(2)
+	err: Could not retrieve catalog from remote server: Connection refused - connect(2)
+	warning: Not using cache on failed catalog
+	err: Could not retrieve catalog; skipping run
