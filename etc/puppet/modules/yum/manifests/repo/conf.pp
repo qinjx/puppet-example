@@ -5,11 +5,17 @@ define yum::repo::conf {
 		$url_prefix = "http://"
 	}
 
+	if ($config::yum::keys[$name] == nil) {
+		$gpgcheck = 0
+	} else {
+		$gpgcheck = 1
+	}
+
 	yumrepo {
 		$name:
 			descr => $name,
 			baseurl => "${url_prefix}${config::yum::urls[$name]}",
-			gpgcheck => 1,
+			gpgcheck => $gpgcheck,
 			gpgkey => "${url_prefix}${config::yum::keys[$name]}",
 	}
 }
