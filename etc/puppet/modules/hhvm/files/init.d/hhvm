@@ -1,0 +1,70 @@
+#!/bin/bash
+#
+# hhvm        Startup script for the HipHop Server
+#
+# chkconfig: - 85 15
+# description: HipHop is a high performance PHP toolchain
+# processname: hhvm
+# config: /etc/hhvm/hhvm.hdf
+# config: /etc/sysconfig/hhvm
+# pidfile: /var/run/hhvm/hhvm.pid
+#
+### BEGIN INIT INFO
+# Provides: hhvm
+# Short-Description: start and stop HipHop Server
+# Description: HipHop is a high performance PHP toolchain
+### END INIT INFO
+
+HHVM=/usr/sbin/hhvm
+prog=HipHop
+lockfile=/var/run/hhvm/hhvm.lock
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+if [ -f /etc/sysconfig/hhvm ]; then
+        . /etc/sysconfig/hhvm
+fi
+
+
+
+start() {
+        echo -n $"Starting $prog: "
+		daemon ${HHVM} --mode ${MODE} --user ${USER} ${ARGS}
+        RETVAL=$?
+        echo
+        [ $RETVAL = 0 ] && touch ${lockfile}
+        return $RETVAL
+}
+
+
+stop() {
+        echo -n $"Stopping $prog: "
+        killproc -p ${PID} $HHVM
+        RETVAL=$?
+        echo
+        [ $RETVAL = 0 ] && rm -f ${lockfile} ${PID}
+}
+
+# See how we were called.
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  status)
+        status -p ${pidfile} $httpd
+        RETVAL=$?
+        ;;
+  restart)
+        stop
+        start
+        ;;
+  *)
+        echo $"Usage: $prog {start|stop|restart}"
+        RETVAL=2
+esac
+
+exit $RETVAL
