@@ -22,11 +22,11 @@ __兼容性说明__
 
 如果你的环境不支持复制粘贴（大部分VNC客户端都不支持的），只好自己用vi去编辑了。
 
-	echo "DEVICE="eth0"
+	echo 'DEVICE="eth0"
 	ONBOOT="yes"
 	BOOTPROTO="static"
 	IPADDR=10.250.0.221 #此处改成你的IP
-	PREFIX=24" > /etc/sysconfig/network-scripts/ifcfg-eth0;
+	PREFIX=24' > /etc/sysconfig/network-scripts/ifcfg-eth0;
 
 ### Step 2.2 设置网关：
 仅仅设置IP和子网掩码只能访问这台机器所在的子网，不能访问互联网，需要设置网关，由网关来将数据包转发到子网外面的世界：
@@ -57,15 +57,18 @@ Ping一下github试试：
 	curl https://raw.github.com/qinjx/puppet-example/master/install_scripts/install.sh -o install.sh
 	
 
-## Step 4. 执行安装脚本
+## Step 4a. 执行安装脚本
 执行：
 	
 	sh install.sh
 
 脚本会询问你，想把这个机器安装为puppet server，还是puppet client，输入数字来选择，然后按照脚本提示往下做，填写必要的设置即可安装成功
 
-__使用本地yum mirror__
+## Step 4b. 使用本地yum mirror
 
 如果你用wget把mirrors.sohu.com上的centos和fedora-epel镜像到本地了，也可以指定本地yum mirror地址来加快安装速度：
 
 	sh install.sh 172.16.0.5/
+
+__注意__
+本地yum mirror地址前面的http省去，后面的斜线不能省，要像上面的代码示例一样写，把IP变成你的本地yum mirror的IP即可。
