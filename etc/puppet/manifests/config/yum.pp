@@ -9,7 +9,9 @@ class config::yum {
 		epel => "mirrors.sohu.com/fedora-epel/\$releasever/\$basearch/",
 		remi => "rpms.famillecollet.com/enterprise/\$releasever/remi/\$basearch/",
 		percona => "repo.percona.com/centos/\$releasever/os/\$basearch/",
-		pptp => "poptop.sourceforge.net/yum/beta/rhel\$releasever/\$basearch/"
+		pptp => "poptop.sourceforge.net/yum/beta/rhel\$releasever/\$basearch/",
+		nginx => "nginx.org/packages/centos/\$releasever/\$basearch/",
+		hhvm => "www.hop5.in/yum/el\$releasever/"
 	}
 
 	$keys = {
@@ -19,6 +21,8 @@ class config::yum {
 		epel => "mirrors.sohu.com/fedora-epel/RPM-GPG-KEY-EPEL-\$releasever",
 		remi => "rpms.famillecollet.com/RPM-GPG-KEY-remi",
 		percona => "www.percona.com/downloads/percona-release/RPM-GPG-KEY-percona",
-		pptp => "poptop.sourceforge.net/yum/RPM-GPG-KEY-PPTP"
+		pptp => "poptop.sourceforge.net/yum/RPM-GPG-KEY-PPTP",
+		nginx => "nginx.org/packages/keys/nginx_signing.key",
+		hhvm => nil
 	}
 }
