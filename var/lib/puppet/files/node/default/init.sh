@@ -52,11 +52,18 @@ function set_ip() {
 
 		#set ip and restart
 		sed -i -e "s/IPADDR=.*/IPADDR=$ip/" /etc/sysconfig/network-scripts/ifcfg-eth0
+	fi
 
-		echo "restarting network..."
-		# restart eth0（如果etho的ONBOOT=no，用service network restart会导致eth0不自动启用，网络仍不可用）
-		ifdown eth0
-		ifup eth0
+	echo "restarting network..."
+	# restart eth0（如果etho的ONBOOT=no，用service network restart会导致eth0不自动启用，网络仍不可用）
+	ifdown eth0
+	ifup eth0
+
+	if [ `ping ${puppet_server} -c 1 | grep from | awk '{print $1}'` ]; then
+	    echo "Network worked"
+	else
+	    echo "Network not worked, exiting..."
+	    exit
 	fi
 }
 
