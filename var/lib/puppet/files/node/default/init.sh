@@ -108,7 +108,15 @@ case $1 in
 		rm_ca $2
 		set_hostname $2
 		puppetd -t
-		reboot
+
+		echo "Restarting? [y/N]"
+		read str
+
+        cfm_input="${str}"
+
+        if [ ${cfm_input} != "y" ]; then
+            reboot
+        fi
 	;;
 
 	"set_ip" )
