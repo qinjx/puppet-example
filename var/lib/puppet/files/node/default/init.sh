@@ -60,9 +60,9 @@ function set_ip() {
 	ifup eth0
 
 	if [ `ping ${puppet_server} -c 1 | grep from | awk '{print $1}'` ]; then
-	    echo "Network worked"
+	    echo "network worked"
 	else
-	    echo "Network not worked, exiting..."
+	    echo "network not worked, exiting..."
 	    exit
 	fi
 }
@@ -114,7 +114,7 @@ case $1 in
 
         cfm_input="${str}"
 
-        if [ ${cfm_input} != "y" ]; then
+        if [ ${cfm_input} == "y" ]; then
             reboot
         fi
 	;;
