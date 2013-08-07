@@ -1,7 +1,7 @@
 puppet-example
 ==============
 
-一个puppet示范项目，兼作我的运维学习笔记，在现实世界运行着，有两个成功案例，各管理100多台服务器，都是小型B2C网站，这些网站的架构大致如下图（图是网站上线前设计的，实际实施有所变化）：
+这是一个puppet示范项目，兼作我的运维学习笔记，在现实世界运行着，有两个成功案例，各管理100多台服务器，都是小型B2C网站，这些网站的架构大致如下图（图是网站上线前设计的，实际实施有所变化）：
 
 ![puppet-example项目成功案例服务器拓扑图](http://ww1.sinaimg.cn/large/6a174839gw1dsp0ptypt4j.jpg "小型B2C网站服务器架构")
 
@@ -92,6 +92,7 @@ puppet-example
 参见[puppet安装说明文档](HowTo-Install.md)，包括puppet server和puppet client安装。
 
 ### 在puppet服务器使用本项目
+参见[puppet-example使用文档](HowTo-Use.md)，包括单机模式和Client/Server模式的使用方法。
 
 
 ## 架构
