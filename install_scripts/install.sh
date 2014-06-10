@@ -4,6 +4,7 @@
 echo "Please choose the task"
 options="Install-Puppet-Server
 Install-Puppet-Client
+Install-Single-Machine
 Config-Puppet-Server
 Config-Puppet-Client
 Exit"
@@ -15,6 +16,11 @@ select opt in ${options}; do
 		;;
 
 		"Install-Puppet-Client" )
+			install_client $1
+			exit
+		;;
+
+		"Install-Single-Machine" )
 			install_client $1
 			exit
 		;;
