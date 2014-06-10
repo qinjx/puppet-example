@@ -5,9 +5,9 @@ node /^lan\d*\.lb/ inherits default {
 	}
 
 	haproxy::conf::cluster {
-		"shop_db":
+		"mysql_db":
 			port => 3306;
-		"shop_se":
+		"sphinx_se":
 			port => 9312;
 		"php_app":
 			port => 9000;
@@ -18,11 +18,11 @@ node /^lan\d*\.lb/ inherits default {
 	}
 
 	haproxy::conf::server {
-		["shop1.db", "shop2.db", "shop3.db"]:
+		["mysql1.db", "mysql2.db", "mysql3.db"]:
 			port => 3306,
 			check_port => 9200,
 			cluster => "shop_db";
-		["shop1.se", "shop2.se", "shop3.se"]:
+		["sphinx1.se", "sphinx2.se", "sphinx3.se"]:
 			port => 9312,
 			cluster => "shop_se";
 		["php1.app", "php2.app", "php3.app"]:

@@ -1,4 +1,4 @@
-node /^ppw\d*\.se/ inherits default {
+node /^sphinx\d*\.se/ inherits default {
 	file {
 		"/etc/sphinx/sphinx.conf":
 			source => "puppet:///files/node/ppw.se/sphinx.conf";
