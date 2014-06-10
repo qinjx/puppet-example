@@ -38,7 +38,7 @@ __兼容性说明__
 ### Step 2.3 添加DNS：
 可以使用Google提供的DNS服务器：
 
-	echo "nameserver 8.8.8.8
+	echo "nameserver 114.114.114.114
 	nameserver 8.8.4.4" > /etc/resolv.conf
 
 ### Step 2.4 重启网络：
