@@ -1,7 +1,7 @@
 class role_mysql_server {
-	yum::repo::conf {
-		"percona":
-	}
+  yum::repo::conf {
+    "mysql":
+  }
 
-	include percona::cluster::install, percona::cluster::service
+include mysql::server::install, mysql::server::service
 }
