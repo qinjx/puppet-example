@@ -21,10 +21,10 @@ node /^lan\d*\.lb/ inherits default {
 		["mysql1.db", "mysql2.db", "mysql3.db"]:
 			port => 3306,
 			check_port => 9200,
-			cluster => "shop_db";
+			cluster => "mysql_db";
 		["sphinx1.se", "sphinx2.se", "sphinx3.se"]:
 			port => 9312,
-			cluster => "shop_se";
+			cluster => "sphinx_se";
 		["php1.app", "php2.app", "php3.app"]:
 			port => 9000,
 			cluster => "php_app";

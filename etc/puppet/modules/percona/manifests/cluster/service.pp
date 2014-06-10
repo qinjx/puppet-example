@@ -17,7 +17,7 @@ class percona::cluster::service {
 		"wsrep_salve)threads":
 			ensure => 2;
 		"wsrep_cluster_name":
-			ensure => "the_shop_db_cluster";
+			ensure => "the_percona_galera_db_cluster";
 		"wsrep_sst_method":
 			ensure => "rsync";
 		"wsrep_node_name":
