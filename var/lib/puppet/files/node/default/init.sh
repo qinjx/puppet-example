@@ -80,6 +80,7 @@ function rm_ca {
 function print_usage() {
 	echo "Usage: init.sh task [hostname_without_root_domain], for example:
 	init.sh init_vm test.sb
+	init.sh set_hostname test.sb
 	init.sh set_ip test.sb
 	init.sh rm_ca test.sb
 	init.sh rm_ca"
@@ -135,5 +136,13 @@ case $1 in
 		fi
 	;;
 
-	* ) echo "task must be: init_vm, set_ip, rm_ca"
+	"set_hostname" )
+		if [ -z $2 ]; then
+			print_usage
+			exit
+		fi
+		set_hostname $2
+	;;
+
+	* ) echo "task must be: init_vm, set_hostname, set_ip, rm_ca"
 esac
