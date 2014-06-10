@@ -7,7 +7,7 @@ class role_php_app_server {
 	}
 
 	php::ext {
-		["bcmath", "gd", "mbstring", "mcrypt", "mysql", "mysqlnd", "pecl-apc", "pecl-imagick", "pecl-memcached", "pecl-mongo", "pecl-redis", "soap"]:
+		["bcmath", "gd", "mbstring", "mcrypt", "mysql", "pecl-apc", "pecl-imagick", "pecl-memcached", "pecl-mongo", "pecl-redis", "soap"]:
 	}
 
 	php::conf::fpm {
