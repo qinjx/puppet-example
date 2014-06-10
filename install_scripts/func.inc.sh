@@ -173,7 +173,7 @@ function config_puppet_client() {
 
 	puppetd --test
 
-	}"
+	"
 }
 
 ########## Entrance function ######
