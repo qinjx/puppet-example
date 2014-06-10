@@ -1,0 +1,2 @@
+- vnc不允许root直接登录
+- yum mirror，从零开始安装的脚本（类似puppet安装脚本）
