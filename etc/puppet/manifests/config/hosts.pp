@@ -12,18 +12,18 @@ class config::hosts {
 		yum-mirror1_sys => 23,
 		yum-mirror2_sys => 24,
 		lan_lb_vip => 50, #局域网内负载均衡器的VIP，供nginx，php script在配置文件中使用
-		shop_db_vip => 50,
+		mysql_db_vip => 50,
 		tracker_dfs_vip => 50,
-		shop_se_vip => 50,
+		sphinx_se_vip => 50,
 		php_app_vip => 50,
 		acp-php_app_vip => 50,
-		shop1_db => 51, #店铺数据库1号
-		shop2_db => 52,
-		shop3_db => 53,
-		shop1_se => 54, #商品搜索引擎1号
-		shop2_se => 55,
-		shop3_se => 56,
-		storage1_dfs => 57, #FastDFS存储服务器1号，兼任NFS、SVN服务器
+		mysql1_db => 51, #店铺数据库1号
+		mysql2_db => 52,
+		mysql3_db => 53,
+		sphinx1_se => 54, #商品搜索引擎1号
+		sphinx2_se => 55,
+		sphinx3_se => 56,
+		storage1_dfs => 57, #FastDFS存储服务器1号
 		storage2_dfs => 58,
 		storage3_dfs => 59,
 		tracker1_dfs => 60, #FastDFS跟踪服务器1号
@@ -69,12 +69,12 @@ class config::hosts {
 		shop_se_vip,
 		php_app_vip,
 		acp-php_app_vip,
-		shop1_db,
-		shop2_db,
-		shop3_db,
-		shop1_se,
-		shop2_se,
-		shop3_se,
+		mysql1_db,
+		mysql2_db,
+		mysql3_db,
+		sphinx1_se,
+		sphinx2_se,
+		sphinx3_se,
 		storage1_dfs,
 		storage2_dfs,
 		storage3_dfs,
