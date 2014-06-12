@@ -62,6 +62,12 @@ node /^wan\d*\.gw/ inherits default {
 			port => $config::wan::opened_port[svn],
 			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[nfs_sys_vip]}",
 			dest_port => 3690;
+    "mysql_forward":#临时开放mysql端口
+      wan_interface => "eth1",
+      ip => $config::wan::ip_add,
+      port => 3306,
+      dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[mysql1_db]}",
+      dest_port => 3306;
 	}
 
 	augeas {
