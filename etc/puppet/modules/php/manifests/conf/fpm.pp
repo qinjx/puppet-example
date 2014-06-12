@@ -17,6 +17,6 @@ define php::conf::fpm ($pool = nil, $section = nill, $ensure) {
 			setting => $name,
 			value => $ensure,
 			require => Package["php-fpm"],
-		    notify => Service["php-fpm"],
+			notify => Service["php-fpm"],
 	}
 }
