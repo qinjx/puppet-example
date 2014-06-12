@@ -11,7 +11,8 @@ class role_mysql_server {
 
   file {
     "/opt/data/mysql":
-      ensure => directory;
+      ensure => directory,
+      require => Class["mysql::server::install"];
   }
 
   exec {
