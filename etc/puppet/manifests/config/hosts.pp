@@ -11,6 +11,8 @@ class config::hosts {
 		puppet-server2_sys => 22,
 		yum-mirror1_sys => 23,
 		yum-mirror2_sys => 24,
+		nfs1_sys => 25,
+		nfs2_sys => 26,
 		lan_lb_vip => 50, #局域网内负载均衡器的VIP，供nginx，php script在配置文件中使用
 		mysql_db_vip => 50,
 		tracker_dfs_vip => 50,
@@ -72,6 +74,8 @@ class config::hosts {
 		puppet-server2_sys,
 		yum-mirror1_sys,
 		yum-mirror2_sys,
+		nfs1_sys,
+		nfs2_sys,
 		lan_lb_vip,
 		mysql_db_vip,
 		tracker_dfs_vip,
