@@ -7,7 +7,9 @@ class role_php_app_server {
 	}
 
 	php::ext {
-		["bcmath", "gd", "mbstring", "mcrypt", "mysql", "pecl-apc", "pecl-imagick", "pecl-memcache", "pecl-memcached", "pecl-mongo", "pecl-redis", "soap"]:
+		["bcmath", "gd", "mbstring", "mcrypt", "mysql", "pecl-apc", "pecl-imagick", "pecl-memcache", "pecl-memcached",
+    "pecl-mongo", "pecl-redis", "soap"]:
+      notify => Service["php-fpm"],
 	}
 
 	php::conf::fpm {
