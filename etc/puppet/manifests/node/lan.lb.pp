@@ -20,7 +20,7 @@ node /^lan\d*\.lb/ inherits default {
 	haproxy::conf::server {
 		["mysql1.db", "mysql2.db", "mysql3.db"]:
 			port => 3306,
-			check_port => 9200,
+			check_port => 3306,
 			cluster => "mysql_db";
 		["sphinx1.se", "sphinx2.se", "sphinx3.se"]:
 			port => 9312,
