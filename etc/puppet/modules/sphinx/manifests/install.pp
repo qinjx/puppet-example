@@ -1,7 +1,7 @@
 class sphinx::install {
 	package {
-		["Percona-Server-shared-compat", "postgresql-libs", "sphinx"]:
-			require => Yum::Repo::Conf["percona"],
+		["mysql-community-libs", "postgresql-libs", "sphinx"]:
+			require => Yum::Repo::Conf["mysql"],
 	}
 
 	firewall::filter::allow {
