@@ -1,6 +1,6 @@
 class role_search_engine {
 	yum::repo::conf {
-		"percona":
+		"mysql":
 	}
 
 	include sphinx::install, sphinx::service
