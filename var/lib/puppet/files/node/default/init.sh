@@ -45,7 +45,7 @@ function set_ip() {
 	local pattern="\s\+$1\.$root_domain"
 	ip=`grep "${pattern}" /etc/hosts | awk '{print \$1}'`
 
-	if [ `ip add | grep "$ip" | grep -v grep | awk '{print $1}'` ]; then
+	if [ `ip add | grep "$ip/" | grep -v grep | awk '{print $1}'` ]; then
 		echo "ip address has been set to $ip"
 	else
 		echo "IP address will be: " $ip
