@@ -42,7 +42,7 @@ node /^wan\d*\.gw/ inherits default {
 			wan_interface => "eth1",
 			ip => $config::wan::ip_add,
 			port => $config::wan::opened_port[ssh_2],
-			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[vnc2_sys]}",
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[nfs_sys_vip]}",
 			dest_port => 22;
 		"vnc_forward_1":
 			wan_interface => "eth1",
