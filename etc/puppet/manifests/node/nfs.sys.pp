@@ -12,8 +12,10 @@ node /^nfs\d*\.sys/ inherits default {
   }
 
   file {
+    "/opt/nfs":
+      ensure => directory;
     "/opt/nfs/upload":
-      ensure => directory,
+      ensure => directory;
   }
 
 	include role_vip_holder, role_nfs_server
