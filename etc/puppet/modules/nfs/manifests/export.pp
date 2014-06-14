@@ -1,4 +1,4 @@
-define nfs::export($client) {
+define nfs::export($client, $permission) {
   augeas {
 		"nfs_export_${name}":
 			context => "/files/etc/exports",
