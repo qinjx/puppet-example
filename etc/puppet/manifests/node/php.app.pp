@@ -13,5 +13,12 @@ node /^php\d*\.app/ inherits default {
     name => "new.${config::web::public_domain_name}";
   }
 
+  file {
+    "/var/lib/php/session":
+      mode => 755,
+      user => "php",
+      group => "php"
+  }
+
 	include role_php_app_server, role_nfs_client
 }
