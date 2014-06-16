@@ -21,6 +21,10 @@ class role_php_app_server {
 			pool => "www",
 			section => "www",
 			ensure => "yes";
+    "request_slowlog_timeout":
+      pool => "www",
+      section => "www",
+      ensure => 1;
 	}
 
 	yum::repo::conf {
