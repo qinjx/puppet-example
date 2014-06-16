@@ -16,7 +16,7 @@ node /^php\d*\.app/ inherits default {
   file {
     "/var/lib/php/session":
       mode => 755,
-      user => "php",
+      owner => "php",
       group => "php"
   }
 
