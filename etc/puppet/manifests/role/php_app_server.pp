@@ -4,6 +4,8 @@ class role_php_app_server {
 			ensure => "Asia/Chongqing";
 		"PHP/display_errors":
 			ensure => "On";
+    "PHP/session.save_path":
+      ensure => "/tmp";
 	}
 
 	php::ext {
