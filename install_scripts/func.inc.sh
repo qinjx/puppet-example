@@ -12,7 +12,7 @@ function prepare_puppet_yum_repo() {
 	local puppetlabs_repo_rpm="https://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm"
 	if [[ "OK" = $(test_url ${puppetlabs_repo_rpm}) ]]; then
 
-        rpm -Uvh puppetlabs_repo_rpm
+        rpm -Uvh ${puppetlabs_repo_rpm}
 		echo OK
 	else
 		echo FAILED
