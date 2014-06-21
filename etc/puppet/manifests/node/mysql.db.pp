@@ -8,7 +8,7 @@ node /^mysql\d*\.db/ inherits default {
     "innodb_log_file_size":
       ensure => "512M";
     "max_connections":
-      ensure => "256";
+      ensure => "2560";
     "innodb_flush_method":
       ensure => "O_DIRECT";
     "query_cache_size":
