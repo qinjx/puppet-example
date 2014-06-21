@@ -10,8 +10,11 @@ function test_url() {
 
 function prepare_puppet_yum_repo() {
 	local puppetlabs_repo_rpm="https://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm"
-	if [[ "OK" = $(test_url ${puppetlabs_repo_rpm}) ]]; then
+	sed -i -e "s/mirror.centos.org/mirrors.aliyun.com/" /etc/yum.repos.d/CentOS-*.repo
+	sed -i -e "s/#baseurl=/baseurl=/" /etc/yum.repos.d/CentOS-*.repo
+	sed -i -e "s/mirrorlist=/#mirrorlist=/" /etc/yum.repos.d/CentOS-*.repo
 
+	if [[ "OK" = $(test_url ${puppetlabs_repo_rpm}) ]]; then
         rpm -Uvh ${puppetlabs_repo_rpm} > /dev/null 2>&1
 		echo OK
 	else
@@ -61,16 +64,18 @@ function adj_time_by_ntp() {
 function config_puppet_master() {
 	adj_time_by_ntp
 
-	default_private_root_domain=$(get_default_private_root_domain)
+	local default_private_root_domain=$(get_default_private_root_domain)
 	echo "Please set your root domain for your private network,
 	it can be a FAKE domain, suck as ${default_private_root_domain}
 
 	Please enter it[${default_private_root_domain}]:"
 	
-	private_root_domain=$(get_user_input ${default_private_root_domain})
+	local private_root_domain=$(get_user_input ${default_private_root_domain})
 	
 	#set hostname
-	set_hostname puppet-server.vip.${private_root_domain}
+	local pps_hostname=puppet-server.vip.${private_root_domain}
+	set_hostname ${pps_hostname}
+	echo "127.0.0.1 ${pps_hostname}" >> /etc/hosts
 	echo "The hostname of your puppet server is:"
 	hostname
 
@@ -103,19 +108,21 @@ function config_puppet_client() {
 
 	Please enter it[${default_private_root_domain}]:"
 	
-	private_root_domain=$(get_user_input ${default_private_root_domain})
-	set_hostname puppet-client.${private_root_domain}
+	local private_root_domain=$(get_user_input ${default_private_root_domain})
+	local ppc_hostname = "puppet-client.${private_root_domain}"
+	set_hostname ${ppc_hostname}
 
 	#add puppet server into /etc/hosts
 	echo "Please enter the ip address of [puppet-server.vip.${private_root_domain}]"
 	pps_ip=$(get_user_input)
-	if [ -z $pps_ip ]; then
+	if [ -z ${pps_ip} ]; then
 		echo "you have not entered the puppet server ip, exiting ..."
 		exit
 	else
-		pps_hostname=puppet-server.vip.${private_root_domain}
+		local pps_hostname=puppet-server.vip.${private_root_domain}
 		sed -i -e '/${pps_hostname}/d' /etc/hosts
 		echo "${pps_ip} ${pps_hostname}" >> /etc/hosts
+		echo "127.0.0.1 ${ppc_hostname}" >> /etc/hosts
 	fi
 
 	adj_time_by_ntp
@@ -128,7 +135,7 @@ function config_puppet_client() {
 	#how to run puppet client
 	echo "Please run:
 
-	puppetd -t
+	puppet agent -t
 
 	"
 }
