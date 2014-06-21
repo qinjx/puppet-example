@@ -68,7 +68,7 @@ function set_ip() {
 }
 
 function rm_ca {
-	rm /var/lib/puppet/ssl/* -rf
+	rm_local_ca
 	if [ -z $1 ]; then
 		local hostname=`hostname`
 		ssh ${puppet_server} "puppet cert --clean ${hostname}"
@@ -76,6 +76,11 @@ function rm_ca {
 		ssh ${puppet_server} "for host in $1 $1.raw; do if [ -f /var/lib/puppet/ssl/ca/signed/\$host.$root_domain.pem ]; then puppet cert clean \$host.$root_domain; fi; done"
 	fi
 }
+
+function rm_local_ca {
+	rm /var/lib/puppet/ssl/* -rf
+}
+
 
 function print_usage() {
 	echo "Usage: init.sh task [hostname_without_root_domain], for example:
@@ -106,7 +111,7 @@ case $1 in
 		set_hostname "$2.raw"
 		puppetd -t
 
-		rm_ca $2
+		rm_local_ca
 		set_hostname $2
 		puppetd -t
 
