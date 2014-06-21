@@ -68,14 +68,6 @@ Ping一下github试试：
 - Install-Puppet-Master/Client是先用yum装包，再调用Config-Puppet-Master/Client。yum执行时间稍长，适合第一次安装
 - Config-Puppet-Master/Client是只是对puppet的配置文件、iptables防火墙做一些配置，不包括yum装包过程，执行速度非常快。如果你只想更改一些配置，选这个合适
 
-### 4.2 使用本地yum mirror
-
-如果你用wget把mirrors.sohu.com上的centos和fedora-epel镜像到本地了，也可以指定本地yum mirror地址来加快安装速度：
-
-	sh install.sh 172.16.0.5/
-
-注：本地yum mirror地址前面的http省去，后面的斜线不能省，要像上面的代码示例一样写，把IP变成你的本地yum mirror的IP即可。
-
 ## Step 5. 验证安装是否成功
 在puppet client机器上执行：
 

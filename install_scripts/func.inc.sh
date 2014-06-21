@@ -8,37 +8,11 @@ function test_url() {
 	fi
 }
 
-function prepare_yum_repo() {
-	local yum_mirror_prefix="http://"$1"mirrors.sohu.com"
-	if [[ "OK" = $(test_url ${yum_mirror_prefix}) ]]; then
-        mkdir ~/yum.repo.bak/
-        cd /etc/yum.repos.d/
-        mv *.repo ~/yum.repo.bak/
-		echo "[centos_base]
-baseurl=${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/
-gpgcheck=1
-gpgkey=${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/RPM-GPG-KEY-CentOS-\$releasever
-name=CentOS-\$releasever - Base
+function prepare_puppet_yum_repo() {
+	local puppetlabs_repo_rpm="https://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm"
+	if [[ "OK" = $(test_url ${puppetlabs_repo_rpm}) ]]; then
 
-[centos_extras]
-baseurl=${yum_mirror_prefix}/centos/\$releasever/extras/\$basearch/
-gpgcheck=1
-gpgkey=${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/RPM-GPG-KEY-CentOS-\$releasever
-name=CentOS-\$releasever - Extras
-
-[centos_updates]
-baseurl=${yum_mirror_prefix}/centos/\$releasever/updates/\$basearch/
-gpgcheck=1
-gpgkey=${yum_mirror_prefix}/centos/\$releasever/os/\$basearch/RPM-GPG-KEY-CentOS-\$releasever
-name=CentOS-\$releasever - Updates
-
-[epel]
-name=CentOS-\$releasever - EPEL
-baseurl=${yum_mirror_prefix}/fedora-epel/\$releasever/\$basearch/
-enabled=1
-gpgcheck=1
-gpgkey=${yum_mirror_prefix}/fedora-epel/RPM-GPG-KEY-EPEL-\$releasever
-" > ./epel.repo
+        rpm -Uvh puppetlabs_repo_rpm
 		echo OK
 	else
 		echo FAILED
@@ -164,7 +138,7 @@ function config_puppet_client() {
 # because shell is parsed and execu
 
 function install_master() {
-	if [[ "OK" = $(prepare_yum_repo $1) ]]; then
+	if [[ "OK" = $(prepare_puppet_yum_repo $1) ]]; then
 		echo Installing puppet master
 		yum install -y puppet-server
 		config_puppet_master
@@ -174,7 +148,7 @@ function install_master() {
 }
 
 function install_client() {
-	if [[ "OK" = $(prepare_yum_repo $1) ]]; then
+	if [[ "OK" = $(prepare_puppet_yum_repo $1) ]]; then
 		echo Installing puppet client
 		yum install -y puppet
 		config_puppet_client
