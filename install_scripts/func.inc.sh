@@ -79,29 +79,13 @@ function get_puppet_conf_dir() {
 	echo "/etc/puppet"
 }
 
-function adj_time_by_rdate() {
-	yum install -y rdate
-	rdate -s rdate.darkorb.net
-}
-
 function adj_time_by_ntp() {
-	yum install -y ntp
-	ntpdate $1
-}
-
-function install_ntp_server() {
-	yum install -y ntp
-	service ntpd start
-	chkconfig ntpd on
-
-    #enable 123 udp port
-	sed -i "/\-\-dport 123/d" /etc/sysconfig/iptables
-	sed -i '/dport 22/ a\-A INPUT \-m state \-\-state NEW \-m udp \-p udp \-\-dport 123 \-j ACCEPT' /etc/sysconfig/iptables
+	yum install -y ntpdate
+	ntpdate 0.asia.pool.ntp.org
 }
 
 function config_puppet_master() {
-	adj_time_by_rdate
-	install_ntp_server
+	adj_time_by_ntp
 
 	default_private_root_domain=$(get_default_private_root_domain)
 	echo "Please set your root domain for your private network,
@@ -134,7 +118,6 @@ function config_puppet_master() {
 	sed -i "/\-\-dport 8140/d" /etc/sysconfig/iptables
 	sed -i '/dport 22/ a\-A INPUT \-m state \-\-state NEW \-m tcp \-p tcp \-\-dport 8140 \-j ACCEPT' /etc/sysconfig/iptables
 	sed -i '/dport 22/ a\-A INPUT \-m state \-\-state NEW \-m udp \-p udp \-\-dport 8140 \-j ACCEPT' /etc/sysconfig/iptables
-
 	service iptables restart
 }
 
@@ -161,7 +144,7 @@ function config_puppet_client() {
 		echo "${pps_ip} ${pps_hostname}" >> /etc/hosts
 	fi
 
-	adj_time_by_ntp ${pps_hostname}
+	adj_time_by_ntp
     
     sed -i '/\[main\]/ a\
     server='${pps_hostname} $(get_puppet_conf_dir)"/puppet.conf"
@@ -171,7 +154,7 @@ function config_puppet_client() {
 	#how to run puppet client
 	echo "Please run:
 
-	puppetd --test
+	puppetd -t
 
 	"
 }
