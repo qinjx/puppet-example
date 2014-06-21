@@ -13,6 +13,8 @@ class config::hosts {
 		yum-mirror2_sys => 24,
 		nfs1_sys => 25,
 		nfs2_sys => 26,
+		svn1_sys => 27,
+		svn2_sys => 28,
 		lan_lb_vip => 50, #局域网内负载均衡器的VIP，供nginx，php script在配置文件中使用
 		mysql_db_vip => 50,
 		tracker_dfs_vip => 50,
@@ -55,6 +57,7 @@ class config::hosts {
 		centos1_vmtpl => 209,
 		centos2_vmtpl => 210,
 		centos3_vmtpl => 211,
+		centos4_vmtpl => 212,
 		test_tool => 218, #沙盒测试机，兼任编译工具机
 		tool_web => 219, #WEB工具机
 		wan1_gw => 221, #外网入口机1号，兼任端口转发路由器、http负载均衡器、VPN服务器
@@ -76,6 +79,8 @@ class config::hosts {
 		yum-mirror2_sys,
 		nfs1_sys,
 		nfs2_sys,
+		svn1_sys,
+		svn2_sys
 		lan_lb_vip,
 		mysql_db_vip,
 		tracker_dfs_vip,
@@ -118,6 +123,7 @@ class config::hosts {
 		centos1_vmtpl,
 		centos2_vmtpl,
 		centos3_vmtpl,
+		centos4_vmtpl,
 		test_tool,
 		tool_web,
 		wan1_gw,
