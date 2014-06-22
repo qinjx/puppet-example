@@ -109,11 +109,11 @@ case $1 in
 
 		rm_ca $2
 		set_hostname "$2.raw"
-		puppetd -t
+		puppet agent -t
 
 		rm_local_ca
 		set_hostname $2
-		puppetd -t
+		puppet agent -t
 
 		echo "Restarting? [y/N]"
 		read str
