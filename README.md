@@ -88,6 +88,9 @@ puppet-example
 
 除CentOS外，其它的linux发行版应该也有这个问题，解决方法也是类似的。我验证过的只有Debian，但这是linux kernel的机制决定的，跟发行版关系不大，发行版不同，只是配置文件语法不同。
 
+*** 更新 ***
+这是我2012年发现的问题，当时我使用的是XCP和Promox VE。后来Ctrix把它的XenServer开源了，经测试，XenServer 6.2上安装CentOS 6.4，没有这个问题了。
+
 ### 从CentOS裸机安装puppet
 参见[puppet安装说明文档](HowTo-Install.md)，包括puppet server和puppet client安装。
 

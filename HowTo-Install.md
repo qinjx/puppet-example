@@ -36,7 +36,6 @@ __兼容性说明__
 	GATEWAY=10.250.0.254 #此处改成你的网关IP" > /etc/sysconfig/network
 
 ### Step 2.3 添加DNS：
-可以使用Google提供的DNS服务器：
 
 	echo "nameserver 114.114.114.114
 	nameserver 8.8.4.4" > /etc/resolv.conf
@@ -71,7 +70,9 @@ Ping一下github试试：
 ## Step 5. 验证安装是否成功
 在puppet client机器上执行：
 
-	puppetd -t
+	puppet agent -t
+
+使用此安装脚本默认是从puppetlabs官方yum安装puppet 3.x版本，但如果如果你使用的epel yum，可能会安装puppet 2.8，执行puppetd -t来测试
 
 ### 5.1 如果安装成功
 看到下面这样的输出就说明master和client都安装成功了(在终端下是绿色字)：
