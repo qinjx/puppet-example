@@ -1,7 +1,7 @@
 class role_ip_forwarder {
 	exec {
 		"enable_ip_forward_now":
-			command => "/sbin/sysctl -p",
+			command => "/sbin/sysctl -e -p",
 			refreshonly => true;
 		"delete_iptables_forward_reject_rule":
 			command => "/bin/sed -i \"/FORWARD -j REJECT/d\" /etc/puppet/iptables/post.iptables";
