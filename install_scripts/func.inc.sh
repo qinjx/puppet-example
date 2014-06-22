@@ -83,9 +83,10 @@ function config_puppet_master() {
 	echo "*.${private_root_domain}" > $(get_puppet_conf_dir)"/autosign.conf"
 
 	#file bucket
-	sed -i -e "s/\# \[files\]/\[files\]/g" $(get_puppet_conf_dir)"/fileserver.conf"
-	sed -i -e "s/\#  path/path/g" $(get_puppet_conf_dir)"/fileserver.conf"
-	sed -i -e "s/\#  allow \*\.example\.com/allow \*\.${private_root_domain}/g" $(get_puppet_conf_dir)"/fileserver.conf"
+	echo "[files]
+	path /var/lib/puppet/files
+	allow *.${private_root_domain}" >> $(get_puppet_conf_dir)"/fileserver.conf"
+
 	mkdir /var/lib/puppet/files
 	chown puppet:puppet /var/lib/puppet/files
 	chmod 750 /var/lib/puppet/files
@@ -109,12 +110,12 @@ function config_puppet_client() {
 	Please enter it[${default_private_root_domain}]:"
 	
 	local private_root_domain=$(get_user_input ${default_private_root_domain})
-	local ppc_hostname = "puppet-client.${private_root_domain}"
+	local ppc_hostname="puppet-client.${private_root_domain}"
 	set_hostname ${ppc_hostname}
 
 	#add puppet server into /etc/hosts
 	echo "Please enter the ip address of [puppet-server.vip.${private_root_domain}]"
-	pps_ip=$(get_user_input)
+	local pps_ip=$(get_user_input)
 	if [ -z ${pps_ip} ]; then
 		echo "you have not entered the puppet server ip, exiting ..."
 		exit
