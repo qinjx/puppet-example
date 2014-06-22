@@ -1,3 +1,3 @@
 class role_ntp_client {
-	include ntp::service, ntp::install
+	include ntp::client::service, ntp::client::install
 }

@@ -6,6 +6,6 @@ define ntp::conf($ensure) {
 				"rm ${name}[.]",
 				"set ${name}  ${ensure}"
 			],
-			require => Package["ntpdate"],
+			require => Package["ntp"],
 	}
 }
