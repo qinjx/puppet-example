@@ -9,5 +9,5 @@ node /^vnc\d*\.sys/ inherits default {
 		"expect":
 	}
 
-	include role_vnc_server, role_vip_holder, role_virt_manager
+	include role_vnc_server, role_vip_holder
 }
