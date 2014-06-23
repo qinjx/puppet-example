@@ -1,4 +1,4 @@
-define ntp::conf($ensure) {
+define ntp::server::conf($ensure) {
 	augeas {
 		"change_ntp_setting_${name}":
 			context => "/files/etc/ntp.conf",

@@ -4,5 +4,5 @@ class role_ntp_server {
 		proto => "udp",
 	}
 
-	include ntp::service, ntp::install
+	include ntp::service, ntp::install, ntp::server::conf
 }
