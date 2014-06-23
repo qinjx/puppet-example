@@ -133,7 +133,7 @@ function config_puppet_client() {
 		local pps_hostname=$(get_pps_hostname ${private_root_domain})
 		sed -i -e '/${pps_hostname}/d' /etc/hosts
 		echo "${pps_ip} ${pps_hostname}" >> /etc/hosts
-		set_certname ${pps_hostname}
+		set_certname ${ppc_hostname}
 		adj_time_by_ntp
 
         sed -i '/\[main\]/ a\
