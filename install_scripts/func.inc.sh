@@ -136,6 +136,7 @@ function config_puppet_client() {
 		set_certname ${ppc_hostname}
 		adj_time_by_ntp
 
+        sed -i -e '/server=${pps_hostname}/d' $(get_puppet_conf_dir)"/puppet.conf"
         sed -i '/\[main\]/ a\
         server='${pps_hostname} $(get_puppet_conf_dir)"/puppet.conf"
 
