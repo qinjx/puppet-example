@@ -9,17 +9,6 @@ node /^centos\d*\.vmtpl/ inherits default {
 		ensure => "puppet-server.vip",
 	}
 
-	file {
-		"/root/init_scripts/":
-		ensure => directory;
-
-		"/root/init_scripts/conf.ini":
-		require => File["/root/init_scripts/"];
-
-		"/root/init_scripts/init.sh":
-		source => "puppet:///files/node/default/init.sh";
-	}
-
 	augeas {
 		"init_vm_config_ini":
 		lens => "Shellvars.lns",
