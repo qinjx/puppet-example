@@ -151,8 +151,7 @@ function config_puppet_client() {
 }
 
 ########## Entrance function ######
-# The entrance function should be p
-# because shell is parsed and execu
+# The following entrance function should be placed at the end of file
 
 function install_master() {
 	if [[ "OK" = $(prepare_puppet_yum_repo $1) ]]; then
