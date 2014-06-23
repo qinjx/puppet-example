@@ -33,6 +33,11 @@ function set_hostname() {
 		local host="$1.$root_domain"
 		hostname ${host}
 		sed -i -e "s/HOSTNAME=.*/HOSTNAME=$host/" /etc/sysconfig/network
+		if [ `grep "${host}" /etc/hosts | grep -v grep | awk '{print $1}' ` ]; then
+		    echo "${host} already exists in /etc/hosts"
+		else
+		    echo "127.0.0.1 ${host}" >> /etc/hosts
+		fi
 		echo your hostname has been set to ${host}
 	else
 		echo Internal error, empty parameter passed -_-

@@ -34,7 +34,6 @@ function get_user_input() {
 	else
 		echo ${user_input}
 	fi
-
 }
 
 function set_hostname() {
@@ -52,6 +51,10 @@ function get_default_private_root_domain() {
 	echo example.com
 }
 
+function get_pps_hostname() {
+    echo "puppet-server.vip."$1
+}
+
 function get_puppet_conf_dir() {
 	echo "/etc/puppet"
 }
@@ -59,6 +62,13 @@ function get_puppet_conf_dir() {
 function adj_time_by_ntp() {
 	yum install -y ntpdate
 	ntpdate 0.asia.pool.ntp.org
+}
+
+function set_certname() {
+    sed -i -e '/certname=/d' $(get_puppet_conf_dir)"/puppet.conf"
+    sed -i '/\[main\]/ a\
+    certname='$1 $(get_puppet_conf_dir)"/puppet.conf"
+
 }
 
 function config_puppet_master() {
@@ -72,10 +82,11 @@ function config_puppet_master() {
 	
 	local private_root_domain=$(get_user_input ${default_private_root_domain})
 	
-	#set hostname
-	local pps_hostname=puppet-server.vip.${private_root_domain}
+	#set hostname and certname
+	local pps_hostname=$(get_pps_hostname ${private_root_domain})
 	set_hostname ${pps_hostname}
-	echo "127.0.0.1 ${pps_hostname}" >> /etc/hosts
+	set_certname ${pps_hostname}
+
 	echo "The hostname of your puppet server is:"
 	hostname
 
@@ -120,25 +131,23 @@ function config_puppet_client() {
 		echo "you have not entered the puppet server ip, exiting ..."
 		exit
 	else
-		local pps_hostname=puppet-server.vip.${private_root_domain}
+		local pps_hostname=$(get_pps_hostname ${private_root_domain})
 		sed -i -e '/${pps_hostname}/d' /etc/hosts
 		echo "${pps_ip} ${pps_hostname}" >> /etc/hosts
-		echo "127.0.0.1 ${ppc_hostname}" >> /etc/hosts
+		set_certname ${pps_hostname}
+		adj_time_by_ntp
+
+        sed -i '/\[main\]/ a\
+        server='${pps_hostname} $(get_puppet_conf_dir)"/puppet.conf"
+
+        chkconfig puppet on
+
+        #how to run puppet client
+        echo "Please run:
+
+        puppet agent -t
+        "
 	fi
-
-	adj_time_by_ntp
-    
-    sed -i '/\[main\]/ a\
-    server='${pps_hostname} $(get_puppet_conf_dir)"/puppet.conf"
-
-	chkconfig puppet on
-
-	#how to run puppet client
-	echo "Please run:
-
-	puppet agent -t
-
-	"
 }
 
 ########## Entrance function ######
