@@ -68,7 +68,6 @@ function set_certname() {
     sed -i -e '/certname=/d' $(get_puppet_conf_dir)"/puppet.conf"
     sed -i '/\[main\]/ a\
     certname='$1 $(get_puppet_conf_dir)"/puppet.conf"
-
 }
 
 function config_puppet_master() {
