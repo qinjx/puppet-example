@@ -41,7 +41,7 @@ function set_hostname() {
         # set certname
 		sed -i -e '/certname=/d' $(get_puppet_conf_dir)"/puppet.conf"
         sed -i '/\[main\]/ a\
-        certname='$1 $(get_puppet_conf_dir)"/puppet.conf"
+        certname='${host} $(get_puppet_conf_dir)"/puppet.conf"
 
 		echo your hostname has been set to ${host}
 	else
