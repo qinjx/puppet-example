@@ -28,6 +28,10 @@ function user_confirm() {
 	fi
 }
 
+function get_puppet_conf_dir() {
+	echo "/etc/puppet"
+}
+
 function set_hostname() {
 	if [ ! -z $1 ]; then
 		local host="$1.$root_domain"
