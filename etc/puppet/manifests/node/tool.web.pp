@@ -1,14 +1,8 @@
 node /^tool\d*\.web/ inherits default {
-	nginx::conf::vhost {
-		"tool.$config::web::public_domain_name":
-			www_root => "/var/www",
-			fcgi_conf => "php",
-	}
-
 	nginx::conf::location {
 		"php":
-			pattern => "\\.php\$",
-			fcgi_address => "127.0.0.1:9000",
+		pattern => "\\.php\$",
+		fcgi_address => "127.0.0.1:9000",
 	}
 
 	php::conf {
@@ -25,10 +19,6 @@ node /^tool\d*\.web/ inherits default {
 	}
 
 	php::conf::fpm {
-		"listen.allowed_clients":
-		pool => "www",
-		section => "www",
-		ensure => "127.0.0.1,${config::global::ip_prefix}.${config::hosts::ip_list[lan1_lb]},${config::global::ip_prefix}.${config::hosts::ip_list[lan2_lb]}";
 		"catch_workers_output":
 		pool => "www",
 		section => "www",
