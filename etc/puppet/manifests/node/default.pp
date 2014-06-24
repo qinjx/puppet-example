@@ -29,5 +29,5 @@ node default {
 			require => File["/root/init_scripts/conf.ini"],
 	}
 
-	include role_ssh_server
+	include ssh::server::install, ssh::server::service
 }

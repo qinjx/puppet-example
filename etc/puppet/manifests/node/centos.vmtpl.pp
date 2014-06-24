@@ -44,5 +44,5 @@ node /^centos\d*\.vmtpl/ inherits default {
 		require => Class["ssh::server::install"];
 	}
 
-	include role_puppet_client
+	include puppet::client::install, puppet::client::service
 }

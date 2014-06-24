@@ -6,9 +6,13 @@ node /^sphinx\d*\.se/ inherits default {
 			ensure => directory;
 	}
 
-  firewall::filter::allow {
-    "9315":
-  }
+	firewall::filter::allow {
+    	"9315":
+	}
 
-	include role_search_engine
+	yum::repo::conf {
+		"mysql":
+	}
+
+	include sphinx::install, sphinx::service
 }

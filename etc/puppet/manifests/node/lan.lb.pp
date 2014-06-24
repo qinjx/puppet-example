@@ -36,5 +36,6 @@ node /^lan\d*\.lb/ inherits default {
 			cluster => "tracker_dfs";
 	}
 
-	include role_vip_holder, role_load_balancer
+	include haproxy::install, haproxy::service
+	include keepalived::install, keepalived::service
 }

@@ -14,5 +14,11 @@ node /^test\d*\.tool/ inherits default {
 		["augeas", "rsync"]:
 	}
 
-	include role_internet_enduser, role_compiler
+	yum::repo::conf {
+		["remi", "mysql"]:
+	}
+
+	include compiler::general, compiler::nginx, compiler::php, compiler::fastdfs, compiler::coreseek
+
+	include role_internet_enduser
 }

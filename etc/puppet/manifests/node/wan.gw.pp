@@ -62,12 +62,12 @@ node /^wan\d*\.gw/ inherits default {
 			port => $config::wan::opened_port[svn],
 			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[nfs_sys_vip]}",
 			dest_port => 3690;
-    "mysql_forward":#临时开放mysql端口
-      wan_interface => "eth1",
-      ip => $config::wan::ip_add,
-      port => 3306,
-      dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[mysql1_db]}",
-      dest_port => 3306;
+    	"mysql_forward":#临时开放mysql端口
+			wan_interface => "eth1",
+			ip => $config::wan::ip_add,
+			port => 3306,
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[mysql1_db]}",
+			dest_port => 3306;
 	}
 
 	augeas {
@@ -89,5 +89,26 @@ node /^wan\d*\.gw/ inherits default {
 			require => Class["ssh::server::install"],
 	}
 
-	include role_vip_holder, role_load_balancer, role_gateway, role_ip_forwarder, role_pptp_server
+	exec {
+		"enable_ip_forward_now":
+		command => "/sbin/sysctl -e -p",
+		refreshonly => true;
+		"delete_iptables_forward_reject_rule":
+		command => "/bin/sed -i \"/FORWARD -j REJECT/d\" /etc/puppet/iptables/post.iptables";
+	}
+
+	augeas {
+		"enable_ip_forward_forever":
+		context => "/files/etc/sysctl.conf",
+		changes => "set net.ipv4.ip_forward 1",
+		notify => Exec["enable_ip_forward_now"],
+	}
+
+	yum::repo::conf {
+		"pptp":
+	}
+
+	include pptp::server::install, pptp::server::service
+	include haproxy::install, haproxy::service
+	include keepalived::install, keepalived::service
 }
