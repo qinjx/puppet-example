@@ -60,7 +60,7 @@ node /^wan\d*\.gw/ inherits default {
 			wan_interface => "eth1",
 			ip => $config::wan::ip_add,
 			port => $config::wan::opened_port[svn],
-			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[svn1_sys_vip]}",
+			dest_ip => "${config::global::ip_prefix}.${config::hosts::ip_list[svn1_sys]}",
 			dest_port => 3690;
     	"mysql_forward":#临时开放mysql端口
 			wan_interface => "eth1",
