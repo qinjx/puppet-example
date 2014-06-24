@@ -9,5 +9,6 @@ node /^vnc\d*\.sys/ inherits default {
 		"expect":
 	}
 
+	include keepalived::install, keepalived::service
 	include vnc::install, vnc::service
 }
