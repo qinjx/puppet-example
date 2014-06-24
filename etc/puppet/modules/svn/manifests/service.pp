@@ -1,6 +1,6 @@
 class svn::service {
 	service {
-		"subversion":
+		"svnserve":
 			require => Class["svn::install"],
 	}
 }
