@@ -80,7 +80,7 @@ class config::hosts {
 		nfs1_sys,
 		nfs2_sys,
 		svn1_sys,
-		svn2_sys
+		svn2_sys,
 		lan_lb_vip,
 		mysql_db_vip,
 		tracker_dfs_vip,
