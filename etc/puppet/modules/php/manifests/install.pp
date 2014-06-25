@@ -12,4 +12,10 @@ class php::install {
 		"php":
 			ensure => present,
 	}
+
+	exec {
+		"delete_default_setting_in_php_fpm_conf":
+			command => "/bin/sed -i '/Additional/,\$d' /etc/php-fpm.d/www.conf",
+			require => Package["php-fpm"],
+	}
 }
