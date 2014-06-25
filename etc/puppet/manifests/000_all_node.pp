@@ -27,7 +27,3 @@ Service {
 	enable => true,
 	ensure => running,
 }
-
-
-# all node define
-import "node/*.pp"
