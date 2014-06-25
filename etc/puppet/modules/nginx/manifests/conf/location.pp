@@ -3,7 +3,7 @@ define nginx::conf::location($pattern, $fcgi_address) {
 		"/etc/nginx/fastcgi_${name}.conf":
 			content => "location ~ $pattern {
 
-	fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+	fastcgi_param  SCRIPT_FILENAME    \$document_root\$fastcgi_script_name;
 	include fastcgi_params;
 	fastcgi_pass $fcgi_address;
 }",
