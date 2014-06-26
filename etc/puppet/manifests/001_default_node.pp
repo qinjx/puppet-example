@@ -28,14 +28,14 @@ node default {
 			],
 			require => File["/root/init_scripts/conf.ini"];
 		"del_invalid_keys_in_sysctl":
-			incl => "/files/etc/sysctl.conf",
+			context => "/files/etc/sysctl.conf",
 			changes => [
-				"del net.bridge.bridge-nf-call-arptables",
-				"del net.bridge.bridge-nf-call-ip6tables",
-				"del net.bridge.bridge-nf-call-iptables"
+				"rm net.bridge.bridge-nf-call-arptables",
+				"rm net.bridge.bridge-nf-call-ip6tables",
+				"rm net.bridge.bridge-nf-call-iptables"
 			];
 		"set_default_dns":
-			incl => "/files/etc/resolv.conf",
+			context => "/files/etc/resolv.conf",
 			changes => [
 				"set nameserver 114.114.114.114"
 			];
