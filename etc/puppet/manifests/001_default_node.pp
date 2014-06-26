@@ -26,7 +26,19 @@ node default {
 				"set puppet_server $config::global::host_puppet_server",
 				"set root_domain $config::global::root_domain_name"
 			],
-			require => File["/root/init_scripts/conf.ini"],
+			require => File["/root/init_scripts/conf.ini"];
+		"del_invalid_keys_in_sysctl":
+			incl => "/files/etc/sysctl.conf",
+			changes => [
+				"del net.bridge.bridge-nf-call-arptables",
+				"del net.bridge.bridge-nf-call-ip6tables",
+				"del net.bridge.bridge-nf-call-iptables"
+			];
+		"set_default_dns":
+			incl => "/files/etc/resolv.conf",
+			changes => [
+				"set nameserver 114.114.114.114"
+			];
 	}
 
 	include ssh::server::install, ssh::server::service
