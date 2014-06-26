@@ -15,7 +15,7 @@ node default {
 			require => File["/root/init_scripts/"];
 
 		"/root/init_scripts/init.sh":
-			source => "puppet:///files/node/default/init.sh";
+			source => "puppet:///files/default/init.sh";
 	}
 
 	augeas {
