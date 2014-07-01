@@ -7,7 +7,13 @@ class haproxy::install {
 	file {
 		"/etc/haproxy/conf.d":
 			ensure => directory,
-			require => Package["haproxy"],
+			require => Package["haproxy"];
+		"/etc/haproxy/conf.d/stats.cfg":
+			source => "puppet:///modules/haproxy/stats.cfg";
+	}
+
+	firewall::filter::allow {
+		"1936":#for haproxy stats
 	}
 
 	exec {#多个配置文件要指定多次-f参数
