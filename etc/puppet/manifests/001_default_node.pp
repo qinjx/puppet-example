@@ -43,5 +43,13 @@ node default {
 			ensure => 204800;
 	}
 
+	limits::conf {
+		"default_max_fd":
+			domain => "*",
+			type => "-",
+			item => "nofile",
+			value => 204800,
+	}
+
 	include ssh::server::install, ssh::server::service
 }
