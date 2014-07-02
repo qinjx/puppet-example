@@ -27,18 +27,20 @@ node default {
 				"set root_domain $config::global::root_domain_name"
 			],
 			require => File["/root/init_scripts/conf.ini"];
-		"del_invalid_keys_in_sysctl":
-			context => "/files/etc/sysctl.conf",
-			changes => [
-				"rm net.bridge.bridge-nf-call-arptables",
-				"rm net.bridge.bridge-nf-call-ip6tables",
-				"rm net.bridge.bridge-nf-call-iptables"
-			];
 		"set_default_dns":
 			context => "/files/etc/resolv.conf",
 			changes => [
 				"set nameserver 114.114.114.114"
 			];
+	}
+
+	sysctl::conf {
+		["net.bridge.bridge-nf-call-arptables", "net.bridge.bridge-nf-call-ip6tables", "net.bridge.bridge-nf-call-iptables"]:
+			action => "rm";
+		"fs.file-max":
+			ensure => 204800;
+		"kernel.threads-max":
+			ensure => 204800;
 	}
 
 	include ssh::server::install, ssh::server::service
