@@ -1,5 +1,8 @@
-define nginx::conf::vhost($www_root, $fcgi_conf = nil) {
-	$domain_name = $name
+define nginx::conf::vhost($www_root, $fcgi_conf = nil, $server_name = nil) {
+	if ($server_name == nil) {
+		$server_name_string = $name
+	}
+
 	if ($fcgi_conf == nil) {
 		$fcgi_conf_string = ""
 	} else {
@@ -7,14 +10,14 @@ define nginx::conf::vhost($www_root, $fcgi_conf = nil) {
 	}
 
 	file {
-		"/etc/nginx/conf.d/vhost_${domain_name}.conf":
+		"/etc/nginx/conf.d/vhost_${name}.conf":
 			content => "
 server {
 	listen *;
-	server_name $domain_name;
+	server_name $server_name_string;
 	root $www_root;
-	access_log /var/log/nginx/${domain_name}.access.log;
-	error_log /var/log/nginx/${domain_name}.error.log;
+	access_log /var/log/nginx/${name}.access.log;
+	error_log /var/log/nginx/${name}.error.log;
 
 	location / {
 		index index.html index.htm index.php;
@@ -23,6 +26,6 @@ server {
 	$fcgi_conf_string
 }",
 			require => Package["nginx"],
-		    notify => Service["nginx"],
+			notify => Service["nginx"],
 	}
 }
