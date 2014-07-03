@@ -1,0 +1,2 @@
+class compiler::haproxy{
+}
