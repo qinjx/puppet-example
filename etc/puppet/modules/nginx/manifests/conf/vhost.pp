@@ -1,4 +1,4 @@
-define nginx::conf::vhost($www_root, $fcgi_conf = nil, $server_name = nil) {
+define nginx::conf::vhost($www_root, $fcgi_conf = nil, $server_name = nil, $extra_conf = nil) {
 	if ($server_name == nil) {
 		$server_name_string = $name
 	} else {
@@ -9,6 +9,12 @@ define nginx::conf::vhost($www_root, $fcgi_conf = nil, $server_name = nil) {
 		$fcgi_conf_string = ""
 	} else {
 		$fcgi_conf_string = "include fastcgi_${fcgi_conf}.conf;"
+	}
+
+	if ($extra_conf == nil) {
+		$extra_conf_string = ""
+	} else {
+		$extra_conf_string = $extra_conf
 	}
 
 	file {
@@ -26,6 +32,8 @@ server {
 	}
 	
 	$fcgi_conf_string
+	
+	$extra_conf_string
 }",
 			require => Package["nginx"],
 			notify => Service["nginx"],
