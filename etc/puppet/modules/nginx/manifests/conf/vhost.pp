@@ -1,6 +1,8 @@
 define nginx::conf::vhost($www_root, $fcgi_conf = nil, $server_name = nil) {
 	if ($server_name == nil) {
 		$server_name_string = $name
+	} else {
+		$server_name_string = $server_name
 	}
 
 	if ($fcgi_conf == nil) {
