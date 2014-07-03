@@ -14,7 +14,6 @@ backend $name
 	balance roundrobin
 	$check_option_string
 ",
-			notify => Service["haproxy"],
 	}
 
 	firewall::filter::allow {
