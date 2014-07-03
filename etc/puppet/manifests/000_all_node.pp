@@ -27,3 +27,7 @@ Service {
 	enable => true,
 	ensure => running,
 }
+
+Exec {
+	path => "/bin:/sbin:/usr/bin:/usr/sbin",
+}
