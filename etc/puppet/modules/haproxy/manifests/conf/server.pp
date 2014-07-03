@@ -4,16 +4,13 @@ define haproxy::conf::server($port, $cluster, $check_port = nil) {
 	} else {
 		$check_string = "port $check_port"
 	}
-	exec {
-		"delete_if_exists_server_$name":
-			command => "sed -i \"/$name/d\" /etc/haproxy/conf.d/$cluster.cfg",
-			path => "/bin",
-			require => Haproxy::Conf::Cluster["$cluster"];
 
+	$line = '      server  $name   $name:$port     check $check_string'
+	$file = "/etc/haproxy/conf.d/$cluster.cfg"
+	exec {
 		"add_server_$name":
-			command => "echo '	server	$name	$name:$port	check $check_string' >> /etc/haproxy/conf.d/$cluster.cfg",
-			path => "/bin",
+			command => "echo $line >> $file",
 			notify => Service["haproxy"],
-			require => Exec["delete_if_exists_server_$name"];
+			onlyif => "test `grep '$line' $file | wc | awk '{print $1}'` -eq 0",
 	}
 }
