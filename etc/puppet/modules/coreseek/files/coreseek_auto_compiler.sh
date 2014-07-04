@@ -1,18 +1,42 @@
 #!/bin/sh
-if [ ! -d FastDFS ]; then
-	tar zxf FastDFS*.tar.gz
+#仅适用于3.2.14版本
+ver="3.2.14"
+coreseek_src_dir="coreseek-${ver}"
+if [ ! -d $coreseek_src_dir ]; then
+	tar zxf coreseek*.tar.gz
 fi
-cd FastDFS
+cd $coreseek_src_dir
 
-./make.sh
-./make.sh install
+cd mmseg-${ver}
+./bootstrap
+./configure --prefix=/usr
+make && make install
 
-rm dist/ -rf
-mkdir -p dist/usr/local/{bin,include,lib}
-mkdir -p dist/etc/{init.d,fdfs}
-rsync -rp init.d/* dist/etc/init.d/
-rsync -rp /etc/fdfs/*.conf dist/etc/fdfs/
-rsync -rp /usr/local/bin/fdfs_* dist/usr/local/bin/
-rsync -rp /usr/local/bin/{restart.sh,stop.sh} dist/usr/local/bin/
-rsync -rp /usr/local/include/{fastcommon,fastdfs} dist/usr/local/include/
-rsync -rp /usr/local/lib/libf* dist/usr/local/lib/
+cd ../
+cd csft-${ver}
+sh buildconf.sh
+./configure --prefix=/usr --without-unixodbc --with-mmseg --with-mysql
+make && make install
+
+cd ../
+mkdir dist
+cd dist
+
+#mmseg
+mkdir lib bin etc
+cp /usr/lib/libmmseg.a		lib/
+cp /usr/lib/libmmseg.la		lib/
+cp /usr/bin/mmseg		bin/
+cp /usr/etc/uni.lib		etc/
+cp /usr/etc/unigram.txt		etc/
+cp /usr/etc/mmseg.ini		etc/
+
+#coreseek
+mkdir var var/log var/data
+cp /usr/bin/indexer		bin/
+cp /usr/bin/indextool		bin/
+cp /usr/bin/search		bin/
+cp /usr/bin/searchd		bin/
+cp /usr/bin/spelldump		bin/
+
+
