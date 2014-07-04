@@ -5,12 +5,13 @@ define haproxy::conf::server($port, $cluster, $check_port = nil) {
 		$check_string = "port $check_port"
 	}
 
-	$line = '      server  $name   $name:$port     check $check_string'
+	$line = "	server  $name   $name:$port     check $check_string"
 	$file = "/etc/haproxy/conf.d/$cluster.cfg"
 	exec {
 		"add_server_$name":
-			command => "echo $line >> $file",
+			command => "echo '$line' >> $file",
 			notify => Service["haproxy"],
-			onlyif => "test `grep '$line' $file | wc | awk '{print $1}'` -eq 0",
+			onlyif => "test `grep '$name:$port' $file | wc | awk '{print \$1}'` -eq 0",
 	}
+#notify {"test `grep '$name:$port' $file | wc | awk '{print \$1}'` -eq 0":}
 }
