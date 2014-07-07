@@ -12,6 +12,6 @@ define haproxy::conf::server($port, $cluster, $check_port = nil) {
 			command => "echo '$line' >> $file",
 			notify => Service["haproxy"],
 			onlyif => "test `grep '$name:$port' $file | wc | awk '{print \$1}'` -eq 0",
+			require => File["/etc/haproxy/conf.d"],
 	}
-#notify {"test `grep '$name:$port' $file | wc | awk '{print \$1}'` -eq 0":}
 }

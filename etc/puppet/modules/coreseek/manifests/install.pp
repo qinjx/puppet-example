@@ -8,13 +8,13 @@ class coreseek::install {
 	}
 
 	file {
-		"/root/coreseek_install.sh":
-		    source => "puppet:///modules/coreseek/coreseek_install.sh",
+		"/etc/init.d/searchd":
+			source => "puppet:///modules/coreseek/searchd",
 	}
 
 	exec {
-		"/root/coreseek_install.sh":
-		    require => File["/root/coreseek_install.sh"],
-		    unless => "chkconfig | grep s 2>/dev/null",
+		"coreseek_install":
+		    command => "rsync -rp /opt/coreseek/* /"
+		    unless => "ls /usr/bin/searchd 2>/dev/null",
 	}
 }

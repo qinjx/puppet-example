@@ -16,7 +16,7 @@ backend $name
 	balance roundrobin
 	$check_option_string' > $file",
 			onlyif => "test `grep '$key' $file | wc | awk '{print \$1}'` -eq 0",
-			require => Package["haproxy"],
+			require => File["/etc/haproxy/conf.d"],
 			notify => Service["haproxy"],
 	}
 
