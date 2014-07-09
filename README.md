@@ -10,56 +10,45 @@ puppet-example
 我花了约100小时学习这些服务器配置，反复试错，并编写成puppet脚本和bash shell脚本，故本项目只能保证正常运行和基本的性能与安全，没有涉及这些服务器的高级技巧。
 
 ## 功能范围
-### 已实现的服务器角色
-- centos_vmtpl：centos虚拟机模板
-- compiler：编译工具机
-- fastdfs_client：fastdfs的客户端（含命令行和PHP客户端）
-- fastdfs_storage：fastdfs分布式文件系统存储服务器
-- fastdfs_tracker：fastdfs分布式文件系统跟踪服务器
-- gateway：网关
-- hhvm_server：HHVM服务器（集成了Web Server）
-- internet_enduser：可访问互联网的客户端
-- ip_forwarder：IP转发器
-- load_blancer：负载均衡器
-- mysql_server：percona集群中的mysql服务器
-- nfs_client：NFS网络文件系统客户端
-- nfs_server：NFS网络文件系统服务器
-- ntp_client：NTP客户端
-- ntp_server：NTP时间服务器
-- php_app_server：PHP FastCGI服务器
-- pptp：VPN服务器
-- puppet_client：puppet客户端
-- puppet_server：puppet服务器
-- search_engine：搜索引擎服务器
-- ssh_server：SSH服务端
-- svn_server：SVN服务器
-- vip_holder：共享IP的高可用集群成员
-- virt_manager：虚拟机管理器
-- vnc_server：VNC远程桌面服务器
-- web_server：WEB服务器
-- yum_sync_client：本地yum镜像
 
 ### 已实现的功能模块
 - compiler：编译工具
+- coreseek：中文版的sphinx
 - fastdfs：分布式文件系统
-- firewall：iptables防火墙（含端口转发）
+- firewall
+	- filter：iptables防火墙
+	- nat：端口转发
 - gateway：网关（iptables实现）
 - haproxy：负载均衡器
 - hhvm：Facebook开源出来的高性能PHP引擎
 - hosts：/etc/hosts配置工具
 - inifile：ini配置文件操作工具（第三方开源）
 - iptables：iptables规则配置工具（第三方开源）
+- java：openjdk
 - keepalived：高可用方案，IP共享（使用VRRP协议）
-- nfs：nfs服务端和客户端
+- limits：控制/etc/security/limits.conf文件
+- memcached：高性能内存缓存服务器
+- mongodb：NoSQL，面向文档的数据库
+- mysql：MySQL服务器
+- nfs：
+	- nfs服务端，export
+	- nfs客户端，mount
 - nginx：高性能的Web服务器
 - ntp：时间服务器和客户端
 - percona：Percona over Galera，多主同步复制MySQL集群
 - php：PHP语言环境（php-fpm和cli）
-- pptp：VPN服务端和客户端
-- puppet：puppet服务端和客户端
+- pptp
+	- VPN服务端：pptpd
+	- 客户端：ppp（未实现）
+- puppet
+	- master：puppet服务端
+	- client：客户端
+- redis：高性能内存NoSQL
+- rsyslog：日志服务器
 - sphinx：实现的搜索引擎（独立于MySQL）
-- ssh：SSH服务端和客户端
+- ssh：SSH服务端
 - svn：svn代码仓库服务器
+- sysctl：控制/etc/sysctl.conf文件
 - virtmanager：虚拟机管理工具
 - vnc：VNC远程桌面服务端
 - yum：yum源管理和本地yum镜像搭建工具
@@ -72,6 +61,7 @@ puppet-example
 - pptp：pptpd和pptp源
 - nginx：nginx官方源（epel上的nginx版本较低，为1.0.15）
 - hop5：非facebook官方的hhvm源
+- puppetlabs：puppet官方源
 
 
 ## 安装说明
