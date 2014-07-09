@@ -1,0 +1,10 @@
+#!/bin/bash
+mkdir -p /tmp/ntopng 2>/dev/null
+cd /tmp/ntopng 2>/dev/null
+wget  http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
+wget  http://geolite.maxmind.com/download/geoip/database/GeoLiteCityv6-beta/GeoLiteCityv6.dat.gz 
+wget  http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNum.dat.gz
+wget  http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNumv6.dat.gz
+gunzip GeoIPASNum.dat.gz GeoIPASNumv6.dat.gz GeoLiteCity.dat.gz GeoLiteCityv6.dat.gz
+mv GeoIPASNum.dat GeoIPASNumv6.dat GeoLiteCity.dat GeoLiteCityv6.dat /usr/local/share/ntopng/httpdocs/geoip/ 2>/dev/null
+service ntopng restart
