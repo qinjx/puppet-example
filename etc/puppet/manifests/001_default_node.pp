@@ -51,5 +51,11 @@ node default {
 			value => 204800,
 	}
 
+	service {
+		"puppet":
+			ensure => stopped,
+			enable => false,
+	}
+
 	include ssh::server::install, ssh::server::service
 }
