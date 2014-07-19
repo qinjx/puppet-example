@@ -1,4 +1,4 @@
-define haproxy::conf::cluster($port, $bind_ip = "0.0.0.0", $check_option=nil) {
+define haproxy::conf::cluster($port, $bind_ip = "0.0.0.0", $check_option=nil, $server_list=nil) {
 	if (nil == $check_option) {
 		$check_option_string = ""
 	} else {
@@ -8,7 +8,7 @@ define haproxy::conf::cluster($port, $bind_ip = "0.0.0.0", $check_option=nil) {
 	$file = "/etc/haproxy/conf.d/$name.cfg"
 	$key = "$name $bind_ip:$port"
 	exec {
-		"haproxy_cluster_for $key":
+		"haproxy_cluster_for-$key":
 			command => "echo 'frontend $name $bind_ip:$port
 	default_backend $name
 
