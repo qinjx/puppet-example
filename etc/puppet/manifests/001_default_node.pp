@@ -3,6 +3,13 @@ node default {
 		["centos_base", "centos_updates", "centos_extras", "epel"]:
 	}
 
+	package {
+		[
+		"wget", "vim-enhanced", "rsync", "unzip",
+		"sysstat", "iftop",
+		]:
+	}
+
 	hosts::conf {
 		$config::hosts::ip_keys:
 	}
