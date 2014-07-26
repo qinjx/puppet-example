@@ -9,6 +9,10 @@ define nfs::mount($dev, $mount_point = $name) {
 		"refresh_fstab_for-$mount_point":
 			command => "mount -a",
 			unless => "df | grep '$mount_point'",
-			require => Exec["write_fstab-$dev-$mount_point"];
+			require => [
+					Exec["write_fstab-$dev-$mount_point"],
+					Exec["mkdir-$mount_point"],
+					Class["nfs::install"]
+					];
 	}
 }

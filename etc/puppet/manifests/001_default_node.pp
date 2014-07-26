@@ -8,6 +8,7 @@ node default {
 		"wget", "vim-enhanced", "rsync", "unzip",
 		"sysstat", "iftop",
 		]:
+			require => Yum::Repo::Conf["epel"],
 	}
 
 	hosts::conf {
