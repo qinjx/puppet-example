@@ -7,6 +7,7 @@ node default {
 		[
 		"wget", "vim-enhanced", "rsync", "unzip",
 		"sysstat", "iftop",
+		"augeas",
 		]:
 			require => Yum::Repo::Conf["epel"],
 	}
