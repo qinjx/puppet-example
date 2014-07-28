@@ -2,7 +2,7 @@ class ssh::key::sendto() {
 	$key_file = "~/.ssh/id_rsa.pub"
 	exec {
 		"auto_generate_ssh_key":
-			command => 'ssh-keygen -f $key_file -q -N ""',
+			command => "ssh-keygen -f $key_file -q -N ''",
                         unless => "ls $key_file";
 	}
 
