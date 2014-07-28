@@ -6,5 +6,6 @@ class compiler::rpm {
 	exec {
 		"rpm_setup_tree":
 			command => "/usr/bin/rpmdev-setuptree",
+			require => Package["rpmdevtools"],
 	}
 }
