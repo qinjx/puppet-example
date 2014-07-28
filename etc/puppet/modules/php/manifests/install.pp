@@ -17,5 +17,6 @@ class php::install {
 		"delete_default_setting_in_php_fpm_conf":
 			command => "/bin/sed -i '/Additional/,\$d' /etc/php-fpm.d/www.conf",
 			require => Package["php-fpm"],
+			unless => "grep Additional /etc/php-fpm.d/www.conf",
 	}
 }
