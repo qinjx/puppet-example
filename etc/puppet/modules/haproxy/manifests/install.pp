@@ -27,21 +27,6 @@ class haproxy::install {
 			unless => "grep 'conf_array\[@' /etc/init.d/haproxy",
 			require => Package["haproxy"];
 
-		"truncate_default_haproxy_cfg":
-			command => "sed -i '/main/,\$d' /etc/haproxy/haproxy.cfg",
-			onlyif => "grep main /etc/haproxy/haproxy.cfg",
-                        require => Package["haproxy"];
-
-		"set_default_mode_tcp":
-			command => "sed -i \"s/http\$/tcp/\" /etc/haproxy/haproxy.cfg",
-			unless => "grep mode /etc/haproxy/haproxy.cfg | grep tcp",
-			require => Package["haproxy"];
-
-		"delete_http_option":
-			command => "sed -i \"/httplog\|forwardfor\|http-server-close/d\" /etc/haproxy/haproxy.cfg",
-			onlyif => "grep 'httplog\|forwardfor\|http-server-close' /etc/haproxy/haproxy.cfg",
-                        require => Package["haproxy"];
-
 		"set_maxconn":
 			command => "sed -i 's/maxconn\( \+[0-9]\+\)/maxconn\10/' /etc/haproxy/haproxy.cfg",
                         onlyif => "grep maxconn /etc/haproxy/haproxy.cfg | grep 3000\$",

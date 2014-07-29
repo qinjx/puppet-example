@@ -5,11 +5,11 @@ node default {
 
 	package {
 		[
-		"wget", "vim-enhanced", "rsync", "unzip",
+		"wget", "vim-enhanced", "rsync", "unzip", "cronie",
 		"sysstat", "iftop",
 		"augeas",
 		]:
-			require => Yum::Repo::Conf["epel"],
+			require => [Yum::Repo::Conf["epel"], Yum::Repo::Conf["centos_base"]]
 	}
 
 	hosts::conf {
