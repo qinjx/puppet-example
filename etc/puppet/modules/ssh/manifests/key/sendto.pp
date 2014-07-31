@@ -1,5 +1,5 @@
 class ssh::key::sendto() {
-	$key_file = "~/.ssh/id_rsa.pub"
+	$key_file = "~/.ssh/id_rsa"
 	exec {
 		"auto_generate_ssh_key":
 			command => "ssh-keygen -f $key_file -q -N ''",
@@ -9,7 +9,7 @@ class ssh::key::sendto() {
 	file {
 		"/root/.ssh/send_key_to.sh":
 			content => "#!/bin/bash
-scp $key_file \$1:/tmp/$hostname
+scp $key_file.pub \$1:/tmp/$hostname
 ssh \$1 'cat /tmp/$hostname >> ~/.ssh/authorized_keys; rm /tmp/$hostname'",
 	}
 }
