@@ -9,7 +9,7 @@ node default {
 		"sysstat", "iftop",
 		"augeas",
 		]:
-			require => [Yum::Repo::Conf["epel"], Yum::Repo::Conf["centos_base"]]
+			require => [Yum::Repo::Conf["epel"], Yum::Repo::Conf["centos_base"]],
 	}
 
 	hosts::conf {
