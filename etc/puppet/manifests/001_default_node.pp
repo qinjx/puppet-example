@@ -5,7 +5,7 @@ node default {
 
 	package {
 		[
-		"wget", "vim-enhanced", "rsync", "unzip", "cronie",
+		"wget", "vim-enhanced", "rsync", "unzip", "zip", "cronie",
 		"sysstat", "iftop",
 		"augeas",
 		]:
