@@ -1,7 +1,9 @@
 class puppet::client::service {
 	service {
 		"puppet":
-		    require => Class["puppet::client::install"],
+			enable => false,
+			ensure => stopped,
+			require => Class["puppet::client::install"],
 	}
 
 	puppet::client::conf {
