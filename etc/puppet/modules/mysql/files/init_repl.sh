@@ -54,6 +54,8 @@ UNLOCK TABLES;
 "
 
 #import sql from master
+
+mysql -P $local_port -uroot $local_pass_string -e "STOP SLAVE;"
 mysql -P $local_port -uroot $local_pass_string < $dump_out_sql
 mysql -P $local_port -uroot $local_pass_string -e "
 CHANGE MASTER TO
@@ -71,4 +73,4 @@ replicate-do-db=$db" $my_cnf_file
 done
 
 #restart
-#service mysqld restart
+service mysqld restart
