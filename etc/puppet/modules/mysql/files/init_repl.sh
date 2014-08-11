@@ -57,7 +57,10 @@ mysql -P $local_port -uroot $local_pass_string -e "STOP SLAVE;"
 mysql -P $local_port -uroot $local_pass_string < $dump_out_sql
 mysql -P $local_port -uroot $local_pass_string -e "
 CHANGE MASTER TO
-MASTER_USER='$repl_user' $repl_pass_change_master;
+MASTER_HOST='$master_host',
+MASTER_PORT=$master_port,
+MASTER_USER='$repl_user'
+$repl_pass_change_master;
 "
 
 #config replicate-do-db
