@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #default config
 master_root_pass=""
 master_port="3306"
@@ -9,12 +8,14 @@ repl_user="repl"
 repl_pass=""
 this_host=`hostname`
 my_cnf_file="/etc/my.cnf"
+skip_dump=0
 
 #read the user config, overwrite the default
 if [ -z $1 ]; then
-	echo "Usage: $0 repl_sample.ini"
+	echo "Usage: init_repl.sh repl_sample.ini"
 else
-	source ./$1
+	ini_real_path=`readlink -f $1`
+	source $ini_real_path
 fi
 
 if [ "$master_root_pass" == "" ]; then
@@ -42,19 +43,16 @@ fi
 mysql -h $master_host -uroot -P $master_port $master_pass_string -e "
 GRANT REPLICATION SLAVE ON *.* TO '$repl_user'@'$this_host' $repl_pass_grant;
 FLUSH PRIVILEGES;
-FLUSH TABLES WITH READ LOCK;
 "
 
 #dump sql
-mysqldump --databases $repl_db_list -h $master_host -uroot -P $master_port $master_pass_string --master-data > $dump_out_sql
-
-#realse read lock
-mysql -h $master_host -uroot -P $master_port $master_pass_string -e "
-UNLOCK TABLES;
-"
+if [ $skip_dump -eq 0 ]; then
+	mysql -h $master_host -uroot -P $master_port $master_pass_string -e "FLUSH TABLES WITH READ LOCK;"
+	mysqldump --databases $repl_db_list -h $master_host -uroot -P $master_port $master_pass_string --master-data > $dump_out_sql
+	mysql -h $master_host -uroot -P $master_port $master_pass_string -e "UNLOCK TABLES;"
+fi
 
 #import sql from master
-
 mysql -P $local_port -uroot $local_pass_string -e "STOP SLAVE;"
 mysql -P $local_port -uroot $local_pass_string < $dump_out_sql
 mysql -P $local_port -uroot $local_pass_string -e "
