@@ -34,16 +34,22 @@ fi
 if [ "$repl_pass" == "" ]; then
 	repl_pass_grant=""
 	repl_pass_change_master=""
+	repl_pass_login=""
 else
 	repl_pass_grant=" IDENTIFIED BY '$repl_pass' "
 	repl_pass_change_master=", MASTER_PASSWORD='$repl_pass' "
+	repl_pass_login=" --password=$repl_pass "
 fi
 
 # create repl user
-mysql -h $master_host -uroot -P $master_port $master_pass_string -e "
-GRANT REPLICATION SLAVE ON *.* TO '$repl_user'@'$this_host' $repl_pass_grant;
-FLUSH PRIVILEGES;
-"
+mysql -h $master_host -u $repl_user -P $master_port $repl_pass_login -e "select user()" | grep $repl_user
+if [ $? -eq 0 ]; then
+	echo "repl user already exists, skipping create it"
+else
+	mysql -h $master_host -uroot -P $master_port $master_pass_string -e "
+	GRANT REPLICATION SLAVE ON *.* TO '$repl_user'@'$this_host' $repl_pass_grant;
+	FLUSH PRIVILEGES;"
+fi
 
 #dump sql
 if [ $skip_dump -eq 0 ]; then
