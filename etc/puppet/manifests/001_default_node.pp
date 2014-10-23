@@ -50,6 +50,8 @@ node default {
 			ensure => 204800;
 		"kernel.threads-max":
 			ensure => 204800;
+		["net.ipv4.tcp_tw_reuse", "net.ipv4.tcp_tw_recycle"]:
+			ensure => 1;
 	}
 
 	limits::conf {
@@ -61,4 +63,5 @@ node default {
 	}
 
 	include ssh::server::install, ssh::server::service
+	include puppet::client::install, puppet::client::service
 }
