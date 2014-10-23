@@ -5,5 +5,11 @@ define sysctl::conf($ensure = nil, $action="set") {
 			changes => [
 				"$action $name $ensure",
 			],
+			notify => Exec["refresh_sysctl_for_$name"],
+	}
+
+	exec {
+		"refresh_sysctl_for_$name":
+			command => "sysctl -p",
 	}
 }
