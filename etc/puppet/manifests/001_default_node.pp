@@ -25,6 +25,9 @@ node default {
 
 		"/root/init_scripts/init.sh":
 			source => "puppet:///files/default/init.sh";
+		
+		"/root/init_scripts/autoformat.sh":
+			source => "puppet:///files/default/autoformat.sh";
 	}
 
 	augeas {
