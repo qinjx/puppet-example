@@ -100,6 +100,9 @@ function config_puppet_master() {
 	mkdir /var/lib/puppet/files
 	chown puppet:puppet /var/lib/puppet/files
 	chmod 750 /var/lib/puppet/files
+	
+	#add vip servername to hosts
+	echo "127.0.0.1 ${pps_hostname}" >> /etc/hosts
 
 	#enable puppetmaster
 	chkconfig puppetmaster on
