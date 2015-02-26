@@ -77,7 +77,7 @@ Ping一下github试试：
 ### 5.1 如果安装成功
 看到下面这样的输出就说明master和client都安装成功了(在终端下是绿色字)：
 
-	[root@vnc1 qinjx]# puppetd -t
+	[root@vnc1 qinjx]# puppet agent -t
 	info: Retrieving plugin
 	info: Caching catalog for vnc1.sys.example.com
 	info: Applying configuration version '1375365926'
@@ -86,10 +86,18 @@ Ping一下github试试：
 ### 5.2 如果安装失败
 看到下面这样的输出，就说明安装失败了（在终端下是红色字）：
 
-	[root@vnc1 qinjx]# puppetd -t
+	[root@vnc1 qinjx]# puppet agent -t
 	info: Retrieving plugin
 	err: /File[/var/lib/puppet/lib]: Failed to generate additional resources using 'eval_generate': Connection refused - connect(2)
 	err: /File[/var/lib/puppet/lib]: Could not evaluate: Connection refused - connect(2) Could not retrieve file metadata for puppet://puppet-server.vip.example.com/plugins: Connection refused - connect(2)
 	err: Could not retrieve catalog from remote server: Connection refused - connect(2)
 	warning: Not using cache on failed catalog
 	err: Could not retrieve catalog; skipping run
+
+### 5.3 常见错误
+	下面错误是因为在Puppet Server 中没有解析 puppet-server.vip.example.com , 在/etc/hosts 中加入 127.0.0.1 puppet-server.vip.lanmv.com 对应解析后，执行 /etc/init.d/puppetmaster restart 重启 puppetmaster 即可。
+
+	Error: Could not request certificate: Connection refused - connect(2)
+	Exiting; failed to retrieve certificate and waitforcert is disabled
+
+	
